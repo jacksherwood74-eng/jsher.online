@@ -37,11 +37,20 @@
     </section>
 
     <section class="links">
-      <a href="https://demo.housecallpro.com/" class="link-card shipped" target="_blank" rel="noopener">
+      <div class="link-card shipped" onclick="unlockLink(this, 'https://demo.housecallpro.com/')">
         <div class="link-icon">🎨</div>
         <div class="link-content">
           <span class="link-title">Sherwin-Williams x Housecall Pro Prototype</span>
           <span class="link-desc">Measurement-based pricing & price book integrations</span>
+        </div>
+        <span class="badge badge-shipped">Shipped</span>
+      </div>
+
+      <a href="https://tradeacademy.com/" class="link-card shipped" target="_blank" rel="noopener">
+        <div class="link-icon">🎓</div>
+        <div class="link-content">
+          <span class="link-title">Trade Academy</span>
+          <span class="link-desc">AI-built educational platform for the trades</span>
         </div>
         <span class="badge badge-shipped">Shipped</span>
       </a>
@@ -105,5 +114,59 @@
       <p>&copy; 2026 Jackson Sherwood</p>
     </footer>
   </main>
+  <!-- Password Modal -->
+  <div class="modal-overlay" id="passwordModal">
+    <div class="modal">
+      <h3 class="modal-title">Password Required</h3>
+      <p class="modal-desc">This project is password protected.</p>
+      <input type="password" class="modal-input" id="passwordInput" placeholder="Enter password" autocomplete="off">
+      <p class="modal-error" id="passwordError">Incorrect password</p>
+      <div class="modal-buttons">
+        <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="modal-btn modal-btn-submit" onclick="submitPassword()">Access</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let pendingUrl = '';
+
+    function unlockLink(el, url) {
+      pendingUrl = url;
+      const modal = document.getElementById('passwordModal');
+      const input = document.getElementById('passwordInput');
+      const error = document.getElementById('passwordError');
+      modal.classList.add('active');
+      error.classList.remove('visible');
+      input.value = '';
+      setTimeout(() => input.focus(), 100);
+    }
+
+    function closeModal() {
+      document.getElementById('passwordModal').classList.remove('active');
+      pendingUrl = '';
+    }
+
+    function submitPassword() {
+      const input = document.getElementById('passwordInput');
+      if (input.value === 'jackson') {
+        closeModal();
+        window.open(pendingUrl, '_blank');
+      } else {
+        document.getElementById('passwordError').classList.add('visible');
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    document.getElementById('passwordInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') submitPassword();
+      if (e.key === 'Escape') closeModal();
+    });
+
+    document.getElementById('passwordModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+  </script>
 </body>
 </html>
