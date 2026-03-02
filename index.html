@@ -7,15 +7,19 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
   <meta name="description" content="Jackson Sherwood — Building with AI at Housecall Pro">
   <meta property="og:title" content="Jackson Sherwood">
   <meta property="og:description" content="Building with AI at Housecall Pro">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jsher.online">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-  <div class="bg-glow"></div>
+  <!-- Aurora background layers -->
+  <div class="aurora-bg" aria-hidden="true"></div>
+  <!-- Grain overlay (near-invisible, Apple-smooth) -->
+  <div class="grain-overlay" aria-hidden="true"></div>
 
   <main class="container">
     <section class="profile">
@@ -37,8 +41,8 @@
     </section>
 
     <section class="links">
-      <div class="link-card shipped" onclick="unlockLink(this, 'https://demo.housecallpro.com/')">
-        <div class="link-icon">🎨</div>
+      <div class="link-card shipped" data-glow onclick="unlockLink(this, 'https://demo.housecallpro.com/')">
+        <div class="link-icon"><i data-lucide="palette"></i></div>
         <div class="link-content">
           <span class="link-title">Sherwin-Williams x Housecall Pro Prototype</span>
           <span class="link-desc">Measurement-based pricing & price book integrations</span>
@@ -46,8 +50,8 @@
         <span class="badge badge-shipped">Shipped</span>
       </div>
 
-      <a href="https://tradeacademy.com/" class="link-card shipped" target="_blank" rel="noopener">
-        <div class="link-icon">🎓</div>
+      <a href="https://tradeacademy.com/" class="link-card shipped" data-glow target="_blank" rel="noopener">
+        <div class="link-icon"><i data-lucide="graduation-cap"></i></div>
         <div class="link-content">
           <span class="link-title">Trade Academy</span>
           <span class="link-desc">AI-built educational platform for the trades</span>
@@ -55,8 +59,8 @@
         <span class="badge badge-shipped">Shipped</span>
       </a>
 
-      <div class="link-card in-progress">
-        <div class="link-icon">🗺️</div>
+      <div class="link-card in-progress" data-glow="subtle">
+        <div class="link-icon"><i data-lucide="map-pin"></i></div>
         <div class="link-content">
           <span class="link-title">Housecall Pro Maps</span>
           <span class="link-desc">Interactive map tool for sales reps</span>
@@ -64,8 +68,8 @@
         <span class="badge badge-progress">In Progress</span>
       </div>
 
-      <div class="link-card in-progress">
-        <div class="link-icon">🔍</div>
+      <div class="link-card in-progress" data-glow="subtle">
+        <div class="link-icon"><i data-lucide="bell-ring"></i></div>
         <div class="link-content">
           <span class="link-title">Housecall Pro Counter Intel Alerts</span>
           <span class="link-desc">Competitive intelligence alerting system</span>
@@ -73,8 +77,8 @@
         <span class="badge badge-progress">In Progress</span>
       </div>
 
-      <div class="link-card in-progress">
-        <div class="link-icon">💬</div>
+      <div class="link-card in-progress" data-glow="subtle">
+        <div class="link-icon"><i data-lucide="message-square"></i></div>
         <div class="link-content">
           <span class="link-title">Housecall Pro Counter Intel Chatbot</span>
           <span class="link-desc">AI-powered competitive intelligence assistant</span>
@@ -82,8 +86,8 @@
         <span class="badge badge-progress">In Progress</span>
       </div>
 
-      <div class="link-card in-progress">
-        <div class="link-icon">📊</div>
+      <div class="link-card in-progress" data-glow="subtle">
+        <div class="link-icon"><i data-lucide="bar-chart-3"></i></div>
         <div class="link-content">
           <span class="link-title">Housecall Pro Counter Intel Weekly Digest</span>
           <span class="link-desc">Automated weekly competitive landscape summary</span>
@@ -91,8 +95,8 @@
         <span class="badge badge-progress">In Progress</span>
       </div>
 
-      <div class="link-card in-progress">
-        <div class="link-icon">🧪</div>
+      <div class="link-card in-progress" data-glow="subtle">
+        <div class="link-icon"><i data-lucide="flask-conical"></i></div>
         <div class="link-content">
           <span class="link-title">Housecall Pro Labs</span>
           <span class="link-desc">Experimental features & innovation hub</span>
@@ -101,7 +105,7 @@
       </div>
 
       <div class="link-card coming-soon">
-        <div class="link-icon">🏆</div>
+        <div class="link-icon"><i data-lucide="trophy"></i></div>
         <div class="link-content">
           <span class="link-title">Blue Collar 40 Under 40</span>
           <span class="link-desc">Celebrating top young professionals in the trades</span>
@@ -166,6 +170,24 @@
 
     document.getElementById('passwordModal').addEventListener('click', function(e) {
       if (e.target === this) closeModal();
+    });
+
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Mouse-tracking glow on cards
+    document.querySelectorAll('[data-glow]').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+      card.addEventListener('mouseenter', () => {
+        card.style.setProperty('--glow-opacity', '1');
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.setProperty('--glow-opacity', '0');
+      });
     });
   </script>
 </body>
