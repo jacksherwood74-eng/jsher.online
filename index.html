@@ -4,898 +4,191 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jackson Sherwood — jsher.online</title>
+  <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
   <meta name="description" content="Jackson Sherwood — Building with AI at Housecall Pro">
   <meta property="og:title" content="Jackson Sherwood">
-  <meta property="og:description" content="AI Platform Specialist at Housecall Pro">
+  <meta property="og:description" content="Building with AI at Housecall Pro">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jsher.online">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg:          #0c0c0d;
-      --surface:     rgba(255,255,255,0.03);
-      --surface-2:   rgba(255,255,255,0.055);
-      --border:      rgba(255,255,255,0.07);
-      --border-2:    rgba(255,255,255,0.13);
-      --text:        #e4e4e4;
-      --text-2:      #606060;
-      --text-3:      #2e2e2e;
-      --green:       #00e87a;
-      --green-dim:   rgba(0,232,122,0.10);
-      --green-border:rgba(0,232,122,0.22);
-      --green-glow:  rgba(0,232,122,0.06);
-      --mono: 'JetBrains Mono', 'SF Mono', monospace;
-    }
-
-    html { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-font-smoothing: antialiased; }
-
-    body {
-      background-color: var(--bg);
-      background-image:
-        radial-gradient(ellipse 80% 40% at 50% -10%, rgba(0,232,122,0.07) 0%, transparent 70%),
-        linear-gradient(rgba(0,232,122,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,232,122,0.018) 1px, transparent 1px);
-      background-size: 100% 100%, 52px 52px, 52px 52px;
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ─────────────────────────────── */
-    .nav {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(12,12,13,0.85);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 36px;
-      height: 52px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-brand { font-size: 0.82rem; font-weight: 600; color: var(--text-2); letter-spacing: 0.01em; font-family: var(--mono); }
-    .nav-brand span { color: var(--green); }
-    .nav-right { display: flex; align-items: center; gap: 16px; }
-    .nav-status { display: flex; align-items: center; gap: 7px; font-size: 0.75rem; color: var(--text-2); }
-    .pulse {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--green); box-shadow: 0 0 6px var(--green);
-      animation: pulse 2.5s ease infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.35;transform:scale(0.65)} }
-    .nav-date { font-size: 0.72rem; color: var(--text-3); font-family: var(--mono); }
-
-    /* ── LAYOUT ──────────────────────────── */
-    .wrap { max-width: 1280px; margin: 0 auto; padding: 40px 36px 80px; }
-
-    /* ── PROFILE HEADER ──────────────────── */
-    .profile {
-      display: flex; align-items: center; gap: 20px;
-      padding: 28px 32px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      margin-bottom: 20px;
-      animation: up 0.5s ease both;
-    }
-    .avatar-wrap {
-      width: 64px; height: 64px; flex-shrink: 0;
-      border-radius: 50%;
-      padding: 2px;
-      background: linear-gradient(135deg, var(--green), rgba(0,232,122,0.3));
-    }
-    .avatar {
-      width: 100%; height: 100%; border-radius: 50%;
-      object-fit: cover; border: 2px solid var(--bg);
-      display: block;
-    }
-    .profile-info { flex: 1; }
-    .profile-name { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 4px; }
-    .profile-role { font-size: 0.8rem; color: var(--text-2); }
-    .profile-role span { color: var(--green); font-weight: 500; }
-    .profile-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
-    .live-badge {
-      display: flex; align-items: center; gap: 7px;
-      background: var(--green-dim); border: 1px solid var(--green-border);
-      border-radius: 20px; padding: 6px 14px;
-      font-size: 0.75rem; font-weight: 600; color: var(--green);
-    }
-    .social-link {
-      display: flex; align-items: center; justify-content: center;
-      width: 32px; height: 32px; border-radius: 8px;
-      background: var(--surface-2); border: 1px solid var(--border);
-      color: var(--text-2); text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .social-link:hover { border-color: var(--border-2); color: var(--text); }
-
-    /* ── KPIs ────────────────────────────── */
-    .kpis {
-      display: grid; grid-template-columns: repeat(5, 1fr);
-      gap: 12px; margin-bottom: 20px;
-      animation: up 0.5s ease 0.07s both;
-    }
-    .kpi {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 14px; padding: 18px 20px;
-      position: relative; overflow: hidden;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .kpi:hover { background: var(--surface-2); border-color: var(--border-2); }
-    .kpi::after {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--green), transparent);
-      opacity: 0.4;
-    }
-    .kpi-label {
-      font-size: 0.65rem; font-weight: 500; text-transform: uppercase;
-      letter-spacing: 0.1em; color: var(--text-2); margin-bottom: 10px;
-      font-family: var(--mono);
-    }
-    .kpi-val {
-      font-size: 2rem; font-weight: 800; letter-spacing: -0.04em;
-      line-height: 1; color: var(--green); margin-bottom: 5px;
-      font-variant-numeric: tabular-nums;
-    }
-    .kpi-sub { font-size: 0.68rem; color: var(--text-3); font-family: var(--mono); }
-
-    /* ── MAIN GRID ───────────────────────── */
-    .grid-main {
-      display: grid; grid-template-columns: 1fr 340px;
-      gap: 16px; margin-bottom: 16px;
-      animation: up 0.5s ease 0.14s both;
-    }
-    .col-left { display: flex; flex-direction: column; gap: 16px; }
-    .col-right { display: flex; flex-direction: column; gap: 16px; }
-
-    /* ── CARD ────────────────────────────── */
-    .card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 14px; padding: 22px;
-    }
-    .card-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
-    .card-title { font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-    .card-sub { font-size: 0.7rem; color: var(--text-2); }
-    .tag {
-      font-family: var(--mono); font-size: 0.62rem; font-weight: 500;
-      padding: 3px 9px; border-radius: 5px; white-space: nowrap;
-      background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border);
-    }
-    .tag-dim {
-      font-family: var(--mono); font-size: 0.62rem; font-weight: 500;
-      padding: 3px 9px; border-radius: 5px;
-      background: rgba(255,255,255,0.04); color: var(--text-2); border: 1px solid var(--border);
-    }
-
-    /* ── CHART ───────────────────────────── */
-    #chart { width: 100%; height: 180px; display: block; }
-    .chart-legend { display: flex; gap: 16px; margin-top: 10px; }
-    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: var(--text-2); font-family: var(--mono); }
-    .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
-
-    /* ── SESSIONS ────────────────────────── */
-    .sessions { display: flex; flex-direction: column; gap: 1px; }
-    .sess {
-      display: flex; align-items: flex-start; gap: 12px;
-      padding: 12px 14px; border-radius: 10px;
-      transition: background 0.15s;
-    }
-    .sess:hover { background: var(--surface-2); }
-    .sess-num {
-      font-family: var(--mono); font-size: 0.65rem; color: var(--text-3);
-      margin-top: 2px; width: 18px; flex-shrink: 0; text-align: right;
-    }
-    .sess-body { flex: 1; min-width: 0; }
-    .sess-title { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-    .sess-desc { font-size: 0.7rem; color: var(--text-2); line-height: 1.45; }
-    .sess-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
-    .sess-date { font-family: var(--mono); font-size: 0.65rem; color: var(--text-3); }
-    .sess-tag {
-      font-family: var(--mono); font-size: 0.6rem; font-weight: 500;
-      padding: 2px 7px; border-radius: 4px;
-    }
-    .st-green { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
-    .st-dim   { background: rgba(255,255,255,0.04); color: var(--text-2); border: 1px solid var(--border); }
-
-    /* ── PROJECT BOARD ───────────────────── */
-    .proj-section { margin-bottom: 16px; }
-    .proj-section:last-child { margin-bottom: 0; }
-    .proj-heading {
-      font-family: var(--mono); font-size: 0.62rem; font-weight: 500;
-      text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-2);
-      margin-bottom: 7px; display: flex; align-items: center; gap: 6px;
-    }
-    .proj-heading .ct {
-      font-size: 0.58rem; background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: 4px; padding: 1px 5px; color: var(--text-3);
-    }
-    .proj-list { display: flex; flex-direction: column; gap: 4px; }
-    .proj-item {
-      display: flex; align-items: center; gap: 9px;
-      padding: 9px 12px; border-radius: 9px; border: 1px solid var(--border);
-      text-decoration: none; color: inherit;
-      transition: background 0.15s, border-color 0.15s;
-      cursor: default;
-    }
-    .proj-item.link { cursor: pointer; }
-    .proj-item.link:hover { background: var(--surface-2); border-color: var(--border-2); }
-    .proj-item.shipped {
-      border-left: 2px solid var(--green);
-      background: var(--green-glow);
-    }
-    .proj-item.shipped:hover { background: var(--green-dim); }
-    .proj-item.inprog { opacity: 0.7; }
-    .proj-item.soon   { opacity: 0.35; }
-    .proj-em { font-size: 0.88rem; flex-shrink: 0; }
-    .proj-name { flex: 1; font-size: 0.75rem; font-weight: 500; }
-    .proj-item.shipped .proj-name { color: var(--green); }
-    .proj-badge {
-      font-family: var(--mono); font-size: 0.58rem; font-weight: 500;
-      padding: 2px 6px; border-radius: 4px; flex-shrink: 0;
-    }
-    .pb-green { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
-    .pb-dim   { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
-
-    /* ── AGENTS ──────────────────────────── */
-    .agent {
-      background: var(--green-glow); border: 1px solid var(--green-border);
-      border-radius: 12px; padding: 14px 16px;
-      transition: background 0.2s;
-    }
-    .agent:hover { background: var(--green-dim); }
-    .agent + .agent { margin-top: 8px; }
-    .agent-head { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
-    .agent-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--green); box-shadow: 0 0 6px var(--green);
-      animation: pulse 2.5s ease infinite; flex-shrink: 0;
-    }
-    .agent-name { font-size: 0.78rem; font-weight: 600; color: var(--green); flex: 1; }
-    .agent-badge {
-      font-family: var(--mono); font-size: 0.58rem; font-weight: 500;
-      background: rgba(0,232,122,0.12); color: var(--green);
-      border: 1px solid rgba(0,232,122,0.25); padding: 2px 7px; border-radius: 4px;
-    }
-    .agent-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 9px; }
-    .agent-stat { font-family: var(--mono); font-size: 0.68rem; color: rgba(0,232,122,0.55); }
-    .agent-stat strong { color: var(--green); }
-    .pipeline { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-    .p-node {
-      font-family: var(--mono); font-size: 0.62rem;
-      background: rgba(0,232,122,0.07); border: 1px solid rgba(0,232,122,0.18);
-      border-radius: 4px; padding: 2px 7px; color: rgba(0,232,122,0.7);
-    }
-    .p-arr { font-size: 0.65rem; color: rgba(0,232,122,0.3); }
-
-    /* ── VALUE ROW ───────────────────────── */
-    .value-row {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      gap: 16px; margin-bottom: 16px;
-      animation: up 0.5s ease 0.21s both;
-    }
-    .val-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
-    .val-card.hl {
-      background: linear-gradient(140deg, rgba(0,232,122,0.08) 0%, rgba(0,232,122,0.02) 60%);
-      border-color: var(--green-border);
-    }
-    .val-label {
-      font-family: var(--mono); font-size: 0.62rem; font-weight: 500;
-      text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-2); margin-bottom: 12px;
-    }
-    .val-num {
-      font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1;
-      margin-bottom: 8px; font-variant-numeric: tabular-nums;
-    }
-    .val-card.hl .val-num { color: var(--green); }
-    .val-card:not(.hl) .val-num { color: var(--text); }
-    .val-desc { font-size: 0.73rem; color: var(--text-2); line-height: 1.6; margin-bottom: 16px; }
-    .val-lines { display: flex; flex-direction: column; }
-    .val-row-item {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.71rem; color: var(--text-2);
-      padding: 7px 0; border-bottom: 1px solid var(--border);
-    }
-    .val-row-item:last-child { border-bottom: none; }
-    .val-row-item .amt { color: var(--text); font-weight: 600; font-family: var(--mono); font-size: 0.72rem; }
-    .val-row-item .amt.hi { color: var(--green); }
-
-    /* ── SENIORITY ───────────────────────── */
-    .sen-list { display: flex; flex-direction: column; gap: 10px; }
-    .sen-row { display: flex; align-items: center; gap: 10px; }
-    .sen-lbl { font-family: var(--mono); font-size: 0.65rem; color: var(--text-2); width: 68px; flex-shrink: 0; }
-    .sen-track { flex: 1; height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
-    .sen-fill { height: 100%; border-radius: 2px; width: 0; transition: width 1.6s cubic-bezier(0.4,0,0.2,1); background: var(--green); }
-    .sen-sal { font-family: var(--mono); font-size: 0.62rem; color: var(--text-3); width: 58px; text-align: right; flex-shrink: 0; }
-    .you-here {
-      margin-top: 6px; display: flex; align-items: center; gap: 9px;
-      background: var(--green-glow); border: 1px solid var(--green-border);
-      border-radius: 8px; padding: 9px 12px;
-    }
-    .you-arrow { color: var(--green); font-size: 0.85rem; }
-    .you-text { font-size: 0.76rem; color: var(--green); font-weight: 600; margin-bottom: 2px; }
-    .you-sub { font-size: 0.67rem; color: rgba(0,232,122,0.45); font-family: var(--mono); }
-
-    /* ── FOOTER ──────────────────────────── */
-    .footer { text-align: center; padding-top: 36px; font-family: var(--mono); font-size: 0.68rem; color: var(--text-3); }
-    .footer a { color: var(--text-2); text-decoration: none; transition: color 0.2s; }
-    .footer a:hover { color: var(--green); }
-
-    /* ── MODAL ───────────────────────────── */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(8px); z-index: 100;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: opacity 0.2s;
-    }
-    .modal-overlay.active { opacity: 1; pointer-events: auto; }
-    .modal {
-      background: #161618; border: 1px solid var(--border-2);
-      border-radius: 14px; padding: 26px; width: 320px; max-width: 90vw;
-      transform: scale(0.97) translateY(10px); transition: transform 0.2s;
-    }
-    .modal-overlay.active .modal { transform: scale(1) translateY(0); }
-    .modal-title { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
-    .modal-sub { font-size: 0.8rem; color: var(--text-2); margin-bottom: 18px; }
-    .modal-input {
-      width: 100%; padding: 9px 12px; border-radius: 8px;
-      border: 1px solid var(--border); background: rgba(255,255,255,0.05);
-      color: var(--text); font-family: var(--mono); font-size: 0.85rem;
-      outline: none; transition: border-color 0.2s;
-    }
-    .modal-input:focus { border-color: var(--green); }
-    .modal-err { font-size: 0.75rem; color: #ef4444; margin-top: 7px; opacity: 0; transition: opacity 0.2s; }
-    .modal-err.show { opacity: 1; }
-    .modal-btns { display: flex; gap: 8px; margin-top: 18px; }
-    .modal-btn {
-      flex: 1; padding: 9px; border-radius: 8px; border: none;
-      font-family: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
-    }
-    .btn-cancel { background: rgba(255,255,255,0.06); color: var(--text-2); }
-    .btn-cancel:hover { background: rgba(255,255,255,0.1); color: var(--text); }
-    .btn-submit { background: var(--green); color: #000; }
-    .btn-submit:hover { background: #00ff88; }
-
-    /* ── ANIMATIONS ──────────────────────── */
-    @keyframes up { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
-
-    /* ── RESPONSIVE ──────────────────────── */
-    @media (max-width: 1100px) {
-      .grid-main { grid-template-columns: 1fr; }
-      .kpis { grid-template-columns: repeat(3, 1fr); }
-      .value-row { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 680px) {
-      .wrap { padding: 20px 16px 60px; }
-      .nav { padding: 0 16px; }
-      .kpis { grid-template-columns: repeat(2, 1fr); }
-      .value-row { grid-template-columns: 1fr; }
-      .profile { flex-wrap: wrap; }
-      .profile-right { flex-direction: row; align-items: center; }
-    }
-  </style>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+  <!-- Aurora background layers -->
+  <div class="aurora-bg" aria-hidden="true"></div>
+  <!-- Grain overlay (near-invisible, Apple-smooth) -->
+  <div class="grain-overlay" aria-hidden="true"></div>
 
-  <!-- NAV -->
-  <nav class="nav">
-    <span class="nav-brand">jsher<span>.</span>online</span>
-    <div class="nav-right">
-      <div class="nav-status">
-        <div class="pulse"></div>
-        2 agents live
+  <main class="container">
+    <section class="profile">
+      <div class="avatar-ring">
+        <img
+          src="assets/headshot.jpg"
+          alt="Jackson Sherwood"
+          class="avatar"
+          onerror="this.style.display='none'; this.parentElement.classList.add('avatar-fallback');"
+        >
       </div>
-      <span class="nav-date" id="navDate"></span>
-    </div>
-  </nav>
-
-  <div class="wrap">
-
-    <!-- PROFILE -->
-    <div class="profile">
-      <div class="avatar-wrap">
-        <img src="assets/headshot.jpg" class="avatar" alt="Jackson Sherwood"
-          onerror="this.parentElement.style.background='var(--green)';this.style.display='none'">
-      </div>
-      <div class="profile-info">
-        <div class="profile-name">Jackson Sherwood</div>
-        <div class="profile-role">AI Platform Specialist &middot; <span>Housecall Pro</span> &middot; Building autonomous systems with Claude Code</div>
-      </div>
-      <div class="profile-right">
-        <div class="live-badge">
-          <div class="pulse"></div>
-          2 Agents Running Live
-        </div>
-        <a href="https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-jackson-sherwood-690663214/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      <h1 class="name">Jackson Sherwood</h1>
+      <p class="tagline">Building with AI at Housecall Pro</p>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-jackson-sherwood-690663214/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         </a>
       </div>
-    </div>
+    </section>
 
-    <!-- KPIs -->
-    <div class="kpis">
-      <div class="kpi">
-        <div class="kpi-label">AI Sessions</div>
-        <div class="kpi-val" data-target="11">0</div>
-        <div class="kpi-sub">since jan 8, 2026</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Messages Logged</div>
-        <div class="kpi-val" data-target="6833">0</div>
-        <div class="kpi-sub">human + ai turns</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Tool Executions</div>
-        <div class="kpi-val" data-target="1140">0</div>
-        <div class="kpi-sub">code runs · edits · ops</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Active Agents</div>
-        <div class="kpi-val" data-target="2">0</div>
-        <div class="kpi-sub">running in production</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Value Generated</div>
-        <div class="kpi-val" id="valKpi">$0</div>
-        <div class="kpi-sub">engineering equivalent</div>
-      </div>
-    </div>
-
-    <!-- MAIN GRID -->
-    <div class="grid-main">
-
-      <!-- LEFT -->
-      <div class="col-left">
-
-        <!-- Chart -->
-        <div class="card">
-          <div class="card-head">
-            <div>
-              <div class="card-title">Daily AI Activity</div>
-              <div class="card-sub">Messages &amp; tool executions per session — Jan to Mar 2026</div>
-            </div>
-            <span class="tag">7 sessions</span>
-          </div>
-          <canvas id="chart"></canvas>
-          <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>messages</div>
-            <div class="legend-item"><div class="legend-dot" style="background:rgba(0,232,122,0.35)"></div>tool calls</div>
-          </div>
+    <section class="links">
+      <div class="link-card shipped" data-glow onclick="unlockLink(this, 'https://demo.housecallpro.com/')">
+        <div class="link-icon"><i data-lucide="palette"></i></div>
+        <div class="link-content">
+          <span class="link-title">Sherwin-Williams x Housecall Pro Prototype</span>
+          <span class="link-desc">Measurement-based pricing & price book integrations</span>
         </div>
-
-        <!-- Sessions -->
-        <div class="card">
-          <div class="card-head">
-            <div>
-              <div class="card-title">Session History</div>
-              <div class="card-sub">What got shipped, fixed, and built — 8 of 11 sessions</div>
-            </div>
-          </div>
-          <div class="sessions">
-            <div class="sess">
-              <div class="sess-num">01</div>
-              <div class="sess-body">
-                <div class="sess-title">jsher.online — Build &amp; Deploy</div>
-                <div class="sess-desc">Built personal portfolio from scratch, pushed to GitHub, got live on Vercel</div>
-              </div>
-              <div class="sess-right"><span class="sess-date">Jan 8</span><span class="sess-tag st-green">deploy</span></div>
-            </div>
-            <div class="sess">
-              <div class="sess-num">02</div>
-              <div class="sess-body">
-                <div class="sess-title">n8n Setup + Claude Integration</div>
-                <div class="sess-desc">Wired Claude Code into company n8n, built first AI-powered workflow node</div>
-              </div>
-              <div class="sess-right"><span class="sess-date">Feb 11</span><span class="sess-tag st-green">build</span></div>
-            </div>
-            <div class="sess">
-              <div class="sess-num">03</div>
-              <div class="sess-body">
-                <div class="sess-title">Counter-Intel Chatbot — Full Migration</div>
-                <div class="sess-desc">Migrated TypeScript Slack bot to n8n; Slack trigger + AI question parsing working</div>
-              </div>
-              <div class="sess-right"><span class="sess-date">Feb 11</span><span class="sess-tag st-green">build</span></div>
-            </div>
-            <div class="sess">
-              <div class="sess-num">04</div>
-              <div class="sess-body">
-                <div class="sess-title">HCP Maps — Glassmorphism UI + Deploy</div>
-                <div class="sess-desc">Full UI polish with glassmorphism styling, security hardening, GitHub push</div>
-              </div>
-              <div class="sess-right"><span class="sess-date">Feb 17</span><span class="sess-tag st-green">deploy</span></div>
-            </div>
-            <div class="sess">
-              <div class="sess-num">05</div>
-              <div class="sess-body">
-                <div class="sess-title">Counter-Intel Alerts — Designed &amp; Built</div>
-                <div class="sess-desc">Designed + deployed daily competitor page monitor with Claude AI → Slack alerts</div>
-              </div>
-              <div class="sess-right"><span class="sess-date">Feb 23</span><span class="sess-tag st-green">build</span></div>
-            </div>
-            <div class="sess">
-              <div class="sess-num">06</div>
-              <div class="sess-body">
-                <div class="sess-title">jsher.online — Dark Redesign</div>
-                <div class="sess-desc">Apple-inspired dark redesign, two feedback rounds, pushed live to Vercel</div>
-              </div>
-              <div class="sess-right"><span class="sess-date">Feb 23</span><span class="sess-tag st-dim">design</span></div>
-            </div>
-            <div class="sess">
-              <div class="sess-num">07</div>
-              <div class="sess-body">
-                <div class="sess-title">Tyler's Feedback → Full System Upgrade</div>
-                <div class="sess-desc">Shipped taxonomy, scoring, deduplication, digest restructure &amp; caching in one session</div>
-              </div>
-              <div class="sess-right"><span class="sess-date">Feb 26</span><span class="sess-tag st-dim">fix</span></div>
-            </div>
-            <div class="sess">
-              <div class="sess-num">08</div>
-              <div class="sess-body">
-                <div class="sess-title">MBR Prep + Weekly Digest Debug</div>
-                <div class="sess-desc">Polished MBR slides &amp; key results, found and fixed weekly digest agent failure</div>
-              </div>
-              <div class="sess-right"><span class="sess-date">Feb 26</span><span class="sess-tag st-dim">docs</span></div>
-            </div>
-          </div>
-        </div>
+        <span class="badge badge-shipped">Shipped</span>
       </div>
 
-      <!-- RIGHT -->
-      <div class="col-right">
-
-        <!-- Project Board (moved above agents) -->
-        <div class="card">
-          <div class="card-head">
-            <div>
-              <div class="card-title">Project Board</div>
-              <div class="card-sub">Everything built with AI</div>
-            </div>
-          </div>
-
-          <div class="proj-section">
-            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">3</span></div>
-            <div class="proj-list">
-              <div class="proj-item shipped link" onclick="openModal('https://demo.housecallpro.com/')">
-                <span class="proj-em">🎨</span>
-                <span class="proj-name">Sherwin-Williams × HCP Prototype</span>
-                <span class="proj-badge pb-green">live</span>
-              </div>
-              <a href="https://tradeacademy.com/" target="_blank" rel="noopener" class="proj-item shipped link">
-                <span class="proj-em">🎓</span>
-                <span class="proj-name">Trade Academy Platform</span>
-                <span class="proj-badge pb-green">live</span>
-              </a>
-              <div class="proj-item shipped">
-                <span class="proj-em">🌐</span>
-                <span class="proj-name">jsher.online Portfolio</span>
-                <span class="proj-badge pb-green">you're here</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="proj-section">
-            <div class="proj-heading">in progress <span class="ct">5</span></div>
-            <div class="proj-list">
-              <div class="proj-item inprog">
-                <span class="proj-em">🗺️</span>
-                <span class="proj-name">Housecall Pro Maps</span>
-                <span class="proj-badge pb-dim">building</span>
-              </div>
-              <div class="proj-item inprog">
-                <span class="proj-em">🔍</span>
-                <span class="proj-name">Counter-Intel Alert System</span>
-                <span class="proj-badge pb-dim">building</span>
-              </div>
-              <div class="proj-item inprog">
-                <span class="proj-em">💬</span>
-                <span class="proj-name">Counter-Intel Chatbot</span>
-                <span class="proj-badge pb-dim">building</span>
-              </div>
-              <div class="proj-item inprog">
-                <span class="proj-em">📊</span>
-                <span class="proj-name">Weekly Digest Agent</span>
-                <span class="proj-badge pb-dim">building</span>
-              </div>
-              <div class="proj-item inprog">
-                <span class="proj-em">🧪</span>
-                <span class="proj-name">HCP Labs</span>
-                <span class="proj-badge pb-dim">building</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="proj-section">
-            <div class="proj-heading">coming soon <span class="ct">1</span></div>
-            <div class="proj-list">
-              <div class="proj-item soon">
-                <span class="proj-em">🏆</span>
-                <span class="proj-name">Blue Collar 40 Under 40</span>
-                <span class="proj-badge pb-dim">soon</span>
-              </div>
-            </div>
-          </div>
+      <a href="https://tradeacademy.com/" class="link-card shipped" data-glow target="_blank" rel="noopener">
+        <div class="link-icon"><i data-lucide="graduation-cap"></i></div>
+        <div class="link-content">
+          <span class="link-title">Trade Academy</span>
+          <span class="link-desc">AI-built educational platform for the trades</span>
         </div>
+        <span class="badge badge-shipped">Shipped</span>
+      </a>
 
-        <!-- Live Agents (below project board) -->
-        <div class="card">
-          <div class="card-head">
-            <div>
-              <div class="card-title">Live Agents</div>
-              <div class="card-sub">Autonomous workflows in production</div>
-            </div>
-            <span class="tag">2 active</span>
-          </div>
-          <div class="agent">
-            <div class="agent-head">
-              <div class="agent-dot"></div>
-              <div class="agent-name">Jackson's Weekly Digest</div>
-              <div class="agent-badge">active</div>
-            </div>
-            <div class="agent-meta">
-              <span class="agent-stat">schedule <strong>every monday</strong></span>
-              <span class="agent-stat">nodes <strong>18</strong></span>
-            </div>
-            <div class="pipeline">
-              <span class="p-node">firecrawl</span><span class="p-arr">→</span>
-              <span class="p-node">scrape</span><span class="p-arr">→</span>
-              <span class="p-node">claude</span><span class="p-arr">→</span>
-              <span class="p-node">slack</span>
-            </div>
-          </div>
-          <div class="agent">
-            <div class="agent-head">
-              <div class="agent-dot"></div>
-              <div class="agent-name">Counter-Intel Daily Alerts</div>
-              <div class="agent-badge">active</div>
-            </div>
-            <div class="agent-meta">
-              <span class="agent-stat">schedule <strong>daily</strong></span>
-              <span class="agent-stat">nodes <strong>22</strong></span>
-            </div>
-            <div class="pipeline">
-              <span class="p-node">scrape</span><span class="p-arr">→</span>
-              <span class="p-node">diff</span><span class="p-arr">→</span>
-              <span class="p-node">claude</span><span class="p-arr">→</span>
-              <span class="p-node">slack</span>
-            </div>
-          </div>
+      <div class="link-card in-progress" data-glow="subtle">
+        <div class="link-icon"><i data-lucide="map-pin"></i></div>
+        <div class="link-content">
+          <span class="link-title">Housecall Pro Maps</span>
+          <span class="link-desc">Interactive map tool for sales reps</span>
         </div>
-
-      </div>
-    </div><!-- /grid -->
-
-    <!-- VALUE ROW -->
-    <div class="value-row">
-
-      <div class="val-card hl">
-        <div class="val-label">total engineering value</div>
-        <div class="val-num" id="totalVal">$0</div>
-        <div class="val-desc">Equivalent cost to hire engineers to build all of this. Based on junior-to-mid SWE market rates ($43–$55/hr).</div>
-        <div class="val-lines">
-          <div class="val-row-item"><span>Counter-Intel System (3 agents)</span><span class="amt">$13,500</span></div>
-          <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
-          <div class="val-row-item"><span>HCP Maps App</span><span class="amt">$2,700</span></div>
-          <div class="val-row-item"><span>Sites, Docs &amp; Misc</span><span class="amt">$4,500</span></div>
-        </div>
+        <span class="badge badge-progress">In Progress</span>
       </div>
 
-      <div class="val-card">
-        <div class="val-label">monthly automation savings</div>
-        <div class="val-num">$1,530<span style="font-size:1rem;color:var(--text-2);font-weight:500">/mo</span></div>
-        <div class="val-desc">2 autonomous agents eliminating manual competitive research and reporting every week.</div>
-        <div class="val-lines">
-          <div class="val-row-item"><span>Weekly Digest (12 hrs/mo)</span><span class="amt">$516</span></div>
-          <div class="val-row-item"><span>Daily Alerts (22 hrs/mo)</span><span class="amt">$946</span></div>
-          <div class="val-row-item"><span style="font-weight:600">Annualized savings</span><span class="amt hi">$18,360/yr</span></div>
+      <div class="link-card in-progress" data-glow="subtle">
+        <div class="link-icon"><i data-lucide="bell-ring"></i></div>
+        <div class="link-content">
+          <span class="link-title">Housecall Pro Counter Intel Alerts</span>
+          <span class="link-desc">Competitive intelligence alerting system</span>
         </div>
+        <span class="badge badge-progress">In Progress</span>
       </div>
 
-      <div class="val-card">
-        <div class="val-label">output vs. seniority level</div>
-        <div class="sen-list">
-          <div class="sen-row">
-            <div class="sen-lbl">junior</div>
-            <div class="sen-track"><div class="sen-fill" data-w="28" style="opacity:0.35"></div></div>
-            <div class="sen-sal">$80–100K</div>
-          </div>
-          <div class="sen-row">
-            <div class="sen-lbl">mid</div>
-            <div class="sen-track"><div class="sen-fill" data-w="55" style="opacity:0.6"></div></div>
-            <div class="sen-sal">$115–140K</div>
-          </div>
-          <div class="sen-row">
-            <div class="sen-lbl">senior</div>
-            <div class="sen-track"><div class="sen-fill" data-w="75" style="opacity:0.75"></div></div>
-            <div class="sen-sal">$155–185K</div>
-          </div>
-          <div class="sen-row">
-            <div class="sen-lbl">staff</div>
-            <div class="sen-track"><div class="sen-fill" data-w="93" style="opacity:0.9"></div></div>
-            <div class="sen-sal">$200K+</div>
-          </div>
-          <div class="you-here">
-            <span class="you-arrow">→</span>
-            <div>
-              <div class="you-text">Jackson's Output: Mid SWE</div>
-              <div class="you-sub">end-to-end systems · agents · shipped apps</div>
-            </div>
-          </div>
+      <div class="link-card in-progress" data-glow="subtle">
+        <div class="link-icon"><i data-lucide="message-square"></i></div>
+        <div class="link-content">
+          <span class="link-title">Housecall Pro Counter Intel Chatbot</span>
+          <span class="link-desc">AI-powered competitive intelligence assistant</span>
         </div>
+        <span class="badge badge-progress">In Progress</span>
       </div>
-    </div>
 
-    <div class="footer">
-      analytics from claude code session logs &middot; updated mar 2, 2026 &middot;
-      <a href="https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-jackson-sherwood-690663214/" target="_blank" rel="noopener">linkedin</a>
-    </div>
-  </div>
+      <div class="link-card in-progress" data-glow="subtle">
+        <div class="link-icon"><i data-lucide="bar-chart-3"></i></div>
+        <div class="link-content">
+          <span class="link-title">Housecall Pro Counter Intel Weekly Digest</span>
+          <span class="link-desc">Automated weekly competitive landscape summary</span>
+        </div>
+        <span class="badge badge-progress">In Progress</span>
+      </div>
 
-  <!-- MODAL -->
-  <div class="modal-overlay" id="modal">
+      <div class="link-card in-progress" data-glow="subtle">
+        <div class="link-icon"><i data-lucide="flask-conical"></i></div>
+        <div class="link-content">
+          <span class="link-title">Housecall Pro Labs</span>
+          <span class="link-desc">Experimental features & innovation hub</span>
+        </div>
+        <span class="badge badge-progress">In Progress</span>
+      </div>
+
+      <div class="link-card coming-soon">
+        <div class="link-icon"><i data-lucide="trophy"></i></div>
+        <div class="link-content">
+          <span class="link-title">Blue Collar 40 Under 40</span>
+          <span class="link-desc">Celebrating top young professionals in the trades</span>
+        </div>
+        <span class="badge">Coming Soon</span>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; 2026 Jackson Sherwood</p>
+    </footer>
+  </main>
+  <!-- Password Modal -->
+  <div class="modal-overlay" id="passwordModal">
     <div class="modal">
-      <div class="modal-title">Password Required</div>
-      <div class="modal-sub">This project is password protected.</div>
-      <input type="password" class="modal-input" id="pwInput" placeholder="Enter password" autocomplete="off">
-      <div class="modal-err" id="pwErr">Incorrect password</div>
-      <div class="modal-btns">
-        <button class="modal-btn btn-cancel" onclick="closeModal()">Cancel</button>
-        <button class="modal-btn btn-submit" onclick="submitPw()">Access</button>
+      <h3 class="modal-title">Password Required</h3>
+      <p class="modal-desc">This project is password protected.</p>
+      <input type="password" class="modal-input" id="passwordInput" placeholder="Enter password" autocomplete="off">
+      <p class="modal-error" id="passwordError">Incorrect password</p>
+      <div class="modal-buttons">
+        <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="modal-btn modal-btn-submit" onclick="submitPassword()">Access</button>
       </div>
     </div>
   </div>
 
   <script>
-    // Nav date
-    document.getElementById('navDate').textContent = new Date().toLocaleDateString('en-US', {
-      month: 'short', day: 'numeric', year: 'numeric'
+    let pendingUrl = '';
+
+    function unlockLink(el, url) {
+      pendingUrl = url;
+      const modal = document.getElementById('passwordModal');
+      const input = document.getElementById('passwordInput');
+      const error = document.getElementById('passwordError');
+      modal.classList.add('active');
+      error.classList.remove('visible');
+      input.value = '';
+      setTimeout(() => input.focus(), 100);
+    }
+
+    function closeModal() {
+      document.getElementById('passwordModal').classList.remove('active');
+      pendingUrl = '';
+    }
+
+    function submitPassword() {
+      const input = document.getElementById('passwordInput');
+      if (input.value === 'jackson') {
+        closeModal();
+        window.open(pendingUrl, '_blank');
+      } else {
+        document.getElementById('passwordError').classList.add('visible');
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    document.getElementById('passwordInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') submitPassword();
+      if (e.key === 'Escape') closeModal();
     });
 
-    // Counter animation
-    function animCount(el, target, prefix, dur) {
-      const t0 = Date.now();
-      dur = dur || 1400;
-      (function tick() {
-        const p = Math.min(1, (Date.now() - t0) / dur);
-        const v = Math.round(target * (1 - Math.pow(1 - p, 3)));
-        el.textContent = (prefix || '') + v.toLocaleString();
-        if (p < 1) requestAnimationFrame(tick);
-      })();
-    }
+    document.getElementById('passwordModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
 
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        const el = e.target, t = parseInt(el.dataset.target);
-        if (t) animCount(el, t);
-        obs.unobserve(el);
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Mouse-tracking glow on cards
+    document.querySelectorAll('[data-glow]').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
-    }, { threshold: 0.7 });
-    document.querySelectorAll('[data-target]').forEach(el => obs.observe(el));
-
-    const valKpi = document.getElementById('valKpi');
-    const vObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 24300, '$', 1500); vObs.unobserve(e.target); });
-    }, { threshold: 0.7 });
-    vObs.observe(valKpi);
-
-    const tvEl = document.getElementById('totalVal');
-    const tvObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 24300, '$', 1500); tvObs.unobserve(e.target); });
-    }, { threshold: 0.4 });
-    tvObs.observe(tvEl);
-
-    // Seniority bars
-    const senObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        document.querySelectorAll('.sen-fill').forEach(b => {
-          setTimeout(() => { b.style.width = b.dataset.w + '%'; }, 200);
-        });
-        senObs.unobserve(e.target);
+      card.addEventListener('mouseenter', () => {
+        card.style.setProperty('--glow-opacity', '1');
       });
-    }, { threshold: 0.4 });
-    const senEl = document.querySelector('.sen-list');
-    if (senEl) senObs.observe(senEl);
-
-    // Activity chart
-    const DATA = [
-      { label: 'Jan 8',  msgs: 126,  tools: 36  },
-      { label: 'Feb 11', msgs: 1796, tools: 227 },
-      { label: 'Feb 17', msgs: 1861, tools: 283 },
-      { label: 'Feb 19', msgs: 1207, tools: 278 },
-      { label: 'Feb 23', msgs: 889,  tools: 156 },
-      { label: 'Feb 24', msgs: 41,   tools: 0   },
-      { label: 'Feb 26', msgs: 913,  tools: 160 },
-    ];
-
-    const canvas = document.getElementById('chart');
-    const ctx = canvas.getContext('2d');
-    let animStart = null;
-
-    function rr(c, x, y, w, h) {
-      if (h < 1) return;
-      const r = Math.min(3, w / 2);
-      c.beginPath();
-      c.moveTo(x + r, y);
-      c.lineTo(x + w - r, y); c.arcTo(x+w, y, x+w, y+r, r);
-      c.lineTo(x+w, y+h); c.lineTo(x, y+h); c.lineTo(x, y+r);
-      c.arcTo(x, y, x+r, y, r); c.closePath(); c.fill();
-    }
-
-    function drawChart(prog) {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      canvas.width  = rect.width  * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-
-      const W = rect.width, H = rect.height;
-      const P = { t: 10, r: 12, b: 24, l: 42 };
-      const cW = W - P.l - P.r, cH = H - P.t - P.b;
-      const maxV = Math.max(...DATA.map(d => d.msgs));
-      const grpW = cW / DATA.length;
-      const bW = grpW * 0.28, gap = grpW * 0.055;
-
-      for (let i = 0; i <= 4; i++) {
-        const y = P.t + cH - (cH / 4) * i;
-        ctx.strokeStyle = 'rgba(255,255,255,0.04)';
-        ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(P.l, y); ctx.lineTo(W - P.r, y); ctx.stroke();
-        ctx.fillStyle = 'rgba(255,255,255,0.2)';
-        ctx.font = '9px JetBrains Mono, monospace';
-        ctx.textAlign = 'right';
-        const lv = Math.round((maxV / 4) * i);
-        ctx.fillText(lv >= 1000 ? (lv/1000).toFixed(1)+'k' : lv, P.l - 5, y + 3);
-      }
-
-      DATA.forEach((d, i) => {
-        const x = P.l + i * grpW + grpW * 0.14;
-        // messages bar — solid green
-        const mH = (d.msgs / maxV) * cH * prog;
-        const g1 = ctx.createLinearGradient(x, P.t + cH - mH, x, P.t + cH);
-        g1.addColorStop(0, 'rgba(0,232,122,0.9)'); g1.addColorStop(1, 'rgba(0,232,122,0.2)');
-        ctx.fillStyle = g1; rr(ctx, x, P.t + cH - mH, bW, mH);
-
-        // tools bar — dim green
-        const tH = (d.tools / maxV) * cH * prog;
-        const tX = x + bW + gap;
-        const g2 = ctx.createLinearGradient(tX, P.t + cH - tH, tX, P.t + cH);
-        g2.addColorStop(0, 'rgba(0,232,122,0.35)'); g2.addColorStop(1, 'rgba(0,232,122,0.06)');
-        ctx.fillStyle = g2; rr(ctx, tX, P.t + cH - tH, bW, tH);
-
-        ctx.fillStyle = 'rgba(255,255,255,0.2)';
-        ctx.textAlign = 'center';
-        ctx.font = '9px JetBrains Mono, monospace';
-        ctx.fillText(d.label, x + bW + gap / 2, P.t + cH + 16);
+      card.addEventListener('mouseleave', () => {
+        card.style.setProperty('--glow-opacity', '0');
       });
-    }
-
-    function animChart(ts) {
-      if (!animStart) animStart = ts;
-      const p = Math.min(1, (ts - animStart) / 1100);
-      drawChart(1 - Math.pow(1 - p, 3));
-      if (p < 1) requestAnimationFrame(animChart);
-    }
-
-    const cObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        document.fonts.ready.then(() => requestAnimationFrame(animChart));
-        cObs.unobserve(e.target);
-      });
-    }, { threshold: 0.2 });
-    cObs.observe(canvas);
-    window.addEventListener('resize', () => { animStart = null; requestAnimationFrame(animChart); });
-
-    // Modal
-    let pendingUrl = '';
-    function openModal(url) { pendingUrl = url; document.getElementById('modal').classList.add('active'); document.getElementById('pwInput').value = ''; document.getElementById('pwErr').classList.remove('show'); setTimeout(() => document.getElementById('pwInput').focus(), 100); }
-    function closeModal() { document.getElementById('modal').classList.remove('active'); pendingUrl = ''; }
-    function submitPw() { const v = document.getElementById('pwInput').value; if (v === 'jackson') { closeModal(); window.open(pendingUrl, '_blank'); } else { document.getElementById('pwErr').classList.add('show'); document.getElementById('pwInput').value = ''; document.getElementById('pwInput').focus(); } }
-    document.getElementById('pwInput').addEventListener('keydown', e => { if (e.key === 'Enter') submitPw(); if (e.key === 'Escape') closeModal(); });
-    document.getElementById('modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+    });
   </script>
 </body>
 </html>
