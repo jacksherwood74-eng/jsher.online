@@ -114,7 +114,7 @@
 
     /* ── KPIs ────────────────────────────── */
     .kpis {
-      display: grid; grid-template-columns: repeat(5, 1fr);
+      display: grid; grid-template-columns: repeat(6, 1fr);
       gap: 12px; margin-bottom: 20px;
       animation: up 0.5s ease 0.07s both;
     }
@@ -364,7 +364,7 @@
     /* ── RESPONSIVE ──────────────────────── */
     @media (max-width: 1100px) {
       .grid-main { grid-template-columns: 1fr; }
-      .kpis { grid-template-columns: repeat(3, 1fr); }
+      .kpis { grid-template-columns: repeat(3, 1fr); } /* 2 rows of 3 */
       .value-row { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 680px) {
@@ -430,6 +430,11 @@
         <div class="kpi-label">Tool Executions</div>
         <div class="kpi-val" data-target="1140">0</div>
         <div class="kpi-sub">code runs · edits · ops</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Lines of Code</div>
+        <div class="kpi-val" data-target="19506">0</div>
+        <div class="kpi-sub">across all projects</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Active Agents</div>
