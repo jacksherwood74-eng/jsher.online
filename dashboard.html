@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jackson Sherwood — AI Productivity Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0b;
+      --bg-card: rgba(255,255,255,0.04);
+      --bg-card-hover: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.16);
+      --text: #f0f0f0;
+      --text-sec: #8a8a8a;
+      --text-ter: #444;
+      --accent: #6366f1;
+      --accent-dim: rgba(99,102,241,0.12);
+      --accent-border: rgba(99,102,241,0.28);
+      --green: #22c55e;
+      --green-dim: rgba(34,197,94,0.10);
+      --green-border: rgba(34,197,94,0.25);
+      --yellow: #fbbf24;
+      --yellow-dim: rgba(251,191,36,0.10);
+      --yellow-border: rgba(251,191,36,0.25);
+      --purple: #a855f7;
+      --purple-dim: rgba(168,85,247,0.10);
+      --purple-border: rgba(168,85,247,0.25);
+      --orange: #f97316;
+    }
+
+    html { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-font-smoothing: antialiased; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+    .bg-glow {
+      position: fixed; top: -350px; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 900px;
+      background: radial-gradient(circle, rgba(99,102,241,0.13) 0%, transparent 65%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* NAV */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10,10,11,0.88); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none; color: var(--text-sec);
+      font-size: 0.82rem; font-weight: 500; transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-center { display: flex; align-items: center; gap: 9px; }
+    .live-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 8px var(--green);
+      animation: blink 2.4s ease infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+    .nav-label { font-size: 0.82rem; color: var(--text-sec); font-weight: 600; }
+    .nav-date { font-size: 0.75rem; color: var(--text-ter); }
+
+    /* LAYOUT */
+    .main { position: relative; z-index: 1; max-width: 1300px; margin: 0 auto; padding: 40px 32px 80px; }
+
+    /* PAGE HEADER */
+    .page-hd {
+      display: flex; align-items: center; gap: 18px;
+      margin-bottom: 36px; animation: fadeUp 0.5s ease both;
+    }
+    .page-avatar {
+      width: 56px; height: 56px; border-radius: 50%;
+      border: 2px solid var(--accent); object-fit: cover;
+      box-shadow: 0 0 24px rgba(99,102,241,0.3);
+    }
+    .page-info h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 4px; }
+    .page-info p { font-size: 0.8rem; color: var(--text-sec); }
+    .agents-badge {
+      margin-left: auto; display: flex; align-items: center; gap: 8px;
+      background: var(--green-dim); border: 1px solid var(--green-border);
+      border-radius: 24px; padding: 8px 16px;
+      font-size: 0.78rem; font-weight: 600; color: var(--green);
+    }
+
+    /* KPI ROW */
+    .kpis {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 14px; margin-bottom: 26px;
+      animation: fadeUp 0.5s ease 0.08s both;
+    }
+    .kpi {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px 22px;
+      position: relative; overflow: hidden;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .kpi:hover { background: var(--bg-card-hover); border-color: var(--border-hover); }
+    .kpi::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
+    .kpi.a::before { background: var(--accent); }
+    .kpi.g::before { background: var(--green); }
+    .kpi.y::before { background: var(--yellow); }
+    .kpi.p::before { background: var(--purple); }
+    .kpi.o::before { background: var(--orange); }
+    .kpi-lbl { font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-sec); margin-bottom: 10px; }
+    .kpi-val { font-size: 1.95rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 5px; }
+    .kpi.a .kpi-val { color: var(--accent); }
+    .kpi.g .kpi-val { color: var(--green); }
+    .kpi.y .kpi-val { color: var(--yellow); }
+    .kpi.p .kpi-val { color: var(--purple); }
+    .kpi.o .kpi-val { color: var(--orange); }
+    .kpi-sub { font-size: 0.7rem; color: var(--text-ter); }
+
+    /* MAIN GRID */
+    .grid { display: grid; grid-template-columns: 1fr 365px; gap: 18px; margin-bottom: 18px; animation: fadeUp 0.5s ease 0.16s both; }
+    .left { display: flex; flex-direction: column; gap: 18px; }
+    .right { display: flex; flex-direction: column; gap: 18px; }
+
+    /* CARD */
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+    .card-hd { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; }
+    .card-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 3px; }
+    .card-sub { font-size: 0.72rem; color: var(--text-sec); }
+    .pill { font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+    .pill-a { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); }
+    .pill-g { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
+
+    /* CHART */
+    #chart { width: 100%; height: 185px; display: block; }
+    .legend { display: flex; gap: 16px; margin-top: 10px; }
+    .leg { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--text-sec); }
+    .leg-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+    /* SESSIONS */
+    .sessions { display: flex; flex-direction: column; gap: 7px; }
+    .sess {
+      display: flex; gap: 12px; padding: 11px 13px;
+      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+      border-radius: 11px; transition: background 0.2s, border-color 0.2s;
+    }
+    .sess:hover { background: rgba(255,255,255,0.05); border-color: var(--border-hover); }
+    .sess-ico { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; }
+    .sess-body { flex: 1; min-width: 0; }
+    .sess-title { font-size: 0.79rem; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sess-desc { font-size: 0.71rem; color: var(--text-sec); line-height: 1.4; }
+    .sess-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .sess-date { font-size: 0.67rem; color: var(--text-ter); }
+    .tag { font-size: 0.61rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 8px; }
+    .t-build { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); }
+    .t-fix { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow-border); }
+    .t-deploy { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
+    .t-design { background: var(--purple-dim); color: var(--purple); border: 1px solid var(--purple-border); }
+    .t-docs { background: rgba(156,163,175,0.1); color: #9ca3af; border: 1px solid rgba(156,163,175,0.2); }
+
+    /* AGENTS */
+    .agent {
+      background: var(--green-dim); border: 1px solid var(--green-border);
+      border-radius: 13px; padding: 16px 17px; transition: background 0.2s;
+    }
+    .agent:hover { background: rgba(34,197,94,0.14); }
+    .agent-hd { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
+    .agent-pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: blink 2.4s ease infinite; flex-shrink: 0; }
+    .agent-name { font-size: 0.81rem; font-weight: 600; color: var(--green); flex: 1; }
+    .agent-badge { font-size: 0.61rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--green); background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.28); padding: 3px 8px; border-radius: 8px; }
+    .agent-stats { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+    .agent-stat { font-size: 0.72rem; color: rgba(34,197,94,0.65); }
+    .agent-stat strong { color: var(--green); }
+    .pipeline { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    .p-node { font-size: 0.65rem; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); border-radius: 5px; padding: 3px 7px; color: rgba(34,197,94,0.75); font-weight: 500; }
+    .p-arr { color: rgba(34,197,94,0.35); font-size: 0.7rem; }
+
+    /* PROJECTS */
+    .proj-sec { margin-bottom: 12px; }
+    .proj-lbl { font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .proj-count { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1px 6px; font-size: 0.61rem; color: var(--text-sec); }
+    .proj-items { display: flex; flex-direction: column; gap: 5px; }
+    .proj-item { display: flex; align-items: center; gap: 9px; padding: 8px 11px; border-radius: 9px; border: 1px solid var(--border); font-size: 0.77rem; }
+    .proj-item.shipped { background: var(--green-dim); border-color: var(--green-border); color: var(--green); }
+    .proj-item.inprog { background: var(--yellow-dim); border-color: var(--yellow-border); color: var(--yellow); }
+    .proj-item.soon { background: var(--purple-dim); border-color: var(--purple-border); color: var(--purple); opacity: 0.75; }
+    .proj-em { font-size: 0.9rem; }
+    .proj-name { flex: 1; font-weight: 500; font-size: 0.74rem; }
+
+    /* VALUE ROW */
+    .value-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-bottom: 18px; animation: fadeUp 0.5s ease 0.24s both; }
+    .val-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+    .val-card.hl { background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(168,85,247,0.06)); border-color: var(--accent-border); }
+    .val-lbl { font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-sec); margin-bottom: 14px; }
+    .val-num { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 8px; }
+    .val-card.hl .val-num { color: var(--accent); }
+    .val-card:not(.hl) .val-num { color: var(--text); }
+    .val-desc { font-size: 0.74rem; color: var(--text-sec); line-height: 1.55; margin-bottom: 16px; }
+    .val-lines { display: flex; flex-direction: column; }
+    .val-line { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-sec); padding: 7px 0; border-bottom: 1px solid var(--border); }
+    .val-line:last-child { border-bottom: none; }
+    .val-line .amt { color: var(--text); font-weight: 600; }
+    .val-line .amt.grn { color: var(--green); }
+
+    /* SENIORITY */
+    .seniority { display: flex; flex-direction: column; gap: 11px; }
+    .sen-row { display: flex; align-items: center; gap: 10px; }
+    .sen-lbl { font-size: 0.71rem; color: var(--text-sec); width: 72px; flex-shrink: 0; }
+    .sen-track { flex: 1; height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .sen-fill { height: 100%; border-radius: 3px; width: 0; transition: width 1.6s cubic-bezier(0.4,0,0.2,1); }
+    .sen-sal { font-size: 0.67rem; color: var(--text-ter); width: 58px; text-align: right; flex-shrink: 0; }
+    .you-marker { margin-top: 4px; display: flex; align-items: center; gap: 10px; background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: 10px; padding: 10px 13px; }
+    .you-arrow { color: var(--accent); font-size: 1rem; }
+    .you-text { font-size: 0.77rem; color: var(--accent); font-weight: 600; }
+    .you-sub { font-size: 0.69rem; color: rgba(99,102,241,0.55); }
+
+    /* FOOTER */
+    .footer { text-align: center; padding-top: 40px; font-size: 0.72rem; color: var(--text-ter); }
+    .footer a { color: var(--accent); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .grid { grid-template-columns: 1fr; }
+      .kpis { grid-template-columns: repeat(3, 1fr); }
+      .value-row { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      .main { padding: 24px 16px 60px; }
+      .nav { padding: 12px 16px; }
+      .kpis { grid-template-columns: repeat(2, 1fr); }
+      .value-row { grid-template-columns: 1fr; }
+      .agents-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-back">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      jsher.online
+    </a>
+    <div class="nav-center">
+      <div class="live-dot"></div>
+      <span class="nav-label">AI Productivity Dashboard</span>
+    </div>
+    <span class="nav-date" id="navDate"></span>
+  </nav>
+
+  <main class="main">
+
+    <!-- Header -->
+    <div class="page-hd">
+      <img src="assets/headshot.jpg" class="page-avatar" alt="Jackson Sherwood"
+        onerror="this.style.cssText='width:56px;height:56px;border-radius:50%;border:2px solid #6366f1;background:linear-gradient(135deg,#6366f1,#a855f7);display:flex;align-items:center;justify-content:center'">
+      <div class="page-info">
+        <h1>Jackson Sherwood</h1>
+        <p>AI Platform Specialist &middot; Housecall Pro &middot; Shipping with Claude Code since Jan 2026</p>
+      </div>
+      <div class="agents-badge">
+        <div class="live-dot"></div>
+        2 Agents Running Live
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpis">
+      <div class="kpi a">
+        <div class="kpi-lbl">AI Sessions</div>
+        <div class="kpi-val" data-target="11">0</div>
+        <div class="kpi-sub">Since Jan 8, 2026</div>
+      </div>
+      <div class="kpi g">
+        <div class="kpi-lbl">Messages Logged</div>
+        <div class="kpi-val" data-target="6833">0</div>
+        <div class="kpi-sub">Human + AI turns</div>
+      </div>
+      <div class="kpi y">
+        <div class="kpi-lbl">Tool Executions</div>
+        <div class="kpi-val" data-target="1140">0</div>
+        <div class="kpi-sub">Code runs, edits, file ops</div>
+      </div>
+      <div class="kpi p">
+        <div class="kpi-lbl">Active Agents</div>
+        <div class="kpi-val" data-target="2">0</div>
+        <div class="kpi-sub">Running in production</div>
+      </div>
+      <div class="kpi o">
+        <div class="kpi-lbl">Value Generated</div>
+        <div class="kpi-val" id="valKpi">$0</div>
+        <div class="kpi-sub">Engineering equivalent</div>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid">
+      <div class="left">
+
+        <!-- Activity Chart -->
+        <div class="card">
+          <div class="card-hd">
+            <div>
+              <div class="card-title">Daily AI Activity</div>
+              <div class="card-sub">Messages &amp; tool executions per session · Jan–Mar 2026</div>
+            </div>
+            <span class="pill pill-a">7 active days</span>
+          </div>
+          <canvas id="chart"></canvas>
+          <div class="legend">
+            <div class="leg"><div class="leg-dot" style="background:#6366f1"></div>Messages</div>
+            <div class="leg"><div class="leg-dot" style="background:#22c55e"></div>Tool Calls</div>
+          </div>
+        </div>
+
+        <!-- Session History -->
+        <div class="card">
+          <div class="card-hd">
+            <div>
+              <div class="card-title">Session History</div>
+              <div class="card-sub">What got shipped, fixed, and built</div>
+            </div>
+          </div>
+          <div class="sessions">
+            <div class="sess">
+              <div class="sess-ico" style="background:rgba(168,85,247,0.1)">🌐</div>
+              <div class="sess-body">
+                <div class="sess-title">jsher.online — Build &amp; Deploy</div>
+                <div class="sess-desc">Built personal portfolio, pushed to GitHub, finalized dark theme &amp; got it live on Vercel</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Jan 8</span><span class="tag t-deploy">Deploy</span></div>
+            </div>
+            <div class="sess">
+              <div class="sess-ico" style="background:rgba(99,102,241,0.1)">🔌</div>
+              <div class="sess-body">
+                <div class="sess-title">n8n Setup + Claude Integration</div>
+                <div class="sess-desc">Wired up Claude Code to company n8n, built first AI-powered workflow node</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Feb 11</span><span class="tag t-build">Build</span></div>
+            </div>
+            <div class="sess">
+              <div class="sess-ico" style="background:rgba(99,102,241,0.1)">💬</div>
+              <div class="sess-body">
+                <div class="sess-title">Counter-Intel Chatbot — Full Migration</div>
+                <div class="sess-desc">Migrated TypeScript Slack bot to n8n workflow; Slack trigger + AI question parsing working</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Feb 11</span><span class="tag t-build">Build</span></div>
+            </div>
+            <div class="sess">
+              <div class="sess-ico" style="background:rgba(34,197,94,0.1)">🗺️</div>
+              <div class="sess-body">
+                <div class="sess-title">HCP Maps — Glassmorphism UI + Deploy</div>
+                <div class="sess-desc">Polished HCP Pro Locator with glassmorphism UI, security hardening, pushed to GitHub</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Feb 17</span><span class="tag t-deploy">Deploy</span></div>
+            </div>
+            <div class="sess">
+              <div class="sess-ico" style="background:rgba(251,191,36,0.1)">🤖</div>
+              <div class="sess-body">
+                <div class="sess-title">Counter-Intel Alerts — Designed &amp; Built</div>
+                <div class="sess-desc">Designed + deployed daily competitor page monitor with Claude AI analysis → Slack</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Feb 23</span><span class="tag t-build">Build</span></div>
+            </div>
+            <div class="sess">
+              <div class="sess-ico" style="background:rgba(168,85,247,0.1)">🎨</div>
+              <div class="sess-body">
+                <div class="sess-title">jsher.online — Dark Redesign</div>
+                <div class="sess-desc">Apple-inspired dark redesign, two rounds of feedback, pushed to Vercel</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Feb 23</span><span class="tag t-design">Design</span></div>
+            </div>
+            <div class="sess">
+              <div class="sess-ico" style="background:rgba(34,197,94,0.1)">📋</div>
+              <div class="sess-body">
+                <div class="sess-title">Tyler's Feedback → System Upgrade</div>
+                <div class="sess-desc">Shipped taxonomy, scoring, deduplication, digest restructuring &amp; caching in one session</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Feb 26</span><span class="tag t-fix">Fix</span></div>
+            </div>
+            <div class="sess">
+              <div class="sess-ico" style="background:rgba(99,102,241,0.1)">📊</div>
+              <div class="sess-body">
+                <div class="sess-title">MBR Prep + Weekly Digest Debug</div>
+                <div class="sess-desc">Polished MBR slides &amp; key results, debugged &amp; fixed weekly digest agent failure</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Feb 26</span><span class="tag t-docs">Docs</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right">
+
+        <!-- Live Agents -->
+        <div class="card">
+          <div class="card-hd">
+            <div>
+              <div class="card-title">Live Agents</div>
+              <div class="card-sub">Autonomous workflows in production</div>
+            </div>
+            <span class="pill pill-g">2 active</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="agent">
+              <div class="agent-hd">
+                <div class="agent-pulse"></div>
+                <div class="agent-name">Jackson's Weekly Digest</div>
+                <div class="agent-badge">Active</div>
+              </div>
+              <div class="agent-stats">
+                <span class="agent-stat">⏰ <strong>Every Monday</strong></span>
+                <span class="agent-stat">🔧 <strong>18 nodes</strong></span>
+              </div>
+              <div class="pipeline">
+                <span class="p-node">Firecrawl</span><span class="p-arr">→</span>
+                <span class="p-node">Scrape</span><span class="p-arr">→</span>
+                <span class="p-node">Claude AI</span><span class="p-arr">→</span>
+                <span class="p-node">Slack</span>
+              </div>
+            </div>
+            <div class="agent">
+              <div class="agent-hd">
+                <div class="agent-pulse"></div>
+                <div class="agent-name">Counter-Intel Daily Alerts</div>
+                <div class="agent-badge">Active</div>
+              </div>
+              <div class="agent-stats">
+                <span class="agent-stat">⏰ <strong>Every day</strong></span>
+                <span class="agent-stat">🔧 <strong>22 nodes</strong></span>
+              </div>
+              <div class="pipeline">
+                <span class="p-node">Scrape</span><span class="p-arr">→</span>
+                <span class="p-node">Diff</span><span class="p-arr">→</span>
+                <span class="p-node">Claude AI</span><span class="p-arr">→</span>
+                <span class="p-node">Slack</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Board -->
+        <div class="card">
+          <div class="card-hd">
+            <div>
+              <div class="card-title">Project Board</div>
+              <div class="card-sub">Everything built with AI</div>
+            </div>
+          </div>
+
+          <div class="proj-sec">
+            <div class="proj-lbl" style="color:var(--green)">Shipped <span class="proj-count">3</span></div>
+            <div class="proj-items">
+              <div class="proj-item shipped"><span class="proj-em">🎨</span><span class="proj-name">Sherwin-Williams × HCP Prototype</span><span>✓</span></div>
+              <div class="proj-item shipped"><span class="proj-em">🎓</span><span class="proj-name">Trade Academy Platform</span><span>✓</span></div>
+              <div class="proj-item shipped"><span class="proj-em">🌐</span><span class="proj-name">jsher.online Portfolio Site</span><span>✓</span></div>
+            </div>
+          </div>
+
+          <div class="proj-sec">
+            <div class="proj-lbl" style="color:var(--yellow)">In Progress <span class="proj-count">5</span></div>
+            <div class="proj-items">
+              <div class="proj-item inprog"><span class="proj-em">🗺️</span><span class="proj-name">Housecall Pro Maps</span><span>⏳</span></div>
+              <div class="proj-item inprog"><span class="proj-em">🔍</span><span class="proj-name">Counter-Intel Alert System</span><span>⏳</span></div>
+              <div class="proj-item inprog"><span class="proj-em">💬</span><span class="proj-name">Counter-Intel Chatbot</span><span>⏳</span></div>
+              <div class="proj-item inprog"><span class="proj-em">📊</span><span class="proj-name">Weekly Digest Agent</span><span>⏳</span></div>
+              <div class="proj-item inprog"><span class="proj-em">🧪</span><span class="proj-name">HCP Labs</span><span>⏳</span></div>
+            </div>
+          </div>
+
+          <div class="proj-sec">
+            <div class="proj-lbl" style="color:var(--purple)">Coming Soon <span class="proj-count">1</span></div>
+            <div class="proj-items">
+              <div class="proj-item soon"><span class="proj-em">🏆</span><span class="proj-name">Blue Collar 40 Under 40</span><span>🔜</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /grid -->
+
+    <!-- Value Row -->
+    <div class="value-row">
+
+      <div class="val-card hl">
+        <div class="val-lbl">Total Engineering Value</div>
+        <div class="val-num" id="totalVal">$0</div>
+        <div class="val-desc">Equivalent cost to hire engineers to build all of this — based on junior-to-mid SWE market rates ($43–$55/hr).</div>
+        <div class="val-lines">
+          <div class="val-line"><span>Counter-Intel System (3 agents)</span><span class="amt">$13,500</span></div>
+          <div class="val-line"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
+          <div class="val-line"><span>HCP Maps App</span><span class="amt">$2,700</span></div>
+          <div class="val-line"><span>Sites, Docs &amp; Misc</span><span class="amt">$4,500</span></div>
+        </div>
+      </div>
+
+      <div class="val-card">
+        <div class="val-lbl">Monthly Automation Savings</div>
+        <div class="val-num">$1,530<span style="font-size:1.1rem;color:var(--text-sec);font-weight:500">/mo</span></div>
+        <div class="val-desc">2 autonomous agents eliminating manual competitive research and reporting every single week.</div>
+        <div class="val-lines">
+          <div class="val-line"><span>Weekly Digest (12 hrs/mo saved)</span><span class="amt">$516</span></div>
+          <div class="val-line"><span>Daily Alerts (22 hrs/mo saved)</span><span class="amt">$946</span></div>
+          <div class="val-line"><span style="font-weight:600">Annualized savings</span><span class="amt grn">$18,360/yr</span></div>
+        </div>
+      </div>
+
+      <div class="val-card">
+        <div class="val-lbl">Output vs. Engineering Seniority</div>
+        <div class="seniority">
+          <div class="sen-row">
+            <div class="sen-lbl">Junior SWE</div>
+            <div class="sen-track"><div class="sen-fill" data-w="30" style="background:rgba(99,102,241,0.3)"></div></div>
+            <div class="sen-sal">$80–100K</div>
+          </div>
+          <div class="sen-row">
+            <div class="sen-lbl">Mid SWE</div>
+            <div class="sen-track"><div class="sen-fill" data-w="57" style="background:rgba(99,102,241,0.58)"></div></div>
+            <div class="sen-sal">$115–140K</div>
+          </div>
+          <div class="sen-row">
+            <div class="sen-lbl">Senior SWE</div>
+            <div class="sen-track"><div class="sen-fill" data-w="76" style="background:rgba(99,102,241,0.72)"></div></div>
+            <div class="sen-sal">$155–185K</div>
+          </div>
+          <div class="sen-row">
+            <div class="sen-lbl">Staff SWE</div>
+            <div class="sen-track"><div class="sen-fill" data-w="94" style="background:rgba(99,102,241,0.88)"></div></div>
+            <div class="sen-sal">$200K+</div>
+          </div>
+          <div class="you-marker">
+            <span class="you-arrow">→</span>
+            <div>
+              <div class="you-text">Jackson's Output: Mid SWE</div>
+              <div class="you-sub">End-to-end systems · AI agents · Deployed apps · Docs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Analytics from Claude Code session logs · Last updated March 2, 2026 ·
+      <a href="index.html">← Back to jsher.online</a>
+    </div>
+  </main>
+
+  <script>
+    // Nav date
+    document.getElementById('navDate').textContent = new Date().toLocaleDateString('en-US', {
+      weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
+    });
+
+    // Animated counter
+    function animCount(el, target, prefix, suffix, dur) {
+      dur = dur || 1400;
+      const t0 = Date.now();
+      (function tick() {
+        const p = Math.min(1, (Date.now() - t0) / dur);
+        const e = 1 - Math.pow(1 - p, 3);
+        const v = Math.round(target * e);
+        el.textContent = (prefix || '') + v.toLocaleString() + (suffix || '');
+        if (p < 1) requestAnimationFrame(tick);
+      })();
+    }
+
+    // KPI counters
+    const kpiObs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const el = en.target, t = parseInt(el.dataset.target);
+        if (t) animCount(el, t);
+        kpiObs.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('[data-target]').forEach(el => kpiObs.observe(el));
+
+    // Value KPI
+    const valKpiEl = document.getElementById('valKpi');
+    const vObs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        animCount(valKpiEl, 24300, '$', '', 1600);
+        vObs.unobserve(en.target);
+      });
+    }, { threshold: 0.6 });
+    vObs.observe(valKpiEl);
+
+    // Total value card
+    const tvEl = document.getElementById('totalVal');
+    const tvObs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        animCount(tvEl, 24300, '$', '', 1600);
+        tvObs.unobserve(en.target);
+      });
+    }, { threshold: 0.4 });
+    tvObs.observe(tvEl);
+
+    // Seniority bars
+    const senObs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        document.querySelectorAll('.sen-fill').forEach(b => {
+          setTimeout(() => { b.style.width = b.dataset.w + '%'; }, 200);
+        });
+        senObs.unobserve(en.target);
+      });
+    }, { threshold: 0.4 });
+    const senEl = document.querySelector('.seniority');
+    if (senEl) senObs.observe(senEl);
+
+    // Activity chart
+    const DATA = [
+      { label: 'Jan 8',  msgs: 126,  tools: 36  },
+      { label: 'Feb 11', msgs: 1796, tools: 227 },
+      { label: 'Feb 17', msgs: 1861, tools: 283 },
+      { label: 'Feb 19', msgs: 1207, tools: 278 },
+      { label: 'Feb 23', msgs: 889,  tools: 156 },
+      { label: 'Feb 24', msgs: 41,   tools: 0   },
+      { label: 'Feb 26', msgs: 913,  tools: 160 },
+    ];
+
+    const canvas = document.getElementById('chart');
+    const ctx = canvas.getContext('2d');
+    let animStart = null;
+    const ANIM_DUR = 1100;
+
+    function rRect(c, x, y, w, h) {
+      if (h < 1) return;
+      const r = Math.min(4, w / 2, h);
+      c.beginPath();
+      c.moveTo(x + r, y);
+      c.lineTo(x + w - r, y); c.arcTo(x + w, y, x + w, y + r, r);
+      c.lineTo(x + w, y + h); c.lineTo(x, y + h); c.lineTo(x, y + r);
+      c.arcTo(x, y, x + r, y, r); c.closePath(); c.fill();
+    }
+
+    function drawChart(prog) {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width  = rect.width  * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+
+      const W = rect.width, H = rect.height;
+      const P = { top: 12, right: 14, bottom: 26, left: 44 };
+      const cW = W - P.left - P.right;
+      const cH = H - P.top  - P.bottom;
+      const maxV = Math.max(...DATA.map(d => d.msgs));
+      const grpW = cW / DATA.length;
+      const bW = grpW * 0.3;
+      const gap = grpW * 0.06;
+
+      // Grid
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 4; i++) {
+        const y = P.top + cH - (cH / 4) * i;
+        ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+        ctx.beginPath(); ctx.moveTo(P.left, y); ctx.lineTo(W - P.right, y); ctx.stroke();
+        ctx.fillStyle = 'rgba(255,255,255,0.27)';
+        ctx.font = '10px Inter, sans-serif';
+        ctx.textAlign = 'right';
+        const lv = Math.round((maxV / 4) * i);
+        ctx.fillText(lv >= 1000 ? (lv/1000).toFixed(1)+'k' : lv, P.left - 5, y + 4);
+      }
+
+      // Bars
+      DATA.forEach((d, i) => {
+        const x = P.left + i * grpW + grpW * 0.12;
+
+        const mH = (d.msgs / maxV) * cH * prog;
+        const g1 = ctx.createLinearGradient(x, P.top + cH - mH, x, P.top + cH);
+        g1.addColorStop(0, 'rgba(99,102,241,0.95)'); g1.addColorStop(1, 'rgba(99,102,241,0.3)');
+        ctx.fillStyle = g1;
+        rRect(ctx, x, P.top + cH - mH, bW, mH);
+
+        const tH = (d.tools / maxV) * cH * prog;
+        const tX = x + bW + gap;
+        const g2 = ctx.createLinearGradient(tX, P.top + cH - tH, tX, P.top + cH);
+        g2.addColorStop(0, 'rgba(34,197,94,0.9)'); g2.addColorStop(1, 'rgba(34,197,94,0.25)');
+        ctx.fillStyle = g2;
+        rRect(ctx, tX, P.top + cH - tH, bW, tH);
+
+        ctx.fillStyle = 'rgba(255,255,255,0.27)';
+        ctx.textAlign = 'center';
+        ctx.fillText(d.label, x + bW + gap / 2, P.top + cH + 17);
+      });
+    }
+
+    function animChart(ts) {
+      if (!animStart) animStart = ts;
+      const p = Math.min(1, (ts - animStart) / ANIM_DUR);
+      drawChart(1 - Math.pow(1 - p, 3));
+      if (p < 1) requestAnimationFrame(animChart);
+    }
+
+    const chartObs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        document.fonts.ready.then(() => requestAnimationFrame(animChart));
+        chartObs.unobserve(en.target);
+      });
+    }, { threshold: 0.3 });
+    chartObs.observe(canvas);
+
+    window.addEventListener('resize', () => { animStart = null; requestAnimationFrame(animChart); });
+  </script>
+</body>
+</html>
