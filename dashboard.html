@@ -215,6 +215,27 @@
     .you-text { font-size: 0.77rem; color: var(--accent); font-weight: 600; }
     .you-sub { font-size: 0.69rem; color: rgba(99,102,241,0.55); }
 
+    /* MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px); z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      background: #161618; border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 14px; padding: 26px; width: 340px; max-width: 90vw;
+      transform: scale(0.97) translateY(10px); transition: transform 0.2s;
+    }
+    .modal-overlay.active .modal-box { transform: scale(1) translateY(0); }
+    .modal-head { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
+    .modal-ttl { font-size: 1rem; font-weight: 600; flex: 1; }
+    .modal-badge { font-size: 0.58rem; font-weight: 600; padding: 3px 8px; border-radius: 5px; background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); white-space: nowrap; }
+    .modal-body { font-size: 0.8rem; color: var(--text-sec); line-height: 1.55; margin-bottom: 20px; }
+    .modal-btn { width: 100%; padding: 10px; border-radius: 8px; border: none; font-family: inherit; font-size: 0.84rem; font-weight: 600; cursor: pointer; background: var(--green); color: #000; transition: background 0.2s; }
+    .modal-btn:hover { background: #00ff88; }
+
     /* FOOTER */
     .footer { text-align: center; padding-top: 40px; font-size: 0.72rem; color: var(--text-ter); }
     .footer a { color: var(--accent); text-decoration: none; }
@@ -239,6 +260,19 @@
   </style>
 </head>
 <body>
+  <!-- INFO MODAL -->
+  <div class="modal-overlay" id="infoModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <span style="font-size:1.15rem" id="infoEmoji">🔒</span>
+        <div class="modal-ttl" id="infoTitle"></div>
+        <span class="modal-badge">HCP Internal</span>
+      </div>
+      <div class="modal-body" id="infoDesc"></div>
+      <button class="modal-btn" onclick="closeInfo()">Got it 👊</button>
+    </div>
+  </div>
+
   <div class="bg-glow"></div>
 
   <nav class="nav">
@@ -493,10 +527,10 @@
               <div class="proj-item shipped"><span class="proj-em">🎨</span><span class="proj-name">Sherwin-Williams × HCP Prototype</span><span>✓</span></div>
               <div class="proj-item shipped"><span class="proj-em">🎓</span><span class="proj-name">Trade Academy Platform</span><span>✓</span></div>
               <div class="proj-item shipped"><span class="proj-em">🌐</span><span class="proj-name">jsher.online Portfolio Site</span><span>✓</span></div>
-              <a href="https://atechsoils.us" target="_blank" rel="noopener" class="proj-item shipped" style="text-decoration:none"><span class="proj-em">🌱</span><span class="proj-name">atechsoils.us — Client Site</span><span>✓</span></a>
-              <div class="proj-item shipped"><span class="proj-em">🔍</span><span class="proj-name">Counter-Intel Alert System</span><span>✓</span></div>
-              <div class="proj-item shipped"><span class="proj-em">💬</span><span class="proj-name">Counter-Intel Q&amp;A Bot</span><span>✓</span></div>
-              <div class="proj-item shipped"><span class="proj-em">📊</span><span class="proj-name">Weekly Digest Agent</span><span>✓</span></div>
+              <a href="https://ateksoils.us" target="_blank" rel="noopener" class="proj-item shipped" style="text-decoration:none"><span class="proj-em">🌱</span><span class="proj-name">ateksoils.us — Client Site</span><span>✓</span></a>
+              <div class="proj-item shipped" style="cursor:pointer" onclick="openInfo('alerts')"><span class="proj-em">🔍</span><span class="proj-name">Counter-Intel Alert System</span><span>✓</span></div>
+              <div class="proj-item shipped" style="cursor:pointer" onclick="openInfo('chatbot')"><span class="proj-em">💬</span><span class="proj-name">Counter-Intel Q&amp;A Bot</span><span>✓</span></div>
+              <div class="proj-item shipped" style="cursor:pointer" onclick="openInfo('digest')"><span class="proj-em">📊</span><span class="proj-name">Weekly Digest Agent</span><span>✓</span></div>
             </div>
           </div>
 
@@ -529,19 +563,20 @@
           <div class="val-line"><span>Counter-Intel System (3 agents)</span><span class="amt">$13,500</span></div>
           <div class="val-line"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
           <div class="val-line"><span>HCP Maps App</span><span class="amt">$2,700</span></div>
-          <div class="val-line"><span>atechsoils.us — Client Site</span><span class="amt">$1,800</span></div>
+          <div class="val-line"><span>ateksoils.us — Client Site</span><span class="amt">$1,800</span></div>
           <div class="val-line"><span>Sites, Docs &amp; Misc</span><span class="amt">$4,500</span></div>
         </div>
       </div>
 
       <div class="val-card">
         <div class="val-lbl">Monthly Automation Savings</div>
-        <div class="val-num">$1,530<span style="font-size:1.1rem;color:var(--text-sec);font-weight:500">/mo</span></div>
-        <div class="val-desc">2 autonomous agents eliminating manual competitive research and reporting every single week.</div>
+        <div class="val-num">$2,322<span style="font-size:1.1rem;color:var(--text-sec);font-weight:500">/mo</span></div>
+        <div class="val-desc">3 autonomous agents eliminating manual competitive research, reporting, and on-demand intel every week.</div>
         <div class="val-lines">
           <div class="val-line"><span>Weekly Digest (12 hrs/mo saved)</span><span class="amt">$516</span></div>
           <div class="val-line"><span>Daily Alerts (22 hrs/mo saved)</span><span class="amt">$946</span></div>
-          <div class="val-line"><span style="font-weight:600">Annualized savings</span><span class="amt grn">$18,360/yr</span></div>
+          <div class="val-line"><span>Q&amp;A Bot (20 hrs/mo saved)</span><span class="amt">$860</span></div>
+          <div class="val-line"><span style="font-weight:600">Annualized savings</span><span class="amt grn">$27,864/yr</span></div>
         </div>
       </div>
 
@@ -586,6 +621,34 @@
   </main>
 
   <script>
+    // Info Modal
+    const INFO_DATA = {
+      alerts: {
+        emoji: '🔍',
+        title: 'Counter-Intel Alert System',
+        desc: 'This agent runs daily, quietly monitoring 63 competitor pages across 8 verticals — surfacing meaningful changes through Claude AI analysis and dropping alerts straight into Slack. It\'s an internal Housecall Pro tool. If you\'re on the team, hit up Jackson in Slack and he\'ll walk you through it.'
+      },
+      chatbot: {
+        emoji: '💬',
+        title: 'Counter-Intel Q&A Bot',
+        desc: 'Ask it anything about a competitor — pricing tiers, customer reviews, feature comparisons, recent news — and it pulls live intel in seconds. Built on n8n with Firecrawl + Claude. Lives in a private HCP Slack channel. If you\'re on the team, ask your manager about #counter-intel access.'
+      },
+      digest: {
+        emoji: '📊',
+        title: 'Weekly Digest Agent',
+        desc: 'Every Monday morning this agent drops a curated competitive intelligence brief in Slack — top signals, trending reviews, pricing moves, and product changes across the competitive landscape. HCP internal only. Ask your manager about getting on the #ci-digest list.'
+      }
+    };
+    function openInfo(key) {
+      const d = INFO_DATA[key];
+      document.getElementById('infoEmoji').textContent = d.emoji;
+      document.getElementById('infoTitle').textContent = d.title;
+      document.getElementById('infoDesc').textContent = d.desc;
+      document.getElementById('infoModal').classList.add('active');
+    }
+    function closeInfo() { document.getElementById('infoModal').classList.remove('active'); }
+    document.getElementById('infoModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeInfo(); });
+
     // Nav date
     document.getElementById('navDate').textContent = new Date().toLocaleDateString('en-US', {
       weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'

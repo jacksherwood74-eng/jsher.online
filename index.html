@@ -587,28 +587,28 @@
                 <span class="proj-em">🎓</span>
                 <span class="proj-name">Trade Academy Platform</span>
                 <span class="proj-badge pb-green">live</span>
-              </div>
+              </a>
               <div class="proj-item shipped">
                 <span class="proj-em">🌐</span>
                 <span class="proj-name">jsher.online Portfolio</span>
                 <span class="proj-badge pb-green">you're here</span>
               </div>
-              <a href="https://atechsoils.us" target="_blank" rel="noopener" class="proj-item shipped link">
+              <a href="https://ateksoils.us" target="_blank" rel="noopener" class="proj-item shipped link">
                 <span class="proj-em">🌱</span>
-                <span class="proj-name">atechsoils.us — Client Site</span>
+                <span class="proj-name">ateksoils.us — Client Site</span>
                 <span class="proj-badge pb-green">live</span>
               </a>
-              <div class="proj-item shipped">
+              <div class="proj-item shipped link" onclick="openInfo('alerts')">
                 <span class="proj-em">🔍</span>
                 <span class="proj-name">Counter-Intel Alert System</span>
                 <span class="proj-badge pb-green">live</span>
               </div>
-              <div class="proj-item shipped">
+              <div class="proj-item shipped link" onclick="openInfo('chatbot')">
                 <span class="proj-em">💬</span>
                 <span class="proj-name">Counter-Intel Q&amp;A Bot</span>
                 <span class="proj-badge pb-green">live</span>
               </div>
-              <div class="proj-item shipped">
+              <div class="proj-item shipped link" onclick="openInfo('digest')">
                 <span class="proj-em">📊</span>
                 <span class="proj-name">Weekly Digest Agent</span>
                 <span class="proj-badge pb-green">live</span>
@@ -720,19 +720,20 @@
           <div class="val-row-item"><span>Counter-Intel System (3 agents)</span><span class="amt">$13,500</span></div>
           <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
           <div class="val-row-item"><span>HCP Maps App</span><span class="amt">$2,700</span></div>
-          <div class="val-row-item"><span>atechsoils.us — Client Site</span><span class="amt">$1,800</span></div>
+          <div class="val-row-item"><span>ateksoils.us — Client Site</span><span class="amt">$1,800</span></div>
           <div class="val-row-item"><span>Sites, Docs &amp; Misc</span><span class="amt">$4,500</span></div>
         </div>
       </div>
 
       <div class="val-card">
         <div class="val-label">monthly automation savings</div>
-        <div class="val-num">$1,530<span style="font-size:1rem;color:var(--text-2);font-weight:500">/mo</span></div>
-        <div class="val-desc">2 autonomous agents eliminating manual competitive research and reporting every week.</div>
+        <div class="val-num">$2,322<span style="font-size:1rem;color:var(--text-2);font-weight:500">/mo</span></div>
+        <div class="val-desc">3 autonomous agents eliminating manual competitive research, reporting, and on-demand intel every week.</div>
         <div class="val-lines">
           <div class="val-row-item"><span>Weekly Digest (12 hrs/mo)</span><span class="amt">$516</span></div>
           <div class="val-row-item"><span>Daily Alerts (22 hrs/mo)</span><span class="amt">$946</span></div>
-          <div class="val-row-item"><span style="font-weight:600">Annualized savings</span><span class="amt hi">$18,360/yr</span></div>
+          <div class="val-row-item"><span>Q&amp;A Bot (20 hrs/mo)</span><span class="amt">$860</span></div>
+          <div class="val-row-item"><span style="font-weight:600">Annualized savings</span><span class="amt hi">$27,864/yr</span></div>
         </div>
       </div>
 
@@ -773,6 +774,21 @@
     <div class="footer">
       analytics from claude code session logs &middot; updated mar 4, 2026 &middot;
       <a href="https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-jackson-sherwood-690663214/" target="_blank" rel="noopener">linkedin</a>
+    </div>
+  </div>
+
+  <!-- INFO MODAL -->
+  <div class="modal-overlay" id="infoModal">
+    <div class="modal">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px">
+        <span style="font-size:1.15rem" id="infoEmoji">🔒</span>
+        <div class="modal-title" id="infoTitle" style="margin-bottom:0;flex:1"></div>
+        <span style="font-family:var(--mono);font-size:0.58rem;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);white-space:nowrap">HCP Internal</span>
+      </div>
+      <div class="modal-sub" id="infoDesc" style="line-height:1.55"></div>
+      <div class="modal-btns" style="margin-top:20px">
+        <button class="modal-btn btn-submit" onclick="closeInfo()">Got it 👊</button>
+      </div>
     </div>
   </div>
 
@@ -933,6 +949,34 @@
     }, { threshold: 0.2 });
     cObs.observe(canvas);
     window.addEventListener('resize', () => { animStart = null; requestAnimationFrame(animChart); });
+
+    // Info Modal
+    const INFO_DATA = {
+      alerts: {
+        emoji: '🔍',
+        title: 'Counter-Intel Alert System',
+        desc: 'This agent runs daily, quietly monitoring 63 competitor pages across 8 verticals — surfacing meaningful changes through Claude AI analysis and dropping alerts straight into Slack. It\'s an internal Housecall Pro tool. If you\'re on the team, hit up Jackson in Slack and he\'ll walk you through it.'
+      },
+      chatbot: {
+        emoji: '💬',
+        title: 'Counter-Intel Q&A Bot',
+        desc: 'Ask it anything about a competitor — pricing tiers, customer reviews, feature comparisons, recent news — and it pulls live intel in seconds. Built on n8n with Firecrawl + Claude. Lives in a private HCP Slack channel. If you\'re on the team, ask your manager about #counter-intel access.'
+      },
+      digest: {
+        emoji: '📊',
+        title: 'Weekly Digest Agent',
+        desc: 'Every Monday morning this agent drops a curated competitive intelligence brief in Slack — top signals, trending reviews, pricing moves, and product changes across the competitive landscape. HCP internal only. Ask your manager about getting on the #ci-digest list.'
+      }
+    };
+    function openInfo(key) {
+      const d = INFO_DATA[key];
+      document.getElementById('infoEmoji').textContent = d.emoji;
+      document.getElementById('infoTitle').textContent = d.title;
+      document.getElementById('infoDesc').textContent = d.desc;
+      document.getElementById('infoModal').classList.add('active');
+    }
+    function closeInfo() { document.getElementById('infoModal').classList.remove('active'); }
+    document.getElementById('infoModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeInfo(); });
 
     // Modal
     let pendingUrl = '';
