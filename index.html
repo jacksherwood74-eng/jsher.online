@@ -385,7 +385,7 @@
     <div class="nav-right">
       <div class="nav-status">
         <div class="pulse"></div>
-        2 agents live
+        3 agents live
       </div>
       <span class="nav-date" id="navDate"></span>
     </div>
@@ -406,7 +406,7 @@
       <div class="profile-right">
         <div class="live-badge">
           <div class="pulse"></div>
-          2 Agents Running Live
+          3 Agents Running Live
         </div>
         <a href="https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-jackson-sherwood-690663214/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -418,17 +418,17 @@
     <div class="kpis">
       <div class="kpi">
         <div class="kpi-label">AI Sessions</div>
-        <div class="kpi-val" data-target="11">0</div>
+        <div class="kpi-val" data-target="13">0</div>
         <div class="kpi-sub">since jan 8, 2026</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Messages Logged</div>
-        <div class="kpi-val" data-target="6833">0</div>
+        <div class="kpi-val" data-target="7450">0</div>
         <div class="kpi-sub">human + ai turns</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Tool Executions</div>
-        <div class="kpi-val" data-target="1140">0</div>
+        <div class="kpi-val" data-target="1270">0</div>
         <div class="kpi-sub">code runs · edits · ops</div>
       </div>
       <div class="kpi">
@@ -438,7 +438,7 @@
       </div>
       <div class="kpi">
         <div class="kpi-label">Active Agents</div>
-        <div class="kpi-val" data-target="2">0</div>
+        <div class="kpi-val" data-target="3">0</div>
         <div class="kpi-sub">running in production</div>
       </div>
       <div class="kpi">
@@ -461,7 +461,7 @@
               <div class="card-title">Daily AI Activity</div>
               <div class="card-sub">Messages &amp; tool executions per session — Jan to Mar 2026</div>
             </div>
-            <span class="tag">7 sessions</span>
+            <span class="tag">9 sessions</span>
           </div>
           <canvas id="chart"></canvas>
           <div class="chart-legend">
@@ -475,7 +475,7 @@
           <div class="card-head">
             <div>
               <div class="card-title">Session History</div>
-              <div class="card-sub">What got shipped, fixed, and built — 8 of 11 sessions</div>
+              <div class="card-sub">What got shipped, fixed, and built — 10 of 13 sessions</div>
             </div>
           </div>
           <div class="sessions">
@@ -543,6 +543,22 @@
               </div>
               <div class="sess-right"><span class="sess-date">Feb 26</span><span class="sess-tag st-dim">docs</span></div>
             </div>
+            <div class="sess">
+              <div class="sess-num">09</div>
+              <div class="sess-body">
+                <div class="sess-title">Counter-Intel Q&amp;A Bot — Error Handling + Format</div>
+                <div class="sess-desc">Adaptive response formats (reviews, pricing, comparisons), retry logic on Claude API, rate limit messaging, removed broken @ping on unknown competitors</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Mar 4</span><span class="sess-tag st-green">build</span></div>
+            </div>
+            <div class="sess">
+              <div class="sess-num">10</div>
+              <div class="sess-body">
+                <div class="sess-title">Q&amp;A Bot — Deep Dive + Source Diversity Overhaul</div>
+                <div class="sess-desc">11 node updates: platform-tagged citations (G2/Capterra/Reddit), source diversity rules, deep dive error handling, 50% token reduction, channel/thread passthrough bug fix</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Mar 4</span><span class="sess-tag st-dim">fix</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -560,7 +576,7 @@
           </div>
 
           <div class="proj-section">
-            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">3</span></div>
+            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">7</span></div>
             <div class="proj-list">
               <div class="proj-item shipped link" onclick="openModal('https://demo.housecallpro.com/')">
                 <span class="proj-em">🎨</span>
@@ -571,36 +587,41 @@
                 <span class="proj-em">🎓</span>
                 <span class="proj-name">Trade Academy Platform</span>
                 <span class="proj-badge pb-green">live</span>
-              </a>
+              </div>
               <div class="proj-item shipped">
                 <span class="proj-em">🌐</span>
                 <span class="proj-name">jsher.online Portfolio</span>
                 <span class="proj-badge pb-green">you're here</span>
               </div>
+              <a href="https://atechsoils.us" target="_blank" rel="noopener" class="proj-item shipped link">
+                <span class="proj-em">🌱</span>
+                <span class="proj-name">atechsoils.us — Client Site</span>
+                <span class="proj-badge pb-green">live</span>
+              </a>
+              <div class="proj-item shipped">
+                <span class="proj-em">🔍</span>
+                <span class="proj-name">Counter-Intel Alert System</span>
+                <span class="proj-badge pb-green">live</span>
+              </div>
+              <div class="proj-item shipped">
+                <span class="proj-em">💬</span>
+                <span class="proj-name">Counter-Intel Q&amp;A Bot</span>
+                <span class="proj-badge pb-green">live</span>
+              </div>
+              <div class="proj-item shipped">
+                <span class="proj-em">📊</span>
+                <span class="proj-name">Weekly Digest Agent</span>
+                <span class="proj-badge pb-green">live</span>
+              </div>
             </div>
           </div>
 
           <div class="proj-section">
-            <div class="proj-heading">in progress <span class="ct">5</span></div>
+            <div class="proj-heading">in progress <span class="ct">2</span></div>
             <div class="proj-list">
               <div class="proj-item inprog">
                 <span class="proj-em">🗺️</span>
                 <span class="proj-name">Housecall Pro Maps</span>
-                <span class="proj-badge pb-dim">building</span>
-              </div>
-              <div class="proj-item inprog">
-                <span class="proj-em">🔍</span>
-                <span class="proj-name">Counter-Intel Alert System</span>
-                <span class="proj-badge pb-dim">building</span>
-              </div>
-              <div class="proj-item inprog">
-                <span class="proj-em">💬</span>
-                <span class="proj-name">Counter-Intel Chatbot</span>
-                <span class="proj-badge pb-dim">building</span>
-              </div>
-              <div class="proj-item inprog">
-                <span class="proj-em">📊</span>
-                <span class="proj-name">Weekly Digest Agent</span>
                 <span class="proj-badge pb-dim">building</span>
               </div>
               <div class="proj-item inprog">
@@ -630,7 +651,7 @@
               <div class="card-title">Live Agents</div>
               <div class="card-sub">Autonomous workflows in production</div>
             </div>
-            <span class="tag">2 active</span>
+            <span class="tag">3 active</span>
           </div>
           <div class="agent">
             <div class="agent-head">
@@ -666,6 +687,23 @@
               <span class="p-node">slack</span>
             </div>
           </div>
+          <div class="agent">
+            <div class="agent-head">
+              <div class="agent-dot"></div>
+              <div class="agent-name">Counter-Intel Q&amp;A Bot</div>
+              <div class="agent-badge">active</div>
+            </div>
+            <div class="agent-meta">
+              <span class="agent-stat">trigger <strong>on slack message</strong></span>
+              <span class="agent-stat">nodes <strong>28</strong></span>
+            </div>
+            <div class="pipeline">
+              <span class="p-node">slack</span><span class="p-arr">→</span>
+              <span class="p-node">firecrawl</span><span class="p-arr">→</span>
+              <span class="p-node">claude</span><span class="p-arr">→</span>
+              <span class="p-node">reply</span>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -682,6 +720,7 @@
           <div class="val-row-item"><span>Counter-Intel System (3 agents)</span><span class="amt">$13,500</span></div>
           <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
           <div class="val-row-item"><span>HCP Maps App</span><span class="amt">$2,700</span></div>
+          <div class="val-row-item"><span>atechsoils.us — Client Site</span><span class="amt">$1,800</span></div>
           <div class="val-row-item"><span>Sites, Docs &amp; Misc</span><span class="amt">$4,500</span></div>
         </div>
       </div>
@@ -732,7 +771,7 @@
     </div>
 
     <div class="footer">
-      analytics from claude code session logs &middot; updated mar 2, 2026 &middot;
+      analytics from claude code session logs &middot; updated mar 4, 2026 &middot;
       <a href="https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-jackson-sherwood-690663214/" target="_blank" rel="noopener">linkedin</a>
     </div>
   </div>
@@ -781,13 +820,13 @@
 
     const valKpi = document.getElementById('valKpi');
     const vObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 24300, '$', 1500); vObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 26100, '$', 1500); vObs.unobserve(e.target); });
     }, { threshold: 0.7 });
     vObs.observe(valKpi);
 
     const tvEl = document.getElementById('totalVal');
     const tvObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 24300, '$', 1500); tvObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 26100, '$', 1500); tvObs.unobserve(e.target); });
     }, { threshold: 0.4 });
     tvObs.observe(tvEl);
 
@@ -813,6 +852,7 @@
       { label: 'Feb 23', msgs: 889,  tools: 156 },
       { label: 'Feb 24', msgs: 41,   tools: 0   },
       { label: 'Feb 26', msgs: 913,  tools: 160 },
+      { label: 'Mar 4',  msgs: 617,  tools: 130 },
     ];
 
     const canvas = document.getElementById('chart');
