@@ -418,22 +418,22 @@
     <div class="kpis">
       <div class="kpi">
         <div class="kpi-label">AI Sessions</div>
-        <div class="kpi-val" data-target="13">0</div>
+        <div class="kpi-val" data-target="18">0</div>
         <div class="kpi-sub">since jan 8, 2026</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Messages Logged</div>
-        <div class="kpi-val" data-target="7450">0</div>
+        <div class="kpi-val" data-target="8650">0</div>
         <div class="kpi-sub">human + ai turns</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Tool Executions</div>
-        <div class="kpi-val" data-target="1270">0</div>
+        <div class="kpi-val" data-target="1580">0</div>
         <div class="kpi-sub">code runs · edits · ops</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Lines of Code</div>
-        <div class="kpi-val" data-target="19506">0</div>
+        <div class="kpi-val" data-target="24100">0</div>
         <div class="kpi-sub">across all projects</div>
       </div>
       <div class="kpi">
@@ -724,6 +724,8 @@
         <div class="val-lines">
           <div class="val-row-item"><span>Counter-Intel System (3 agents)</span><span class="amt">$13,500</span></div>
           <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
+          <div class="val-row-item"><span>Desktop Reviews Prototype</span><span class="amt">$4,000</span></div>
+          <div class="val-row-item"><span>HCP Labs Prototype + Research</span><span class="amt">$3,200</span></div>
           <div class="val-row-item"><span>HCP Maps App</span><span class="amt">$2,700</span></div>
           <div class="val-row-item"><span>ateksoils.us — Client Site</span><span class="amt">$1,800</span></div>
           <div class="val-row-item"><span>Sites, Docs &amp; Misc</span><span class="amt">$4,500</span></div>
@@ -792,6 +794,7 @@
       </div>
       <div class="modal-sub" id="infoDesc" style="line-height:1.55"></div>
       <div class="modal-btns" style="margin-top:20px">
+        <a id="infoLinkBtn2" class="modal-btn btn-cancel" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none"></a>
         <a id="infoLinkBtn" class="modal-btn btn-cancel" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none"></a>
         <button class="modal-btn btn-submit" onclick="closeInfo()">Got it 👊</button>
       </div>
@@ -842,13 +845,13 @@
 
     const valKpi = document.getElementById('valKpi');
     const vObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 26100, '$', 1500); vObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 33300, '$', 1500); vObs.unobserve(e.target); });
     }, { threshold: 0.7 });
     vObs.observe(valKpi);
 
     const tvEl = document.getElementById('totalVal');
     const tvObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 26100, '$', 1500); tvObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 33300, '$', 1500); tvObs.unobserve(e.target); });
     }, { threshold: 0.4 });
     tvObs.observe(tvEl);
 
@@ -976,14 +979,18 @@
       referral: {
         emoji: '🚀',
         title: 'Desktop Reviews Prototype',
-        desc: 'Built a complete desktop reviews flow prototype on Lovable — designed, prototyped, and presented to the engineering team as an assisted product spec. Engineering shipped it nearly as-is. The result: 300%+ year-over-year growth in referrals. A real example of AI-assisted prototyping accelerating product development at HCP.'
+        desc: 'Built a complete desktop reviews flow prototype on Lovable — designed, prototyped, and presented to the engineering team as an assisted product spec. Engineering shipped it nearly as-is. The result: 300%+ year-over-year growth in referrals. A real example of AI-assisted prototyping accelerating product development at HCP.',
+        link: 'https://id-preview--870cda69-2ffd-428a-bb4c-1c9d5538a77b.lovable.app/?__lovable_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUjZUVGlwa0tZZFlOb0h0cHY0ZkJ5MWhJRTRDMiIsInByb2plY3RfaWQiOiI4NzBjZGE2OS0yZmZkLTQyOGEtYmI0Yy0xYzlkNTUzOGE3N2IiLCJhY2Nlc3NfdHlwZSI6InByb2plY3QiLCJpc3MiOiJsb3ZhYmxlLWFwaSIsInN1YiI6Ijg3MGNkYTY5LTJmZmQtNDI4YS1iYjRjLTFjOWQ1NTM4YTc3YiIsImF1ZCI6WyJsb3ZhYmxlLWFwcCJdLCJleHAiOjE3NzMzMzA2ODgsIm5iZiI6MTc3MjcyNTg4OCwiaWF0IjoxNzcyNzI1ODg4fQ.VIyVTC9tGlDXT_QlB62iKt6iwUyeUlEUyeRZ7A815lAPqxiBYPc0XLyxzCBObJ6sUouvv_5V8MIFwmbqQ_FRmquwHKerww2CxDVaEl6JjkYhRzkbkchxNBm-XiYKUXq36rCHwNBJdDI4rF8r79kgQlrFSz4JVkVTlyl_NcA4EN9XWiHA-kkTRn8-SMFSgeFuVJtTQ25Rgtt0npokY63tAm5L5YEB7sMd5Or4hX0mYeoc7RLRHgGk2p8TOvjgb2SKTkaiko_7ZvjHAFYbP0-Y8qnQ99fGMemi7fIoGWdJ-l44WmEOYLkog7eTOJbwmaRSp_99okoCBRdVvgKInHRlfjYG7s1mRU1KClfxMByKcxzXo5VyIU9ImVhpZL8lkotcn4OAukebVWbki3KH0OWA5khUpNZ8Jwg6TZIY3swlKqFF_Rxn_cJP0hb66Kx93FjCALC4keLEkOUQrJJl1udw4mCm64Ybr7caAUw8Cz09Mhq1U9o0S5eIIm3nDlm599A7fx5qjLWsmwbPpg-_wUrXwjTgNHPV_xGvLkS6HDALMEdBrIrqqRn37rhD8mnjZu0aUSnKyMfO550CraxCb8WdRRxGJHuuOSUhXN_mQZFqVDPAi588vsFOqzasamZW2DT_eC5DkS7c8fVnBqyaaUINv7uTqBss72QvE1NVb0IVbnI',
+        linkText: 'View Prototype →'
       },
       labs: {
         emoji: '🧪',
         title: 'Housecall Pro Labs Prototype',
         desc: 'Designed a concept AI Labs experience for Housecall Pro, inspired by NVIDIA, AMD, Microsoft, and Google Labs. Built the interactive prototype on Lovable to spark conversation about HCP\'s AI brand and capabilities internally. Paired with a deep-dive research document synthesizing AI lab positioning strategies, pulling from dozens of research papers and product frameworks — all created with AI assistance.',
-        link: 'https://docs.google.com/document/d/1bhgRzVTOHaaXEc_0p_iRoPacpyf18KTWWu9b1SBX5OI/edit?usp=sharing',
-        linkText: 'View Research Doc →'
+        link: 'https://id-preview--e6f6c0c9-0f81-45d1-8a54-00801ed68c47.lovable.app/?__lovable_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUjZUVGlwa0tZZFlOb0h0cHY0ZkJ5MWhJRTRDMiIsInByb2plY3RfaWQiOiJlNmY2YzBjOS0wZjgxLTQ1ZDEtOGE1NC0wMDgwMWVkNjhjNDciLCJhY2Nlc3NfdHlwZSI6InByb2plY3QiLCJpc3MiOiJsb3ZhYmxlLWFwaSIsInN1YiI6ImU2ZjZjMGM5LTBmODEtNDVkMS04YTU0LTAwODAxZWQ2OGM0NyIsImF1ZCI6WyJsb3ZhYmxlLWFwcCJdLCJleHAiOjE3NzMzMzA3MDMsIm5iZiI6MTc3MjcyNTkwMywiaWF0IjoxNzcyNzI1OTAzfQ.inQf9HxoGIbAkWkz49LIpdUBMTxA20qY82tA1M1Vitx8eqlTXXYogL0XskhX_CubCtv_YtqFq7julFq-I_m-vBrj3oodQ_jDp6CTytMFGr1sc8G6SaYUKyQG_Y7iLGeaIrptNMSmz_YrQrEN5b4Ft2K4Ai1nE7qiKHtSQpaIH46TFO_I7goJzVYWCxNMVU_9DFe_OUu6PQOlg5oyJMHfI-ebjNT3NQ36oCtEH1dcrhZpP3rkkXA6_9VYTkqTxZ0tn8F6MXRwB77hnw4f8p4hRyHMr4yVTA0hPkGclbUWihvaLqVL2V8wq7pjRwZbZDLV0Ny1yVsKXU_ot63BQ-l6eLEynCDmjUnsa9xyMP6YNITJxtt4jD1ddrMqEzMUhZ3aY9sAut-ZUMPysSvGVs7c9s019MGg_pAsOvndFo0iz2Xl_1JLWaHvKe0dZG-VuN6oNLDt49-tMylWP95VStTrZkpPc5OL8ZFJ-NFAgkDIPu6909ZGewbRObtnS4RD5MJJES40l35bJ2IBztwkRV1tMpjbbeBYOlFu7rDIxT_8Ipcqcllr3cNrADkK6WbuztRrOA-6iyolWQdaRB9luEtFwQSaZYiC8wflxw9v53ea6PD4v1_PI8K-jrHk8K8Uds8yRiVIDyzzFhW-rTCYT-sqy2reDRUcsOhN5uCb4cAbEak',
+        linkText: 'View Prototype →',
+        link2: 'https://docs.google.com/document/d/1bhgRzVTOHaaXEc_0p_iRoPacpyf18KTWWu9b1SBX5OI/edit?usp=sharing',
+        link2Text: 'View Research Doc →'
       }
     };
     function openInfo(key) {
@@ -998,6 +1005,14 @@
         linkBtn.style.display = 'inline-block';
       } else {
         linkBtn.style.display = 'none';
+      }
+      const linkBtn2 = document.getElementById('infoLinkBtn2');
+      if (d.link2) {
+        linkBtn2.href = d.link2;
+        linkBtn2.textContent = d.link2Text || 'View →';
+        linkBtn2.style.display = 'inline-block';
+      } else {
+        linkBtn2.style.display = 'none';
       }
       document.getElementById('infoModal').classList.add('active');
     }
