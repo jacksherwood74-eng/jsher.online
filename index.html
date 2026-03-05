@@ -576,7 +576,7 @@
           </div>
 
           <div class="proj-section">
-            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">7</span></div>
+            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">9</span></div>
             <div class="proj-list">
               <div class="proj-item shipped link" onclick="openModal('https://demo.housecallpro.com/')">
                 <span class="proj-em">🎨</span>
@@ -613,20 +613,25 @@
                 <span class="proj-name">Weekly Digest Agent</span>
                 <span class="proj-badge pb-green">live</span>
               </div>
+              <div class="proj-item shipped link" onclick="openInfo('referral')">
+                <span class="proj-em">🚀</span>
+                <span class="proj-name">Desktop Reviews Prototype</span>
+                <span class="proj-badge pb-green">shipped</span>
+              </div>
+              <div class="proj-item shipped link" onclick="openInfo('labs')">
+                <span class="proj-em">🧪</span>
+                <span class="proj-name">Housecall Pro Labs Prototype</span>
+                <span class="proj-badge pb-green">shipped</span>
+              </div>
             </div>
           </div>
 
           <div class="proj-section">
-            <div class="proj-heading">in progress <span class="ct">2</span></div>
+            <div class="proj-heading">in progress <span class="ct">1</span></div>
             <div class="proj-list">
               <div class="proj-item inprog">
                 <span class="proj-em">🗺️</span>
                 <span class="proj-name">Housecall Pro Maps</span>
-                <span class="proj-badge pb-dim">building</span>
-              </div>
-              <div class="proj-item inprog">
-                <span class="proj-em">🧪</span>
-                <span class="proj-name">HCP Labs</span>
                 <span class="proj-badge pb-dim">building</span>
               </div>
             </div>
@@ -787,6 +792,7 @@
       </div>
       <div class="modal-sub" id="infoDesc" style="line-height:1.55"></div>
       <div class="modal-btns" style="margin-top:20px">
+        <a id="infoLinkBtn" class="modal-btn btn-cancel" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none"></a>
         <button class="modal-btn btn-submit" onclick="closeInfo()">Got it 👊</button>
       </div>
     </div>
@@ -966,6 +972,18 @@
         emoji: '📊',
         title: 'Weekly Digest Agent',
         desc: 'Every Monday morning this agent drops a curated competitive intelligence brief in Slack — top signals, trending reviews, pricing moves, and product changes across the competitive landscape. HCP internal only. Ask your manager about getting on the #ci-digest list.'
+      },
+      referral: {
+        emoji: '🚀',
+        title: 'Desktop Reviews Prototype',
+        desc: 'Built a complete desktop reviews flow prototype on Lovable — designed, prototyped, and presented to the engineering team as an assisted product spec. Engineering shipped it nearly as-is. The result: 300%+ year-over-year growth in referrals. A real example of AI-assisted prototyping accelerating product development at HCP.'
+      },
+      labs: {
+        emoji: '🧪',
+        title: 'Housecall Pro Labs Prototype',
+        desc: 'Designed a concept AI Labs experience for Housecall Pro, inspired by NVIDIA, AMD, Microsoft, and Google Labs. Built the interactive prototype on Lovable to spark conversation about HCP\'s AI brand and capabilities internally. Paired with a deep-dive research document synthesizing AI lab positioning strategies, pulling from dozens of research papers and product frameworks — all created with AI assistance.',
+        link: 'https://docs.google.com/document/d/1bhgRzVTOHaaXEc_0p_iRoPacpyf18KTWWu9b1SBX5OI/edit?usp=sharing',
+        linkText: 'View Research Doc →'
       }
     };
     function openInfo(key) {
@@ -973,6 +991,14 @@
       document.getElementById('infoEmoji').textContent = d.emoji;
       document.getElementById('infoTitle').textContent = d.title;
       document.getElementById('infoDesc').textContent = d.desc;
+      const linkBtn = document.getElementById('infoLinkBtn');
+      if (d.link) {
+        linkBtn.href = d.link;
+        linkBtn.textContent = d.linkText || 'View →';
+        linkBtn.style.display = 'inline-block';
+      } else {
+        linkBtn.style.display = 'none';
+      }
       document.getElementById('infoModal').classList.add('active');
     }
     function closeInfo() { document.getElementById('infoModal').classList.remove('active'); }
