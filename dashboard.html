@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -307,17 +308,17 @@
     <div class="kpis">
       <div class="kpi a">
         <div class="kpi-lbl">AI Sessions</div>
-        <div class="kpi-val" data-target="13">0</div>
+        <div class="kpi-val" data-target="14">0</div>
         <div class="kpi-sub">Since Jan 8, 2026</div>
       </div>
       <div class="kpi g">
         <div class="kpi-lbl">Messages Logged</div>
-        <div class="kpi-val" data-target="7450">0</div>
+        <div class="kpi-val" data-target="7630">0</div>
         <div class="kpi-sub">Human + AI turns</div>
       </div>
       <div class="kpi y">
         <div class="kpi-lbl">Tool Executions</div>
-        <div class="kpi-val" data-target="1270">0</div>
+        <div class="kpi-val" data-target="1305">0</div>
         <div class="kpi-sub">Code runs, edits, file ops</div>
       </div>
       <div class="kpi p">
@@ -441,6 +442,14 @@
               </div>
               <div class="sess-right"><span class="sess-date">Mar 4</span><span class="tag t-fix">Fix</span></div>
             </div>
+            <div class="sess">
+              <div class="sess-ico" style="background:rgba(168,85,247,0.1)">✨</div>
+              <div class="sess-body">
+                <div class="sess-title">jsher.online — Pre-Ship Polish</div>
+                <div class="sess-desc">Favicon with green ring, OG preview tags, Dad's Site project + value update, analytics refresh — pre-ship clean up before manager review</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Mar 9</span><span class="tag t-design">Design</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -527,7 +536,7 @@
               <div class="proj-item shipped"><span class="proj-em">🎨</span><span class="proj-name">Sherwin-Williams × HCP Prototype</span><span>✓</span></div>
               <div class="proj-item shipped"><span class="proj-em">🎓</span><span class="proj-name">Trade Academy Platform</span><span>✓</span></div>
               <div class="proj-item shipped"><span class="proj-em">🌐</span><span class="proj-name">jsher.online Portfolio Site</span><span>✓</span></div>
-              <a href="https://ateksoils.us" target="_blank" rel="noopener" class="proj-item shipped" style="text-decoration:none"><span class="proj-em">🌱</span><span class="proj-name">ateksoils.us — Client Site</span><span>✓</span></a>
+              <a href="https://ateksoils.us" target="_blank" rel="noopener" class="proj-item shipped" style="text-decoration:none"><span class="proj-em">🌱</span><span class="proj-name">ateksoils.us — Dad's Site</span><span>✓</span></a>
               <div class="proj-item shipped" style="cursor:pointer" onclick="openInfo('alerts')"><span class="proj-em">🔍</span><span class="proj-name">Counter-Intel Alert System</span><span>✓</span></div>
               <div class="proj-item shipped" style="cursor:pointer" onclick="openInfo('chatbot')"><span class="proj-em">💬</span><span class="proj-name">Counter-Intel Q&amp;A Bot</span><span>✓</span></div>
               <div class="proj-item shipped" style="cursor:pointer" onclick="openInfo('digest')"><span class="proj-em">📊</span><span class="proj-name">Weekly Digest Agent</span><span>✓</span></div>
@@ -563,7 +572,7 @@
           <div class="val-line"><span>Counter-Intel System (3 agents)</span><span class="amt">$13,500</span></div>
           <div class="val-line"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
           <div class="val-line"><span>HCP Maps App</span><span class="amt">$2,700</span></div>
-          <div class="val-line"><span>ateksoils.us — Client Site</span><span class="amt">$1,800</span></div>
+          <div class="val-line"><span>Dad's Site</span><span class="amt">$0</span></div>
           <div class="val-line"><span>Sites, Docs &amp; Misc</span><span class="amt">$4,500</span></div>
         </div>
       </div>
@@ -615,7 +624,7 @@
     </div>
 
     <div class="footer">
-      Analytics from Claude Code session logs · Last updated March 4, 2026 ·
+      Analytics from Claude Code session logs · Last updated March 9, 2026 ·
       <a href="index.html">← Back to jsher.online</a>
     </div>
   </main>
@@ -683,7 +692,7 @@
     const vObs = new IntersectionObserver(entries => {
       entries.forEach(en => {
         if (!en.isIntersecting) return;
-        animCount(valKpiEl, 26100, '$', '', 1600);
+        animCount(valKpiEl, 24300, '$', '', 1600);
         vObs.unobserve(en.target);
       });
     }, { threshold: 0.6 });
@@ -694,7 +703,7 @@
     const tvObs = new IntersectionObserver(entries => {
       entries.forEach(en => {
         if (!en.isIntersecting) return;
-        animCount(tvEl, 26100, '$', '', 1600);
+        animCount(tvEl, 24300, '$', '', 1600);
         tvObs.unobserve(en.target);
       });
     }, { threshold: 0.4 });
@@ -723,6 +732,7 @@
       { label: 'Feb 24', msgs: 41,   tools: 0   },
       { label: 'Feb 26', msgs: 913,  tools: 160 },
       { label: 'Mar 4',  msgs: 617,  tools: 130 },
+      { label: 'Mar 9',  msgs: 180,  tools: 35  },
     ];
 
     const canvas = document.getElementById('chart');

@@ -12,6 +12,11 @@
   <meta property="og:description" content="AI Platform Specialist at Housecall Pro">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jsher.online">
+  <meta property="og:image" content="https://jsher.online/assets/headshot.jpg">
+  <meta property="og:image:alt" content="Jackson Sherwood">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://jsher.online/assets/headshot.jpg">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -418,17 +423,17 @@
     <div class="kpis">
       <div class="kpi">
         <div class="kpi-label">AI Sessions</div>
-        <div class="kpi-val" data-target="18">0</div>
+        <div class="kpi-val" data-target="19">0</div>
         <div class="kpi-sub">since jan 8, 2026</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Messages Logged</div>
-        <div class="kpi-val" data-target="8650">0</div>
+        <div class="kpi-val" data-target="8830">0</div>
         <div class="kpi-sub">human + ai turns</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Tool Executions</div>
-        <div class="kpi-val" data-target="1580">0</div>
+        <div class="kpi-val" data-target="1615">0</div>
         <div class="kpi-sub">code runs · edits · ops</div>
       </div>
       <div class="kpi">
@@ -461,7 +466,7 @@
               <div class="card-title">Daily AI Activity</div>
               <div class="card-sub">Messages &amp; tool executions per session — Jan to Mar 2026</div>
             </div>
-            <span class="tag">9 sessions</span>
+            <span class="tag">10 sessions</span>
           </div>
           <canvas id="chart"></canvas>
           <div class="chart-legend">
@@ -475,7 +480,7 @@
           <div class="card-head">
             <div>
               <div class="card-title">Session History</div>
-              <div class="card-sub">What got shipped, fixed, and built — 10 of 13 sessions</div>
+              <div class="card-sub">What got shipped, fixed, and built — 11 of 14 sessions</div>
             </div>
           </div>
           <div class="sessions">
@@ -559,6 +564,14 @@
               </div>
               <div class="sess-right"><span class="sess-date">Mar 4</span><span class="sess-tag st-dim">fix</span></div>
             </div>
+            <div class="sess">
+              <div class="sess-num">11</div>
+              <div class="sess-body">
+                <div class="sess-title">jsher.online — Pre-Ship Polish</div>
+                <div class="sess-desc">Favicon with green ring, OG preview tags, Dad's Site project + value update, analytics refresh — pre-ship clean up before manager review</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Mar 9</span><span class="sess-tag st-green">design</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -595,8 +608,8 @@
               </div>
               <a href="https://ateksoils.us" target="_blank" rel="noopener" class="proj-item shipped link">
                 <span class="proj-em">🌱</span>
-                <span class="proj-name">ateksoils.us — Client Site</span>
-                <span class="proj-badge pb-green">live</span>
+                <span class="proj-name">ateksoils.us — Dad's Site</span>
+                <span class="proj-badge pb-green">personal · live</span>
               </a>
               <div class="proj-item shipped link" onclick="openInfo('alerts')">
                 <span class="proj-em">🔍</span>
@@ -727,7 +740,7 @@
           <div class="val-row-item"><span>Desktop Reviews Prototype</span><span class="amt">$4,000</span></div>
           <div class="val-row-item"><span>HCP Labs Prototype + Research</span><span class="amt">$3,200</span></div>
           <div class="val-row-item"><span>HCP Maps App</span><span class="amt">$2,700</span></div>
-          <div class="val-row-item"><span>ateksoils.us — Client Site</span><span class="amt">$1,800</span></div>
+          <div class="val-row-item"><span>Dad's Site</span><span class="amt">$0</span></div>
           <div class="val-row-item"><span>Sites, Docs &amp; Misc</span><span class="amt">$4,500</span></div>
         </div>
       </div>
@@ -845,13 +858,13 @@
 
     const valKpi = document.getElementById('valKpi');
     const vObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 33300, '$', 1500); vObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 31500, '$', 1500); vObs.unobserve(e.target); });
     }, { threshold: 0.7 });
     vObs.observe(valKpi);
 
     const tvEl = document.getElementById('totalVal');
     const tvObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 33300, '$', 1500); tvObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 31500, '$', 1500); tvObs.unobserve(e.target); });
     }, { threshold: 0.4 });
     tvObs.observe(tvEl);
 
@@ -878,6 +891,7 @@
       { label: 'Feb 24', msgs: 41,   tools: 0   },
       { label: 'Feb 26', msgs: 913,  tools: 160 },
       { label: 'Mar 4',  msgs: 617,  tools: 130 },
+      { label: 'Mar 9',  msgs: 180,  tools: 35  },
     ];
 
     const canvas = document.getElementById('chart');
