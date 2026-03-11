@@ -308,17 +308,17 @@
     <div class="kpis">
       <div class="kpi a">
         <div class="kpi-lbl">AI Sessions</div>
-        <div class="kpi-val" data-target="14">0</div>
+        <div class="kpi-val" data-target="15">0</div>
         <div class="kpi-sub">Since Jan 8, 2026</div>
       </div>
       <div class="kpi g">
         <div class="kpi-lbl">Messages Logged</div>
-        <div class="kpi-val" data-target="7630">0</div>
+        <div class="kpi-val" data-target="8030">0</div>
         <div class="kpi-sub">Human + AI turns</div>
       </div>
       <div class="kpi y">
         <div class="kpi-lbl">Tool Executions</div>
-        <div class="kpi-val" data-target="1305">0</div>
+        <div class="kpi-val" data-target="1380">0</div>
         <div class="kpi-sub">Code runs, edits, file ops</div>
       </div>
       <div class="kpi p">
@@ -450,6 +450,14 @@
               </div>
               <div class="sess-right"><span class="sess-date">Mar 9</span><span class="tag t-design">Design</span></div>
             </div>
+            <div class="sess">
+              <div class="sess-ico" style="background:rgba(34,197,94,0.1)">🚀</div>
+              <div class="sess-body">
+                <div class="sess-title">jsher.online — Ship Day Edits</div>
+                <div class="sess-desc">Project board reorder, HCP Maps → deploying, prototype links fixed, value recalculation, analytics refresh — ready for manager review</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Mar 11</span><span class="tag t-deploy">Deploy</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -569,11 +577,11 @@
         <div class="val-num" id="totalVal">$0</div>
         <div class="val-desc">Equivalent cost to hire engineers to build all of this — based on junior-to-mid SWE market rates ($43–$55/hr).</div>
         <div class="val-lines">
-          <div class="val-line"><span>Counter-Intel System (3 agents)</span><span class="amt">$13,500</span></div>
+          <div class="val-line"><span>Counter-Intel System (3 agents)</span><span class="amt">$16,500</span></div>
           <div class="val-line"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
-          <div class="val-line"><span>HCP Maps App</span><span class="amt">$2,700</span></div>
+          <div class="val-line"><span>HCP Maps App</span><span class="amt">$4,000</span></div>
           <div class="val-line"><span>Dad's Site</span><span class="amt">$0</span></div>
-          <div class="val-line"><span>Sites, Docs &amp; Misc</span><span class="amt">$4,500</span></div>
+          <div class="val-line"><span>Sites, Docs &amp; Misc</span><span class="amt">$5,000</span></div>
         </div>
       </div>
 
@@ -624,7 +632,7 @@
     </div>
 
     <div class="footer">
-      Analytics from Claude Code session logs · Last updated March 9, 2026 ·
+      Analytics from Claude Code session logs · Last updated March 11, 2026 ·
       <a href="index.html">← Back to jsher.online</a>
     </div>
   </main>
@@ -692,7 +700,7 @@
     const vObs = new IntersectionObserver(entries => {
       entries.forEach(en => {
         if (!en.isIntersecting) return;
-        animCount(valKpiEl, 24300, '$', '', 1600);
+        animCount(valKpiEl, 29100, '$', '', 1600);
         vObs.unobserve(en.target);
       });
     }, { threshold: 0.6 });
@@ -703,7 +711,7 @@
     const tvObs = new IntersectionObserver(entries => {
       entries.forEach(en => {
         if (!en.isIntersecting) return;
-        animCount(tvEl, 24300, '$', '', 1600);
+        animCount(tvEl, 29100, '$', '', 1600);
         tvObs.unobserve(en.target);
       });
     }, { threshold: 0.4 });
@@ -733,6 +741,7 @@
       { label: 'Feb 26', msgs: 913,  tools: 160 },
       { label: 'Mar 4',  msgs: 617,  tools: 130 },
       { label: 'Mar 9',  msgs: 180,  tools: 35  },
+      { label: 'Mar 11', msgs: 400,  tools: 75  },
     ];
 
     const canvas = document.getElementById('chart');

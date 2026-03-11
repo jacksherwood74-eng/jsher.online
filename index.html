@@ -33,6 +33,9 @@
       --green-dim:   rgba(0,232,122,0.10);
       --green-border:rgba(0,232,122,0.22);
       --green-glow:  rgba(0,232,122,0.06);
+      --yellow:      #fbbf24;
+      --yellow-dim:  rgba(251,191,36,0.12);
+      --yellow-border:rgba(251,191,36,0.28);
       --mono: 'JetBrains Mono', 'SF Mono', monospace;
     }
 
@@ -242,7 +245,8 @@
       padding: 2px 6px; border-radius: 4px; flex-shrink: 0;
     }
     .pb-green { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
-    .pb-dim   { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
+    .pb-dim    { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
+    .pb-yellow { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow-border); }
 
     /* ── AGENTS ──────────────────────────── */
     .agent {
@@ -423,22 +427,22 @@
     <div class="kpis">
       <div class="kpi">
         <div class="kpi-label">AI Sessions</div>
-        <div class="kpi-val" data-target="19">0</div>
+        <div class="kpi-val" data-target="20">0</div>
         <div class="kpi-sub">since jan 8, 2026</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Messages Logged</div>
-        <div class="kpi-val" data-target="8830">0</div>
+        <div class="kpi-val" data-target="9230">0</div>
         <div class="kpi-sub">human + ai turns</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Tool Executions</div>
-        <div class="kpi-val" data-target="1615">0</div>
+        <div class="kpi-val" data-target="1690">0</div>
         <div class="kpi-sub">code runs · edits · ops</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Lines of Code</div>
-        <div class="kpi-val" data-target="24100">0</div>
+        <div class="kpi-val" data-target="24350">0</div>
         <div class="kpi-sub">across all projects</div>
       </div>
       <div class="kpi">
@@ -466,7 +470,7 @@
               <div class="card-title">Daily AI Activity</div>
               <div class="card-sub">Messages &amp; tool executions per session — Jan to Mar 2026</div>
             </div>
-            <span class="tag">10 sessions</span>
+            <span class="tag">11 sessions</span>
           </div>
           <canvas id="chart"></canvas>
           <div class="chart-legend">
@@ -480,7 +484,7 @@
           <div class="card-head">
             <div>
               <div class="card-title">Session History</div>
-              <div class="card-sub">What got shipped, fixed, and built — 11 of 14 sessions</div>
+              <div class="card-sub">What got shipped, fixed, and built — 12 of 15 sessions</div>
             </div>
           </div>
           <div class="sessions">
@@ -572,6 +576,14 @@
               </div>
               <div class="sess-right"><span class="sess-date">Mar 9</span><span class="sess-tag st-green">design</span></div>
             </div>
+            <div class="sess">
+              <div class="sess-num">12</div>
+              <div class="sess-body">
+                <div class="sess-title">jsher.online — Ship Day Edits</div>
+                <div class="sess-desc">Project board reorder, HCP Maps → deploying (yellow), prototype links fixed, value recalculation, analytics refresh — ready for manager review</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Mar 11</span><span class="sess-tag st-green">deploy</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -640,12 +652,12 @@
           </div>
 
           <div class="proj-section">
-            <div class="proj-heading">in progress <span class="ct">1</span></div>
+            <div class="proj-heading" style="color:var(--yellow)">deploying <span class="ct">1</span></div>
             <div class="proj-list">
               <div class="proj-item inprog">
                 <span class="proj-em">🗺️</span>
                 <span class="proj-name">Housecall Pro Maps</span>
-                <span class="proj-badge pb-dim">building</span>
+                <span class="proj-badge pb-yellow">deploying</span>
               </div>
             </div>
           </div>
@@ -735,13 +747,13 @@
         <div class="val-num" id="totalVal">$0</div>
         <div class="val-desc">Equivalent cost to hire engineers to build all of this. Based on junior-to-mid SWE market rates ($43–$55/hr).</div>
         <div class="val-lines">
-          <div class="val-row-item"><span>Counter-Intel System (3 agents)</span><span class="amt">$13,500</span></div>
+          <div class="val-row-item"><span>Counter-Intel System (3 agents)</span><span class="amt">$16,500</span></div>
           <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
-          <div class="val-row-item"><span>Desktop Reviews Prototype</span><span class="amt">$4,000</span></div>
-          <div class="val-row-item"><span>HCP Labs Prototype + Research</span><span class="amt">$3,200</span></div>
-          <div class="val-row-item"><span>HCP Maps App</span><span class="amt">$2,700</span></div>
+          <div class="val-row-item"><span>Desktop Reviews Prototype</span><span class="amt">$5,500</span></div>
+          <div class="val-row-item"><span>HCP Labs Prototype + Research</span><span class="amt">$4,000</span></div>
+          <div class="val-row-item"><span>HCP Maps App</span><span class="amt">$4,000</span></div>
           <div class="val-row-item"><span>Dad's Site</span><span class="amt">$0</span></div>
-          <div class="val-row-item"><span>Sites, Docs &amp; Misc</span><span class="amt">$4,500</span></div>
+          <div class="val-row-item"><span>Sites, Docs &amp; Misc</span><span class="amt">$5,000</span></div>
         </div>
       </div>
 
@@ -767,7 +779,7 @@
           </div>
           <div class="sen-row">
             <div class="sen-lbl">mid</div>
-            <div class="sen-track"><div class="sen-fill" data-w="55" style="opacity:0.6"></div></div>
+            <div class="sen-track"><div class="sen-fill" data-w="65" style="opacity:0.7"></div></div>
             <div class="sen-sal">$115–140K</div>
           </div>
           <div class="sen-row">
@@ -858,13 +870,13 @@
 
     const valKpi = document.getElementById('valKpi');
     const vObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 31500, '$', 1500); vObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 38600, '$', 1500); vObs.unobserve(e.target); });
     }, { threshold: 0.7 });
     vObs.observe(valKpi);
 
     const tvEl = document.getElementById('totalVal');
     const tvObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 31500, '$', 1500); tvObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 38600, '$', 1500); tvObs.unobserve(e.target); });
     }, { threshold: 0.4 });
     tvObs.observe(tvEl);
 
@@ -892,6 +904,7 @@
       { label: 'Feb 26', msgs: 913,  tools: 160 },
       { label: 'Mar 4',  msgs: 617,  tools: 130 },
       { label: 'Mar 9',  msgs: 180,  tools: 35  },
+      { label: 'Mar 11', msgs: 400,  tools: 75  },
     ];
 
     const canvas = document.getElementById('chart');
