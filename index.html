@@ -36,6 +36,9 @@
       --yellow:      #fbbf24;
       --yellow-dim:  rgba(251,191,36,0.12);
       --yellow-border:rgba(251,191,36,0.28);
+      --blue:        #0693E3;
+      --blue-dim:    rgba(6,147,227,0.12);
+      --blue-border: rgba(6,147,227,0.28);
       --mono: 'JetBrains Mono', 'SF Mono', monospace;
     }
 
@@ -247,6 +250,7 @@
     .pb-green { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
     .pb-dim    { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
     .pb-yellow { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow-border); }
+    .pb-blue   { background: var(--blue-dim);   color: var(--blue);   border: 1px solid var(--blue-border); }
 
     /* ── AGENTS ──────────────────────────── */
     .agent {
@@ -663,12 +667,17 @@
           </div>
 
           <div class="proj-section">
-            <div class="proj-heading">coming soon <span class="ct">1</span></div>
+            <div class="proj-heading">building <span class="ct">2</span></div>
             <div class="proj-list">
               <div class="proj-item soon">
                 <span class="proj-em">🏆</span>
                 <span class="proj-name">Blue Collar 40 Under 40</span>
-                <span class="proj-badge pb-dim">soon</span>
+                <span class="proj-badge pb-blue">building</span>
+              </div>
+              <div class="proj-item soon">
+                <span class="proj-em">📋</span>
+                <span class="proj-name">Interactive Leave Behind</span>
+                <span class="proj-badge pb-blue">building</span>
               </div>
             </div>
           </div>
@@ -1054,7 +1063,7 @@
     let pendingUrl = '';
     function openModal(url) { pendingUrl = url; document.getElementById('modal').classList.add('active'); document.getElementById('pwInput').value = ''; document.getElementById('pwErr').classList.remove('show'); setTimeout(() => document.getElementById('pwInput').focus(), 100); }
     function closeModal() { document.getElementById('modal').classList.remove('active'); pendingUrl = ''; }
-    function submitPw() { const v = document.getElementById('pwInput').value; if (v === 'jackson') { closeModal(); window.open(pendingUrl, '_blank'); } else { document.getElementById('pwErr').classList.add('show'); document.getElementById('pwInput').value = ''; document.getElementById('pwInput').focus(); } }
+    function submitPw() { const v = document.getElementById('pwInput').value; if (v === 'jackson') { window.open(pendingUrl, '_blank'); closeModal(); } else { document.getElementById('pwErr').classList.add('show'); document.getElementById('pwInput').value = ''; document.getElementById('pwInput').focus(); } }
     document.getElementById('pwInput').addEventListener('keydown', e => { if (e.key === 'Enter') submitPw(); if (e.key === 'Escape') closeModal(); });
     document.getElementById('modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
   </script>
