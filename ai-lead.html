@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Programs Lead, Marketing — Jackson Sherwood</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:           #0c0c0d;
+      --surface:      rgba(255,255,255,0.03);
+      --surface-2:    rgba(255,255,255,0.055);
+      --border:       rgba(255,255,255,0.07);
+      --border-2:     rgba(255,255,255,0.13);
+      --text:         #e4e4e4;
+      --text-2:       #606060;
+      --text-3:       #2e2e2e;
+      --green:        #00e87a;
+      --green-dim:    rgba(0,232,122,0.10);
+      --green-border: rgba(0,232,122,0.22);
+      --green-glow:   rgba(0,232,122,0.06);
+      --yellow:       #fbbf24;
+      --yellow-dim:   rgba(251,191,36,0.12);
+      --yellow-border:rgba(251,191,36,0.28);
+      --blue:         #0693E3;
+      --blue-dim:     rgba(6,147,227,0.12);
+      --blue-border:  rgba(6,147,227,0.28);
+      --mono:         'JetBrains Mono', 'SF Mono', monospace;
+    }
+
+    html { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-font-smoothing: antialiased; }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 40% at 50% -10%, rgba(0,232,122,0.07) 0%, transparent 70%),
+        linear-gradient(rgba(0,232,122,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,232,122,0.018) 1px, transparent 1px);
+      background-size: 100% 100%, 52px 52px, 52px 52px;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    @keyframes up { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.35;transform:scale(0.65)} }
+
+    /* ── NAV ─────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(12,12,13,0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 36px;
+      height: 52px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { font-size: 0.82rem; font-weight: 600; color: var(--text-2); letter-spacing: 0.01em; font-family: var(--mono); }
+    .nav-brand span { color: var(--green); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-status { display: flex; align-items: center; gap: 7px; font-size: 0.75rem; color: var(--text-2); }
+    .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); animation: pulse 2.5s ease infinite; }
+    .nav-date { font-size: 0.72rem; color: var(--text-3); font-family: var(--mono); }
+    .nav-link { font-size: 0.75rem; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+    .nav-link:hover { color: var(--text); }
+
+    /* ── LAYOUT ──────────────────────────── */
+    .wrap { max-width: 900px; margin: 0 auto; padding: 40px 36px 100px; }
+
+    /* ── HERO ────────────────────────────── */
+    .hero {
+      padding: 40px 40px 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      margin-bottom: 16px;
+      animation: up 0.5s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--green) 40%, transparent 100%);
+      opacity: 0.6;
+    }
+    .hero-overline {
+      font-family: var(--mono); font-size: 0.65rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--green); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .hero-overline::before {
+      content: ''; display: inline-block; width: 24px; height: 1px; background: var(--green); opacity: 0.5;
+    }
+    .hero-name { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 8px; line-height: 1.1; }
+    .hero-name .accent { color: var(--green); }
+    .hero-role { font-size: 1rem; color: var(--text-2); margin-bottom: 24px; font-weight: 400; }
+    .hero-thesis {
+      font-size: 1.05rem; line-height: 1.65; color: var(--text);
+      max-width: 680px; border-left: 2px solid var(--green-border); padding-left: 20px;
+      margin-bottom: 28px;
+    }
+    .hero-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .meta-chip {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 0.73rem; font-family: var(--mono);
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 5px 13px; color: var(--text-2);
+    }
+    .meta-chip.green { background: var(--green-dim); border-color: var(--green-border); color: var(--green); }
+
+    /* ── SECTION HEADER ──────────────────── */
+    .section-header {
+      font-family: var(--mono); font-size: 0.62rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--text-2); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-header::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── CARD ────────────────────────────── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px;
+    }
+
+    /* ── STAT ROW ────────────────────────── */
+    .stat-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 12px; margin-bottom: 16px;
+      animation: up 0.5s ease 0.07s both;
+    }
+    .stat {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px 20px;
+      position: relative; overflow: hidden;
+    }
+    .stat::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      opacity: 0.35;
+    }
+    .stat-label {
+      font-size: 0.62rem; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--text-2); margin-bottom: 10px;
+      font-family: var(--mono);
+    }
+    .stat-val {
+      font-size: 2rem; font-weight: 800; letter-spacing: -0.04em;
+      line-height: 1; color: var(--green); margin-bottom: 4px;
+    }
+    .stat-sub { font-size: 0.67rem; color: var(--text-3); font-family: var(--mono); }
+
+    /* ── SITUATION ───────────────────────── */
+    .situation {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px; margin-bottom: 16px;
+      animation: up 0.5s ease 0.14s both;
+    }
+    .situation p {
+      font-size: 0.88rem; line-height: 1.75; color: var(--text-2); margin-bottom: 16px;
+    }
+    .situation p:last-child { margin-bottom: 0; }
+    .situation strong { color: var(--text); font-weight: 600; }
+    .situation .highlight { color: var(--green); font-weight: 600; }
+
+    /* ── PROOF OF WORK ───────────────────── */
+    .projects-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-bottom: 16px;
+      animation: up 0.5s ease 0.14s both;
+    }
+    .proj {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .proj:hover { background: var(--surface-2); border-color: var(--border-2); }
+    .proj.live {
+      border-left: 2px solid var(--green);
+      background: var(--green-glow);
+    }
+    .proj.live:hover { background: var(--green-dim); }
+    .proj-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 8px; }
+    .proj-title { font-size: 0.83rem; font-weight: 600; color: var(--text); }
+    .proj.live .proj-title { color: var(--green); }
+    .proj-badge {
+      font-family: var(--mono); font-size: 0.58rem; font-weight: 500;
+      padding: 2px 7px; border-radius: 4px; flex-shrink: 0;
+    }
+    .pb-green { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
+    .pb-yellow { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow-border); }
+    .pb-blue { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue-border); }
+    .pb-dim { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
+    .proj-desc { font-size: 0.73rem; color: var(--text-2); line-height: 1.5; }
+    .proj-stack { margin-top: 10px; display: flex; gap: 5px; flex-wrap: wrap; }
+    .stack-chip {
+      font-family: var(--mono); font-size: 0.6rem;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 4px; padding: 2px 6px; color: var(--text-3);
+    }
+
+    /* ── ROLE PILLARS ────────────────────── */
+    .pillars {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-bottom: 16px;
+      animation: up 0.5s ease 0.21s both;
+    }
+    .pillar {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px 22px;
+    }
+    .pillar-icon { font-size: 1.4rem; margin-bottom: 10px; }
+    .pillar-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
+    .pillar-desc { font-size: 0.73rem; color: var(--text-2); line-height: 1.55; }
+
+    /* ── COST OF INACTION ────────────────── */
+    .risk-section {
+      background: linear-gradient(140deg, rgba(251,191,36,0.06) 0%, rgba(251,191,36,0.01) 80%);
+      border: 1px solid var(--yellow-border);
+      border-radius: 14px; padding: 24px 26px; margin-bottom: 16px;
+      animation: up 0.5s ease 0.28s both;
+    }
+    .risk-section .section-header { color: var(--yellow); }
+    .risk-section .section-header::after { background: var(--yellow-border); }
+    .risk-items { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+    .risk-item { display: flex; gap: 12px; }
+    .risk-icon { font-size: 1rem; margin-top: 1px; flex-shrink: 0; }
+    .risk-body { }
+    .risk-title { font-size: 0.82rem; font-weight: 600; color: var(--yellow); margin-bottom: 3px; }
+    .risk-desc { font-size: 0.72rem; color: var(--text-2); line-height: 1.5; }
+
+    /* ── THE ASK ─────────────────────────── */
+    .ask-section {
+      background: linear-gradient(140deg, rgba(0,232,122,0.10) 0%, rgba(0,232,122,0.02) 70%);
+      border: 1px solid var(--green-border);
+      border-radius: 16px; padding: 30px 32px;
+      animation: up 0.5s ease 0.32s both;
+      margin-bottom: 16px;
+    }
+    .ask-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 20px; }
+    .ask-item { }
+    .ask-label {
+      font-family: var(--mono); font-size: 0.62rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--green); opacity: 0.6; margin-bottom: 6px;
+    }
+    .ask-val { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+    .ask-val.dim { font-size: 0.83rem; font-weight: 500; color: var(--text-2); }
+    .ask-sub { font-size: 0.7rem; color: var(--text-2); margin-top: 3px; font-family: var(--mono); }
+
+    /* ── NINETY DAY ──────────────────────── */
+    .ninety {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px 26px; margin-bottom: 16px;
+      animation: up 0.5s ease 0.35s both;
+    }
+    .phase-list { display: flex; flex-direction: column; gap: 0; margin-top: 12px; }
+    .phase {
+      display: flex; gap: 14px; padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .phase:last-child { border-bottom: none; padding-bottom: 0; }
+    .phase-tag {
+      font-family: var(--mono); font-size: 0.65rem; font-weight: 500;
+      background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border);
+      border-radius: 6px; padding: 3px 9px; flex-shrink: 0; align-self: flex-start;
+      margin-top: 2px;
+    }
+    .phase-body { }
+    .phase-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; }
+    .phase-desc { font-size: 0.72rem; color: var(--text-2); line-height: 1.5; }
+
+    /* ── FOOTER ──────────────────────────── */
+    .footer-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px 26px;
+      display: flex; align-items: center; gap: 20px;
+      animation: up 0.5s ease 0.38s both;
+    }
+    .footer-avatar {
+      width: 48px; height: 48px; flex-shrink: 0;
+      border-radius: 50%; padding: 2px;
+      background: linear-gradient(135deg, var(--green), rgba(0,232,122,0.3));
+    }
+    .footer-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg); display: block; }
+    .footer-info { flex: 1; }
+    .footer-name { font-size: 0.92rem; font-weight: 700; margin-bottom: 3px; }
+    .footer-desc { font-size: 0.73rem; color: var(--text-2); }
+    .footer-right { display: flex; gap: 8px; }
+    .footer-btn {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.73rem; font-weight: 600;
+      padding: 8px 16px; border-radius: 8px; text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .footer-btn:hover { opacity: 0.8; }
+    .footer-btn.primary { background: var(--green); color: #000; }
+    .footer-btn.secondary { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2); }
+
+    /* ── RESPONSIVE ──────────────────────── */
+    @media (max-width: 640px) {
+      .wrap { padding: 24px 18px 60px; }
+      .nav { padding: 0 18px; }
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .pillars { grid-template-columns: 1fr; }
+      .ask-row { grid-template-columns: 1fr; gap: 14px; }
+      .hero { padding: 28px 22px; }
+      .hero-name { font-size: 1.8rem; }
+      .footer-card { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand"><span>jsher</span>.online</div>
+  <div class="nav-right">
+    <div class="nav-status">
+      <div class="pulse"></div>
+      Prepared for Tyler · Q2 2026
+    </div>
+    <div class="nav-date" id="nav-date"></div>
+    <a href="/" class="nav-link">← Back</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero" style="margin-bottom:16px;">
+    <div class="hero-overline">Role Proposal · Marketing Org</div>
+    <div class="hero-name">AI <span class="accent">Programs</span> Lead,<br>Marketing</div>
+    <div class="hero-role">Jackson Sherwood &mdash; reporting to Tyler</div>
+    <div class="hero-thesis">
+      The role already exists. I've been doing it for six months without the title or the comp.
+      This isn't a pitch for something new &mdash; it's documentation of what's already working,
+      and a request to make it official before momentum stalls.
+    </div>
+    <div class="hero-meta">
+      <div class="meta-chip green"><div class="pulse" style="width:5px;height:5px;"></div> Active · Already running</div>
+      <div class="meta-chip">Reporting to: Tyler</div>
+      <div class="meta-chip">No new headcount required</div>
+      <div class="meta-chip">Q2 2026</div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stat-row" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="stat">
+      <div class="stat-label">AI systems live</div>
+      <div class="stat-val">3</div>
+      <div class="stat-sub">shipped & maintained solo</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Sub-orgs enabled</div>
+      <div class="stat-val">6+</div>
+      <div class="stat-sub">pmm · events · seo · lifecycle · more</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">AI sessions led</div>
+      <div class="stat-val">10+</div>
+      <div class="stat-sub">1:1s · team sessions · new grad onboarding</div>
+    </div>
+  </div>
+
+  <!-- SITUATION -->
+  <div class="situation" style="animation: up 0.5s ease 0.1s both; margin-bottom:16px;">
+    <div class="section-header">The Situation</div>
+    <p>
+      In mid-2025, I transitioned from Events to test an open question: <strong>could AI fundamentally change
+      how the marketing team operates?</strong> The answer is yes &mdash; and the evidence is already in production.
+    </p>
+    <p>
+      I am co-creating the <strong>Marketing AI Accelerator</strong> alongside Tyler and Manu. I built
+      the <strong class="highlight">Counter-Intel system</strong> solo &mdash; no engineering support, no help, entirely from scratch. It's a daily competitive monitoring pipeline that automatically surfaces competitor changes to Slack every morning, with a weekly digest going cross-functional. I've run one-on-one
+      AI enablement sessions with <strong>Chris Root</strong> (MCP setup in progress) and <strong>Karissa Satala</strong> (custom tooling + Claude Code onboarding). I've led learning sessions with PMM teams and onboarded new AI graduate hires. Other teams are requesting access and the work is expanding beyond marketing.
+    </p>
+    <p>
+      None of this is in my current job description. This is what I've been building on a marketing associate-level comp &mdash; and the gap between what I'm delivering and how I'm compensated has only grown. <strong>This proposal corrects it.</strong>
+    </p>
+  </div>
+
+  <!-- COST OF INACTION -->
+  <div class="risk-section" style="margin-bottom:16px;">
+    <div class="section-header">What Breaks Without This</div>
+    <div class="risk-items">
+      <div class="risk-item">
+        <div class="risk-icon">⚠️</div>
+        <div class="risk-body">
+          <div class="risk-title">The AI Accelerator stalls</div>
+          <div class="risk-desc">Without a dedicated owner, the program Tyler and Manu commissioned loses momentum the moment this work gets deprioritized. There's no one else running it.</div>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-icon">⚠️</div>
+        <div class="risk-body">
+          <div class="risk-title">Competitive intelligence goes dark</div>
+          <div class="risk-desc">The Counter-Intel system requires active maintenance &mdash; prompt tuning, new URL monitoring, scoring threshold adjustments. Unmaintained, it degrades and eventually stops surfacing useful findings.</div>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-icon">⚠️</div>
+        <div class="risk-body">
+          <div class="risk-title">Marketing AI adoption stays uneven</div>
+          <div class="risk-desc">Teams that haven't been reached yet continue figuring it out on their own &mdash; or don't. The gap between AI-enabled and non-enabled team members widens, and there's no one accountable for closing it.</div>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-icon">⚠️</div>
+        <div class="risk-body">
+          <div class="risk-title">The only person doing this has no reason to stay</div>
+          <div class="risk-desc">Delivering executive-level program output on a marketing associate salary is a retention risk. The institutional knowledge about these systems, these workflows, and these teams exists nowhere else in the org.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROOF OF WORK -->
+  <div class="section-header" style="animation: up 0.5s ease 0.14s both;">Proof of Work</div>
+
+  <!-- Row 1: 3 equal columns -->
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:10px;">
+    <div class="proj live">
+      <div class="proj-head">
+        <div class="proj-title">Counter-Intel System</div>
+        <div class="proj-badge pb-green">live</div>
+      </div>
+      <div class="proj-desc">Built solo. Daily competitive monitoring across 60+ pages in 8 verticals — crawls competitor sites, runs Claude AI analysis, posts CRITICAL/NOTABLE changes to Slack with before/after screenshots. Weekly digest distributed to marketing, sales leadership, CS, and product. Q2 target: 90%+ of PMMs using alerts in weekly workflows.</div>
+      <div class="proj-stack">
+        <span class="stack-chip">n8n</span>
+        <span class="stack-chip">Claude API</span>
+        <span class="stack-chip">Supabase</span>
+        <span class="stack-chip">Firecrawl</span>
+        <span class="stack-chip">Slack</span>
+      </div>
+    </div>
+
+    <div class="proj live">
+      <div class="proj-head">
+        <div class="proj-title">HCP Reviews Prototype → Live Product · 100%+ YoY Growth</div>
+        <div class="proj-badge pb-green">business impact</div>
+      </div>
+      <div class="proj-desc">Built the first Reviews prototype entirely in Lovable — no engineering resources, no PM scoping, just a working product handed directly to the team. Product and engineering took it from prototype to production. The desktop referral program that followed grew <strong style="color:var(--green);">100%+ year over year</strong>.</div>
+      <div class="proj-stack">
+        <span class="stack-chip">Lovable</span>
+        <span class="stack-chip">Rapid prototyping</span>
+        <span class="stack-chip">Product handoff</span>
+      </div>
+    </div>
+
+    <div class="proj live">
+      <div class="proj-head">
+        <div class="proj-title">Marketing AI Accelerator</div>
+        <div class="proj-badge pb-yellow">in progress</div>
+      </div>
+      <div class="proj-desc">Co-created with Tyler and Manu. Structured program to systematically upskill the marketing org on AI tooling &mdash; from prompt engineering to MCP setup to workflow automation. Sessions, templates, and hands-on enablement across all sub-orgs.</div>
+      <div class="proj-stack">
+        <span class="stack-chip">Claude Code</span>
+        <span class="stack-chip">MCPs</span>
+        <span class="stack-chip">Curriculum design</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: 2 equal columns -->
+  <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:16px;">
+    <div class="proj">
+      <div class="proj-head">
+        <div class="proj-title">Cross-team AI Enablement</div>
+        <div class="proj-badge pb-blue">ongoing</div>
+      </div>
+      <div class="proj-desc">One-on-one sessions with marketing leaders: mapped Chris Root's full tech stack and built AI workflows saving hours per week (MCP setup in progress). Built custom tooling and Claude Code onboarding for Karissa Satala. Led PMM team learning sessions on Claude Code, skills, prompt engineering, and workflow automation.</div>
+      <div class="proj-stack">
+        <span class="stack-chip">Consulting</span>
+        <span class="stack-chip">Workflow audit</span>
+        <span class="stack-chip">MCP setup</span>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <div class="proj-title">New AI Graduate Onboarding</div>
+        <div class="proj-badge pb-blue">ongoing</div>
+      </div>
+      <div class="proj-desc">Onboarded multiple new AI graduate hires onto Claude Code, MCP setup, and HCP's internal AI workflow patterns. Built structured onboarding tracks covering core tools, prompt engineering, and workflow automation — so new hires contribute faster.</div>
+      <div class="proj-stack">
+        <span class="stack-chip">Claude Code</span>
+        <span class="stack-chip">MCP setup</span>
+        <span class="stack-chip">Curriculum</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROLE DEFINITION -->
+  <div class="section-header" style="animation: up 0.5s ease 0.2s both;">What This Role Owns</div>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-icon">⚡</div>
+      <div class="pillar-title">AI Accelerator Program</div>
+      <div class="pillar-desc">Architect and run the marketing team's AI upskilling program end-to-end. Curriculum, sessions, tracking, and cross-functional rollout. This is Tyler's initiative &mdash; this role ensures it doesn't stall.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">🤖</div>
+      <div class="pillar-title">AI Systems & Automation</div>
+      <div class="pillar-desc">Build, ship, and maintain AI-enabled systems across marketing. Counter-Intel, digest pipelines, data workflows, and new tooling as the org's needs evolve. Systems that run while you sleep.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">🔁</div>
+      <div class="pillar-title">Cross-team Enablement</div>
+      <div class="pillar-desc">One-on-one and group sessions across PMM, Events, Community, SEO, Lifecycle, and beyond. Audit each team's workflows, identify AI leverage points, and ensure adoption sticks — real tasks, not demos.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">📦</div>
+      <div class="pillar-title">Tooling, Templates & Prototypes</div>
+      <div class="pillar-desc">Build high-fidelity prototypes, reusable n8n templates, and internal AI tools that teams can fork without engineering support. Owns the path from prototype to production-grade tool behind Okta SSO.</div>
+    </div>
+  </div>
+
+  <!-- Q2 OKRs -->
+  <div class="card" style="margin-bottom:16px; animation: up 0.5s ease 0.28s both;">
+    <div class="section-header" style="margin-bottom:16px;">2Q26 OKRs — Already Submitted</div>
+    <p style="font-size:0.78rem; color:var(--text-2); margin-bottom:14px; line-height:1.6;">These are my actual Q2 OKRs under the <strong style="color:var(--green);">AI-Enabled GTM</strong> theme. The role being proposed here is the person accountable for delivering them.</p>
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div style="display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border-radius:8px; background:var(--green-glow); border:1px solid var(--green-border);">
+        <div style="font-size:0.7rem; font-family:var(--mono); color:var(--green); background:var(--green-dim); border:1px solid var(--green-border); border-radius:4px; padding:2px 7px; flex-shrink:0; margin-top:1px;">OKR 1</div>
+        <div style="font-size:0.78rem; color:var(--text); line-height:1.5;"><strong>Counter-Intel becomes the default competitive intelligence source for GTM</strong> — 90%+ of PMMs using alerts in weekly workflows, 60+ pages monitored across 8 verticals, cross-functional digest to sales, CS, and product.</div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border-radius:8px; background:var(--surface); border:1px solid var(--border);">
+        <div style="font-size:0.7rem; font-family:var(--mono); color:var(--text-2); background:var(--surface-2); border:1px solid var(--border); border-radius:4px; padding:2px 7px; flex-shrink:0; margin-top:1px;">OKR 2</div>
+        <div style="font-size:0.78rem; color:var(--text-2); line-height:1.5;"><strong style="color:var(--text);">Expand Counter-Intel adoption into cross-functional GTM teams</strong> — 2+ non-marketing teams running active workflows (sales pipeline monitoring + CSR AI tracking). Reusable n8n templates any team can fork. Onboarding SOP for new installs.</div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border-radius:8px; background:var(--surface); border:1px solid var(--border);">
+        <div style="font-size:0.7rem; font-family:var(--mono); color:var(--text-2); background:var(--surface-2); border:1px solid var(--border); border-radius:4px; padding:2px 7px; flex-shrink:0; margin-top:1px;">OKR 3</div>
+        <div style="font-size:0.78rem; color:var(--text-2); line-height:1.5;"><strong style="color:var(--text);">Transition HCP prototypes into production-grade tools GTM teams actively use</strong> — 3+ AI-powered tools live behind Okta SSO by end of Q2. HCP Maps as the template for future transitions. Partner with engineering on deployment path.</div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border-radius:8px; background:var(--surface); border:1px solid var(--border);">
+        <div style="font-size:0.7rem; font-family:var(--mono); color:var(--text-2); background:var(--surface-2); border:1px solid var(--border); border-radius:4px; padding:2px 7px; flex-shrink:0; margin-top:1px;">OKR 4</div>
+        <div style="font-size:0.78rem; color:var(--text-2); line-height:1.5;"><strong style="color:var(--text);">100% of HCP Marketing proficient in core AI workflows and tooling</strong> — every marketer completes hands-on AI setup and uses at least one workflow day-to-day. 3+ documented workflow templates published for common marketing tasks.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 90-DAY PLAN -->
+  <div class="ninety">
+    <div class="section-header">90-Day Execution Plan</div>
+    <div class="phase-list">
+      <div class="phase">
+        <div class="phase-tag">Days 1–30</div>
+        <div class="phase-body">
+          <div class="phase-title">Formalize &amp; Launch</div>
+          <div class="phase-desc">Finalize AI Accelerator curriculum (Claude, MCPs, prompt patterns, internal tooling). Expand Counter-Intel page coverage to 60+ pages via sitemap-based discovery. Ship HTML email digest with before/after screenshots to cross-functional GTM. Complete onboarding tracks for new AI graduate hires.</div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-tag">Days 31–60</div>
+        <div class="phase-body">
+          <div class="phase-title">Expand &amp; Enable</div>
+          <div class="phase-desc">Stand up Counter-Intel workflows for 2 non-marketing teams (sales pipeline + CSR AI tracking). Run hands-on AI working sessions with each marketing sub-org — real tasks, not demos. Publish 3+ reusable n8n templates teams can fork without engineering support. Partner with engineering to define prototype → production deployment path (Okta SSO).</div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-tag">Days 61–90</div>
+        <div class="phase-body">
+          <div class="phase-title">Measure &amp; Productize</div>
+          <div class="phase-desc">Confirm 90%+ PMM adoption of Counter-Intel in weekly workflows. Verify 3 AI-powered tools live in production. Publish 3 documented AI workflow templates for common marketing tasks. Write onboarding SOP for new Counter-Intel team installs. Deliver Q3 roadmap scoping next phase of AI enablement across GTM.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE ASK -->
+  <div class="ask-section">
+    <div class="section-header" style="color: var(--green);">The Ask</div>
+    <p style="font-size:0.88rem; color:var(--text-2); line-height:1.6; max-width:600px;">
+      Not a new hire. Not a new budget line. Just formalizing what's already in motion &mdash;
+      with a title that reflects the actual scope of the work.
+    </p>
+    <p style="font-size:0.75rem; color:var(--text-2); line-height:1.6; margin-top:16px; font-family:var(--mono); background:rgba(0,232,122,0.05); border:1px solid var(--green-border); border-radius:8px; padding:10px 14px;">
+      <strong style="color:var(--green);">Market context:</strong> Glassdoor 2026 data for AI Enablement roles shows a median of $134k, with the 25th percentile at $104k. The $110k–$120k ask is conservative — below median, anchored in data, and reflects the IC level of this role. For context: Salesforce's equivalent Director-level title opens at $164k.
+    </p>
+    <div class="ask-row">
+      <div class="ask-item">
+        <div class="ask-label">Title</div>
+        <div class="ask-val">AI Programs Lead, Marketing</div>
+        <div class="ask-sub">previously: no formal AI title</div>
+      </div>
+      <div class="ask-item">
+        <div class="ask-label">Reporting to</div>
+        <div class="ask-val">Tyler</div>
+        <div class="ask-sub">no change to reporting line</div>
+      </div>
+      <div class="ask-item">
+        <div class="ask-label">Compensation</div>
+        <div class="ask-val">$110k–$120k</div>
+        <div class="ask-sub">market median: $134k · current: $82k · Glassdoor 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERALIST NOTE -->
+  <div class="card" style="margin-bottom:16px; animation: up 0.5s ease 0.42s both; border-color: var(--border-2);">
+    <p style="font-size:0.82rem; color:var(--text-2); line-height:1.7;">
+      <strong style="color:var(--text);">One more thing:</strong> I'm not going anywhere. If there's a trade show on the East Coast, I'm on the flight. If there's a gap that needs covering, I'll cover it. This role adds structure — it doesn't subtract flexibility. The value here is a generalist who can also build production systems, and that combination doesn't come apart.
+    </p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-card">
+    <div class="footer-avatar">
+      <img src="assets/headshot.jpg" alt="Jackson Sherwood">
+    </div>
+    <div class="footer-info">
+      <div class="footer-name">Jackson Sherwood</div>
+      <div class="footer-desc">Building with AI at Housecall Pro · jsher.online</div>
+    </div>
+    <div class="footer-right">
+      <a href="mailto:jackson.sherwood@housecallpro.com" class="footer-btn primary">Start the conversation →</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Live date in nav
+  const d = new Date();
+  const opts = { month: 'short', day: 'numeric', year: 'numeric' };
+  document.getElementById('nav-date').textContent = d.toLocaleDateString('en-US', opts);
+</script>
+
+</body>
+</html>
