@@ -431,22 +431,22 @@
     <div class="kpis">
       <div class="kpi">
         <div class="kpi-label">AI Sessions</div>
-        <div class="kpi-val" data-target="58">0</div>
+        <div class="kpi-val" data-target="63">0</div>
         <div class="kpi-sub">since jan 8, 2026</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Messages Logged</div>
-        <div class="kpi-val" data-target="15840">0</div>
+        <div class="kpi-val" data-target="17100">0</div>
         <div class="kpi-sub">human + ai turns</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Tool Executions</div>
-        <div class="kpi-val" data-target="3740">0</div>
+        <div class="kpi-val" data-target="4100">0</div>
         <div class="kpi-sub">code runs · edits · ops</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Lines of Code</div>
-        <div class="kpi-val" data-target="32100">0</div>
+        <div class="kpi-val" data-target="33800">0</div>
         <div class="kpi-sub">across all projects</div>
       </div>
       <div class="kpi">
@@ -605,7 +605,7 @@
           </div>
 
           <div class="proj-section">
-            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">9</span></div>
+            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">11</span></div>
             <div class="proj-list">
               <div class="proj-item shipped">
                 <span class="proj-em">🌐</span>
@@ -647,6 +647,16 @@
                 <span class="proj-name">Desktop Reviews Prototype</span>
                 <span class="proj-badge pb-green">live</span>
               </div>
+              <a href="https://www.trades40under40.com/" target="_blank" rel="noopener" class="proj-item shipped link">
+                <span class="proj-em">🏆</span>
+                <span class="proj-name">Blue Collar 40 Under 40</span>
+                <span class="proj-badge pb-green">live</span>
+              </a>
+              <div class="proj-item shipped link" onclick="openInfo('metaads')">
+                <span class="proj-em">⚡</span>
+                <span class="proj-name">Meta Ads Deployer</span>
+                <span class="proj-badge pb-green">download</span>
+              </div>
               <a href="https://ateksoils.us" target="_blank" rel="noopener" class="proj-item shipped link">
                 <span class="proj-em">🌱</span>
                 <span class="proj-name">ateksoils.us — Dad's Site</span>
@@ -672,13 +682,8 @@
           </div>
 
           <div class="proj-section">
-            <div class="proj-heading">building <span class="ct">2</span></div>
+            <div class="proj-heading">building <span class="ct">1</span></div>
             <div class="proj-list">
-              <div class="proj-item soon">
-                <span class="proj-em">🏆</span>
-                <span class="proj-name">Blue Collar 40 Under 40</span>
-                <span class="proj-badge pb-blue">building</span>
-              </div>
               <div class="proj-item soon">
                 <span class="proj-em">📋</span>
                 <span class="proj-name">Interactive Leave Behind</span>
@@ -767,8 +772,9 @@
           <div class="val-row-item"><span>HCP Maps App</span><span class="amt">$4,000</span></div>
           <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
           <div class="val-row-item"><span>Desktop Reviews Prototype</span><span class="amt">$3,200</span></div>
+          <div class="val-row-item"><span>Meta Ads Deployer</span><span class="amt">$2,500</span></div>
+          <div class="val-row-item"><span>40 Under 40 (v1 + app flow)</span><span class="amt">$400</span></div>
           <div class="val-row-item"><span>Sites, Docs &amp; Misc</span><span class="amt">$3,800</span></div>
-          <div class="val-row-item"><span>Dad's Site</span><span class="amt">$0</span></div>
         </div>
       </div>
 
@@ -819,7 +825,7 @@
     </div>
 
     <div class="footer">
-      analytics from claude code session logs &middot; updated apr 5, 2026 &middot;
+      analytics from claude code session logs &middot; updated apr 12, 2026 &middot;
       <a href="https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-jackson-sherwood-690663214/" target="_blank" rel="noopener">linkedin</a>
     </div>
   </div>
@@ -830,7 +836,7 @@
       <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px">
         <span style="font-size:1.15rem" id="infoEmoji">🔒</span>
         <div class="modal-title" id="infoTitle" style="margin-bottom:0;flex:1"></div>
-        <span style="font-family:var(--mono);font-size:0.58rem;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);white-space:nowrap">HCP Internal</span>
+        <span id="infoBadge" style="font-family:var(--mono);font-size:0.58rem;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);white-space:nowrap">HCP Internal</span>
       </div>
       <div class="modal-sub" id="infoDesc" style="line-height:1.55"></div>
       <div class="modal-btns" style="margin-top:20px">
@@ -885,13 +891,13 @@
 
     const valKpi = document.getElementById('valKpi');
     const vObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 42600, '$', 1500); vObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 45500, '$', 1500); vObs.unobserve(e.target); });
     }, { threshold: 0.7 });
     vObs.observe(valKpi);
 
     const tvEl = document.getElementById('totalVal');
     const tvObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 42600, '$', 1500); tvObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 45500, '$', 1500); tvObs.unobserve(e.target); });
     }, { threshold: 0.4 });
     tvObs.observe(tvEl);
 
@@ -1034,22 +1040,42 @@
         linkText: 'View Prototype →',
         link2: 'https://docs.google.com/document/d/1bhgRzVTOHaaXEc_0p_iRoPacpyf18KTWWu9b1SBX5OI/edit?usp=sharing',
         link2Text: 'View Research Doc →'
+      },
+      metaads: {
+        emoji: '⚡',
+        title: 'Meta Ads Deployer',
+        badge: false,
+        desc: 'A Claude Code skill that lets the performance marketing team deploy full Meta ad campaigns straight from VS Code — video uploads, ad sets, creatives, and UTM tracking — all in one guided workflow. Just run <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:0.88em">/meta-ads-campaign</code>, answer a few questions, type DEPLOY, and it\'s live in Ads Manager (paused for review before any spend goes live).<br><br><strong>Estimated business impact</strong> <span style="opacity:0.5;font-size:0.85em">— rough estimates</span><br>&middot;&nbsp; ~30 min saved per ad deployed<br>&middot;&nbsp; FFC lift: ~12–15%<br>&middot;&nbsp; CAC reduction: ~5–7%<br><br>Download the zip, open it in VS Code, add your credentials to <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:0.88em">.env</code>, and run the skill.',
+        link: '/assets/meta-ads-deployer.zip',
+        linkText: 'Download .zip →',
+        download: true
       }
     };
     function openInfo(key) {
       const d = INFO_DATA[key];
       document.getElementById('infoEmoji').textContent = d.emoji;
       document.getElementById('infoTitle').textContent = d.title;
-      document.getElementById('infoDesc').textContent = d.desc;
+      document.getElementById('infoDesc').innerHTML = d.desc;
+      document.getElementById('infoBadge').style.display = d.badge === false ? 'none' : '';
       const linkBtn = document.getElementById('infoLinkBtn');
       const gotItBtn = document.getElementById('infoGotItBtn');
       if (d.link) {
         linkBtn.href = d.link;
         linkBtn.textContent = d.linkText || 'View →';
         linkBtn.style.display = 'inline-block';
-        gotItBtn.style.display = 'none';
+        if (d.download) {
+          linkBtn.setAttribute('download', '');
+          linkBtn.removeAttribute('target');
+          gotItBtn.textContent = 'Close';
+          gotItBtn.style.display = 'inline-block';
+        } else {
+          linkBtn.removeAttribute('download');
+          linkBtn.setAttribute('target', '_blank');
+          gotItBtn.style.display = 'none';
+        }
       } else {
         linkBtn.style.display = 'none';
+        gotItBtn.textContent = 'Got it';
         gotItBtn.style.display = 'inline-block';
       }
       const linkBtn2 = document.getElementById('infoLinkBtn2');
