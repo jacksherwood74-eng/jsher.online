@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Your Claude — AI Office Hours</title>
+  <meta name="description" content="4 questions. 30 seconds. Find the right Claude tool for your HCP marketing role.">
+  <meta property="og:title" content="Find Your Claude">
+  <meta property="og:description" content="4 questions. 30 seconds. Personalized Claude recommendations for HCP marketers.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jsher.online/quiz">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      min-height: 100vh;
+      background: #0A1628;
+      font-family: 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #E8ECF1;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,85,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,85,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #app {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── HEADER ─────────────────────────────────── */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,85,255,0.12);
+      border: 1px solid rgba(0,85,255,0.2);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #5B9DFF;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 0 6px;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      font-size: 15px;
+      color: #8899B0;
+      line-height: 1.5;
+    }
+
+    /* ── PROGRESS ───────────────────────────────── */
+    .progress-wrap {
+      height: 3px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0055FF, #5B9DFF);
+      border-radius: 4px;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0%;
+    }
+
+    /* ── CONTENT TRANSITION ─────────────────────── */
+    #content {
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    #content.hiding {
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+    }
+
+    /* ── INTRO ──────────────────────────────────── */
+    .intro-card {
+      background: linear-gradient(135deg, rgba(0,85,255,0.08), rgba(124,58,237,0.06));
+      border: 1px solid rgba(0,85,255,0.15);
+      border-radius: 16px;
+      padding: 32px 28px;
+      margin-bottom: 24px;
+    }
+    .intro-card p {
+      font-size: 16px;
+      line-height: 1.65;
+      color: #C4D0DF;
+      margin: 0 0 16px;
+    }
+    .intro-card p:last-child { margin: 0; }
+
+    /* ── BUTTONS ────────────────────────────────── */
+    .btn-primary {
+      width: 100%;
+      padding: 16px 24px;
+      background: #0055FF;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      letter-spacing: -0.01em;
+      font-family: inherit;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+    .btn-primary:hover { background: #0044DD; }
+
+    .btn-cta {
+      width: 100%;
+      padding: 15px 24px;
+      background: #0055FF;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .btn-cta:hover { background: #0044DD; }
+
+    .btn-ghost {
+      width: 100%;
+      padding: 14px 24px;
+      background: rgba(255,255,255,0.06);
+      color: #8899B0;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      display: block;
+      width: 100%;
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.10);
+      color: #C4D0DF;
+    }
+
+    /* ── QUESTION ───────────────────────────────── */
+    .step-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #5B9DFF;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 24px;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .option-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      color: #E0E6EE;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+      font-family: inherit;
+      width: 100%;
+    }
+    .option-btn:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.15);
+    }
+    .option-btn.selected {
+      background: rgba(0,85,255,0.15);
+      border-color: rgba(0,85,255,0.4);
+    }
+    .option-icon { font-size: 20px; flex-shrink: 0; }
+
+    /* ── RESULT ─────────────────────────────────── */
+    .result-header {
+      border-radius: 16px;
+      padding: 32px 28px;
+      margin-bottom: 20px;
+    }
+    .result-tag {
+      display: inline-block;
+      border-radius: 8px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+    .result-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0 0 4px;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+    }
+    .result-subtitle {
+      font-size: 14px;
+      color: #8899B0;
+      margin: 0 0 16px;
+      font-weight: 500;
+    }
+    .result-desc {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #C4D0DF;
+      margin: 0;
+    }
+
+    /* ── SECTION CARDS ──────────────────────────── */
+    .section-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 0 0 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    /* numbered steps */
+    .step-list { display: flex; flex-direction: column; gap: 10px; }
+    .step-item { display: flex; gap: 12px; align-items: flex-start; }
+    .step-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .step-text { font-size: 14px; color: #B0BDD0; line-height: 1.55; }
+
+    /* role use cases */
+    .usecase-list { display: flex; flex-direction: column; gap: 8px; }
+    .usecase-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 11px 14px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 9px;
+    }
+    .usecase-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      margin-top: 6px; flex-shrink: 0;
+    }
+    .usecase-text { font-size: 14px; color: #B0BDD0; line-height: 1.5; }
+
+    /* ── STARTER PROMPT ─────────────────────────── */
+    .prompt-card {
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .prompt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .prompt-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #5B9DFF;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .copy-btn {
+      font-size: 12px;
+      font-weight: 600;
+      color: #8899B0;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .copy-btn:hover { color: #C4D0DF; border-color: rgba(255,255,255,0.2); }
+    .copy-btn.copied { color: #00D084; border-color: rgba(0,208,132,0.3); background: rgba(0,208,132,0.06); }
+
+    #starter-prompt-text {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #C4D0DF;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 0;
+    }
+
+    /* ── NEXT STEP CARD ─────────────────────────── */
+    .next-card {
+      background: rgba(255,183,6,0.06);
+      border: 1px solid rgba(255,183,6,0.15);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+    }
+    .next-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #FFB706;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .next-text { font-size: 14px; color: #B0BDD0; margin: 0; line-height: 1.55; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <div class="badge">AI Office Hours</div>
+      <h1>Find Your Claude</h1>
+      <p class="subtitle">4 questions. 30 seconds. A personalized starting point.</p>
+    </div>
+    <div class="progress-wrap">
+      <div id="progress-bar" class="progress-fill"></div>
+    </div>
+    <div id="content"></div>
+  </div>
+
+  <script>
+    // ── DATA ─────────────────────────────────────────────────────────────
+
+    const QUESTIONS = [
+      {
+        id: "role",
+        question: "What's your team?",
+        options: [
+          { label: "Product Marketing", value: "pmm",       icon: "🎯" },
+          { label: "Brand / Creative",  value: "creative",  icon: "🎨" },
+          { label: "Content / SEO",     value: "seo",       icon: "🔍" },
+          { label: "LCM / Performance", value: "growth",    icon: "📈" },
+          { label: "Community",         value: "community", icon: "💬" },
+          { label: "Other",             value: "other",     icon: "✦"  },
+        ],
+      },
+      {
+        id: "timesink",
+        question: "What eats most of your week?",
+        options: [
+          { label: "Writing first drafts (briefs, emails, copy)",                    value: "drafting",  icon: "✍️"  },
+          { label: "Producing recurring deliverables (decks, reports, QBRs)",       value: "recurring", icon: "📊" },
+          { label: "Analyzing data or summarizing large volumes of content",         value: "analysis",  icon: "🧮" },
+          { label: "Building and iterating on creative assets or pages",             value: "building",  icon: "🛠️"  },
+        ],
+      },
+      {
+        id: "aiuse",
+        question: "How are you currently using AI?",
+        options: [
+          { label: "I haven't really started yet",             value: "none",    icon: "🤔" },
+          { label: "I use it for quick questions sometimes",   value: "casual",  icon: "👀" },
+          { label: "I have prompts I use regularly",           value: "regular", icon: "⚙️" },
+          { label: "I'm trying to automate or build things",  value: "builder", icon: "🚀" },
+        ],
+      },
+      {
+        id: "goal",
+        question: "What would make today worth your time?",
+        options: [
+          { label: "I used AI to do a real task from my actual job",               value: "hands_on",  icon: "🤝" },
+          { label: "I understand what's possible and have a plan to start",        value: "understand", icon: "💡" },
+          { label: "I set up a tool I'll actually use this week",                  value: "setup",     icon: "⚡" },
+        ],
+      },
+    ];
+
+    const RESULTS = {
+      chat: {
+        title:       "Start with Claude.ai",
+        subtitle:    "Your fastest path to value",
+        color:       "#0055FF",
+        description: "Claude.ai is your ideal entry point. Zero setup — open a browser and start getting real work done immediately. You'll get the most out of conversational AI for drafting, research, brainstorming, and analysis.",
+        startHere: [
+          "Upload a doc you're working on and ask Claude to find gaps or rewrite sections",
+          "Paste competitor copy and ask for a positioning analysis",
+          "Draft your next email sequence or campaign brief from bullet points",
+          "Summarize a batch of customer feedback into actionable themes",
+        ],
+        nextStep: "Once you're comfortable, explore Claude Projects to save your brand context so you stop re-explaining who you are every session.",
+      },
+      cowork: {
+        title:       "Start with Claude.ai, then try Cowork",
+        subtitle:    "For your recurring workflows",
+        color:       "#7C3AED",
+        description: "You're spending time on structured, repeatable work — exactly what Cowork is built for. Start with Claude.ai today to learn the basics, then move to Cowork to turn your best prompts into reusable Skills that run the same way every time.",
+        startHere: [
+          "Use Claude.ai today to draft or analyze something from your current workload",
+          "Download the Claude Desktop app and switch to Cowork mode",
+          "Point Cowork at a folder with your working files and describe what you need",
+          "Ask Cowork to create a Skill for your most repetitive monthly deliverable",
+        ],
+        nextStep: "In a future session, we'll build reusable Skills together — think one-click report generators, automated competitive analyses, and templated deliverables.",
+      },
+      code: {
+        title:       "Start with Claude.ai, then explore Claude Code",
+        subtitle:    "For the power users",
+        color:       "#059669",
+        description: "You're already building and automating — Claude Code gives you full access to your file system, can run scripts, and chain complex workflows. Start with Claude.ai for quick wins, then go deeper with Claude Code for serious automation.",
+        startHere: [
+          "Use Claude.ai today to get familiar with how Claude thinks and responds",
+          "Install Claude Code in your terminal (we'll walk through this together)",
+          "Build a CLAUDE.md context file so Claude knows your role, projects, and preferences",
+          "Try a real workflow: competitive analysis, data pipeline, or automated reporting",
+        ],
+        nextStep: "Session 2 will cover Claude Code installation, CLAUDE.md deep dive, and building your first automated workflow. You'll be first in line.",
+      },
+    };
+
+    // 6 roles × 4 timesinks — 2 concrete use cases each
+    const ROLE_USE_CASES = {
+      pmm: {
+        drafting:  [
+          "Turn 5 competitor landing pages into a positioning matrix in 10 minutes",
+          "Draft 3 subject line variants for your next campaign in under a minute",
+        ],
+        recurring: [
+          "Auto-draft your Monthly PMM Sync doc from a Google Doc of bullet points",
+          "Generate a competitive analysis deck outline from a list of competitor URLs",
+        ],
+        analysis:  [
+          "Extract key messaging themes from 50 G2 competitor reviews instantly",
+          "Summarize 3 analyst reports into 5 executive bullets ready for leadership",
+        ],
+        building:  [
+          "Generate 3 landing page copy variants for A/B testing from one brief",
+          "Draft a complete product one-pager from bullet points in your brand voice",
+        ],
+      },
+      creative: {
+        drafting:  [
+          "Generate 10 ad headline variants from a 3-line creative brief",
+          "Turn your brand guide into a reusable voice prompt you paste into every session",
+        ],
+        recurring: [
+          "Auto-draft your weekly creative status update from project notes",
+          "Build a recurring photo brief template from past approvals — fill in 5 minutes",
+        ],
+        analysis:  [
+          "Analyze the hooks in 20 top-performing competitor ads and surface what's working",
+          "Summarize creative performance data into key learnings for your next sprint",
+        ],
+        building:  [
+          "Write copy for every ad size in a set from one master headline",
+          "Create a 30-post social caption bank from a single campaign theme",
+        ],
+      },
+      seo: {
+        drafting:  [
+          "Write a full blog post outline from 3 keywords and a target persona",
+          "Draft 10 meta descriptions + title tags from a URL list in one pass",
+        ],
+        recurring: [
+          "Auto-generate your weekly content calendar from a topic list and past data",
+          "Build a templated content brief you can fill out in under 5 minutes",
+        ],
+        analysis:  [
+          "Turn 100 customer reviews into a prioritized content gap list",
+          "Summarize competitor blog strategy from their top 10 posts",
+        ],
+        building:  [
+          "Build a complete FAQ section for any product page from customer questions",
+          "Generate 20 unique social posts from a single long-form article",
+        ],
+      },
+      growth: {
+        drafting:  [
+          "Write a 3-part email nurture sequence from a one-paragraph brief",
+          "Draft 5 SMS variants for a win-back campaign in seconds",
+        ],
+        recurring: [
+          "Auto-format your weekly performance report — just paste the raw numbers in",
+          "Generate a monthly QBR slide outline from your KPIs in 2 minutes",
+        ],
+        analysis:  [
+          "Identify churn signals across 30 customer emails — categorized and ranked",
+          "Analyze open rate data by segment and generate a hypothesis for each dip",
+        ],
+        building:  [
+          "Build a complete lifecycle map for a new customer segment from scratch",
+          "Generate personalized onboarding email copy for 3 distinct customer personas",
+        ],
+      },
+      community: {
+        drafting:  [
+          "Write 5 community newsletter intros from bullet points",
+          "Draft a thoughtful response to a tricky member question in your brand voice",
+        ],
+        recurring: [
+          "Auto-generate your weekly community roundup from Discord/Slack thread highlights",
+          "Build a monthly community health report template you can fill in fast",
+        ],
+        analysis:  [
+          "Categorize 50 community posts into product feedback themes for the team",
+          "Summarize a community AMA into 5 key takeaways ready to share with leadership",
+        ],
+        building:  [
+          "Create a full onboarding sequence for new community members",
+          "Generate 30 days of engagement prompts around a single community theme",
+        ],
+      },
+      other: {
+        drafting:  [
+          "Draft a first pass on any doc in seconds — briefs, emails, decks",
+          "Turn rough bullet points into polished copy in your brand voice, instantly",
+        ],
+        recurring: [
+          "Turn your most repetitive deliverable into a reusable prompt template",
+          "Auto-format recurring reports from raw inputs in under a minute",
+        ],
+        analysis:  [
+          "Summarize large volumes of content into executive-ready insights",
+          "Extract patterns and themes from customer feedback or research at scale",
+        ],
+        building:  [
+          "Generate multiple variants of anything you're iterating on — fast",
+          "Build and refine assets in Claude with your full context loaded",
+        ],
+      },
+    };
+
+    const ROLE_LABELS = {
+      pmm:       "Product Marketer",
+      creative:  "Brand / Creative",
+      seo:       "Content / SEO",
+      growth:    "Growth / Performance Marketer",
+      community: "Community Manager",
+      other:     "Marketer",
+    };
+
+    const ROLE_DISPLAY = {
+      pmm:       "Product Marketing",
+      creative:  "Brand / Creative",
+      seo:       "Content / SEO",
+      growth:    "LCM / Performance",
+      community: "Community",
+      other:     "Your Role",
+    };
+
+    const TIMESINK_LABELS = {
+      drafting:  "writing first drafts",
+      recurring: "producing recurring deliverables",
+      analysis:  "analyzing data and summarizing content",
+      building:  "building and iterating on creative assets",
+    };
+
+    // ── STATE ─────────────────────────────────────────────────────────────
+
+    let state = { step: -1, answers: {}, result: null, animating: false };
+    let _promptText = '';
+
+    // ── SCORING ───────────────────────────────────────────────────────────
+
+    function getResult(answers) {
+      let chat = 0, cowork = 0, code = 0;
+
+      const maps = [
+        {
+          pmm:       { chat: 1, cowork: 2, code: 1 },
+          creative:  { chat: 2, cowork: 1, code: 0 },
+          seo:       { chat: 1, cowork: 1, code: 2 },
+          growth:    { chat: 1, cowork: 1, code: 2 },
+          community: { chat: 2, cowork: 1, code: 0 },
+          other:     { chat: 2, cowork: 1, code: 0 },
+        },
+        {
+          drafting:  { chat: 3, cowork: 0, code: 0 },
+          recurring: { chat: 0, cowork: 3, code: 1 },
+          analysis:  { chat: 1, cowork: 1, code: 2 },
+          building:  { chat: 0, cowork: 2, code: 2 },
+        },
+        {
+          none:    { chat: 3, cowork: 1, code: 0 },
+          casual:  { chat: 2, cowork: 1, code: 0 },
+          regular: { chat: 1, cowork: 2, code: 0 },
+          builder: { chat: 0, cowork: 2, code: 2 },
+        },
+        {
+          hands_on:  { chat: 2, cowork: 1, code: 1 },
+          understand: { chat: 2, cowork: 1, code: 0 },
+          setup:     { chat: 0, cowork: 2, code: 2 },
+        },
+      ];
+      const keys = ['role', 'timesink', 'aiuse', 'goal'];
+
+      keys.forEach((key, i) => {
+        const val = answers[key];
+        if (val && maps[i][val]) {
+          chat   += maps[i][val].chat;
+          cowork += maps[i][val].cowork;
+          code   += maps[i][val].code;
+        }
+      });
+
+      if (code > chat && code > cowork) return 'code';
+      if (cowork > chat && cowork > code) return 'cowork';
+      return 'chat';
+    }
+
+    // ── STARTER PROMPT ────────────────────────────────────────────────────
+
+    function buildStarterPrompt(result, answers) {
+      const role     = ROLE_LABELS[answers.role]      || 'Marketer';
+      const timesink = TIMESINK_LABELS[answers.timesink] || 'recurring work';
+
+      if (result === 'chat') {
+        return `I'm a ${role} at Housecall Pro. I spend a lot of time on ${timesink}.
+
+I'm going to paste something I'm working on right now. Please review it, improve it, and give me a polished version I can actually use.
+
+[PASTE YOUR CONTENT HERE]
+
+Keep your response focused and in plain language.`;
+      }
+      if (result === 'cowork') {
+        return `I'm a ${role} at Housecall Pro. I have a recurring deliverable: ${timesink}.
+
+Here are my raw inputs for this week:
+[PASTE YOUR DATA OR NOTES HERE]
+
+Please format this into a clean, structured output I can share. Use clear sections, bold key data points, and lead with the most important insight. Ask me if anything is unclear before proceeding.`;
+      }
+      return `I'm a ${role} at Housecall Pro. I want to automate ${timesink}.
+
+Here's my context:
+[DESCRIBE YOUR FILES, FOLDERS, OR DATA SOURCE]
+
+Help me design the most efficient approach, then build it step by step. Confirm your understanding before writing any code or scripts.`;
+    }
+
+    // ── HTML HELPERS ──────────────────────────────────────────────────────
+
+    function esc(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // ── RENDER ────────────────────────────────────────────────────────────
+
+    function updateProgress() {
+      const pct = state.result    ? 100
+                : state.step < 0  ? 0
+                : ((state.step + 1) / QUESTIONS.length) * 100;
+      document.getElementById('progress-bar').style.width = pct + '%';
+    }
+
+    function renderIntro() {
+      return `
+        <div class="intro-card">
+          <p>Claude comes in a few different forms — chat, desktop agent, terminal tool. The right starting point depends on your role, your workflow, and what you're trying to get done.</p>
+          <p>This quiz helps you figure out where to begin.</p>
+        </div>
+        <button class="btn-primary" onclick="handleStart()">Let's go</button>
+      `;
+    }
+
+    function renderQuestion(step) {
+      const q = QUESTIONS[step];
+      const opts = q.options.map(opt => {
+        const sel = state.answers[q.id] === opt.value;
+        return `
+          <button class="option-btn${sel ? ' selected' : ''}"
+                  onclick="handleSelect('${q.id}','${opt.value}')">
+            <span class="option-icon">${opt.icon}</span>
+            <span>${esc(opt.label)}</span>
+          </button>
+        `;
+      }).join('');
+
+      return `
+        <div class="step-label">${step + 1} of ${QUESTIONS.length}</div>
+        <h2>${esc(q.question)}</h2>
+        <div class="options">${opts}</div>
+      `;
+    }
+
+    function renderResult(key) {
+      const r = RESULTS[key];
+      const c = r.color;
+
+      // Steps
+      const stepsHtml = r.startHere.map((item, i) => `
+        <div class="step-item">
+          <div class="step-num" style="background:${c}20;border:1px solid ${c}35;color:${c}">${i + 1}</div>
+          <span class="step-text">${esc(item)}</span>
+        </div>
+      `).join('');
+
+      // Role use cases
+      const role      = state.answers.role     || 'other';
+      const timesink  = state.answers.timesink || 'drafting';
+      const cases     = (ROLE_USE_CASES[role] || ROLE_USE_CASES.other)[timesink] || ROLE_USE_CASES.other.drafting;
+      const roleDisp  = ROLE_DISPLAY[role] || 'Your Role';
+      const casesHtml = cases.map(uc => `
+        <div class="usecase-item">
+          <div class="usecase-dot" style="background:${c}"></div>
+          <span class="usecase-text">${esc(uc)}</span>
+        </div>
+      `).join('');
+
+      // Starter prompt — build and store for clipboard
+      _promptText = buildStarterPrompt(key, state.answers);
+
+      return `
+        <div class="result-header" style="background:linear-gradient(135deg,${c}18,${c}08);border:1px solid ${c}30">
+          <div class="result-tag" style="background:${c}20;border:1px solid ${c}35;color:${c}">Your recommendation</div>
+          <div class="result-title">${esc(r.title)}</div>
+          <div class="result-subtitle">${esc(r.subtitle)}</div>
+          <p class="result-desc">${esc(r.description)}</p>
+        </div>
+
+        <div class="section-card">
+          <div class="section-label">Try this week</div>
+          <div class="step-list">${stepsHtml}</div>
+        </div>
+
+        <div class="section-card" style="border-color:${c}22">
+          <div class="section-label" style="color:${c}">${esc(roleDisp)}</div>
+          <div class="usecase-list">${casesHtml}</div>
+        </div>
+
+        <div class="prompt-card">
+          <div class="prompt-header">
+            <span class="prompt-label">Your starter prompt</span>
+            <button class="copy-btn" id="copy-btn" onclick="handleCopy()">Copy prompt</button>
+          </div>
+          <pre id="starter-prompt-text">${esc(_promptText)}</pre>
+        </div>
+
+        <div class="next-card">
+          <div class="next-label">Coming up next</div>
+          <p class="next-text">${esc(r.nextStep)}</p>
+        </div>
+
+        <a href="https://claude.ai" target="_blank" rel="noopener" class="btn-cta">Open Claude.ai →</a>
+        <button class="btn-ghost" onclick="handleReset()">Retake quiz</button>
+      `;
+    }
+
+    function renderContent() {
+      const el = document.getElementById('content');
+      if (state.step === -1 && !state.result) {
+        el.innerHTML = renderIntro();
+      } else if (state.step >= 0 && !state.result) {
+        el.innerHTML = renderQuestion(state.step);
+      } else if (state.result) {
+        el.innerHTML = renderResult(state.result);
+      }
+      updateProgress();
+    }
+
+    // ── TRANSITION ────────────────────────────────────────────────────────
+
+    function transition(updates) {
+      if (state.animating) return;
+      state.animating = true;
+      const el = document.getElementById('content');
+      el.classList.add('hiding');
+      setTimeout(() => {
+        state = { ...state, ...updates, animating: false };
+        renderContent();
+        el.classList.remove('hiding');
+      }, 200);
+    }
+
+    // ── HANDLERS ──────────────────────────────────────────────────────────
+
+    function handleStart() {
+      transition({ step: 0 });
+    }
+
+    function handleSelect(questionId, value) {
+      if (state.animating) return;
+      const newAnswers = { ...state.answers, [questionId]: value };
+      if (state.step < QUESTIONS.length - 1) {
+        transition({ step: state.step + 1, answers: newAnswers });
+      } else {
+        transition({ result: getResult(newAnswers), answers: newAnswers });
+      }
+    }
+
+    function handleReset() {
+      transition({ step: -1, answers: {}, result: null });
+    }
+
+    function handleCopy() {
+      navigator.clipboard.writeText(_promptText).then(() => {
+        const btn = document.getElementById('copy-btn');
+        if (!btn) return;
+        btn.textContent = 'Copied ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy prompt';
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => {
+        // Fallback: select the text in the pre
+        const pre = document.getElementById('starter-prompt-text');
+        if (pre) {
+          const range = document.createRange();
+          range.selectNodeContents(pre);
+          window.getSelection().removeAllRanges();
+          window.getSelection().addRange(range);
+        }
+      });
+    }
+
+    // ── INIT ──────────────────────────────────────────────────────────────
+
+    renderContent();
+  </script>
+</body>
+</html>
