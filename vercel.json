@@ -1,3 +1,7 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/hcp-landing/workflows", "destination": "/hcp-landing/index.html" },
+    { "source": "/hcp-landing", "destination": "/hcp-landing/index.html" }
+  ]
 }
