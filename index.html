@@ -488,7 +488,7 @@
           <div class="card-head">
             <div>
               <div class="card-title">Session History</div>
-              <div class="card-sub">What got shipped, fixed, and built — 12 of 15 sessions</div>
+              <div class="card-sub">What got shipped, fixed, and built — 14 of 15 sessions</div>
             </div>
           </div>
           <div class="sessions">
@@ -588,6 +588,22 @@
               </div>
               <div class="sess-right"><span class="sess-date">Mar 11</span><span class="sess-tag st-green">deploy</span></div>
             </div>
+            <div class="sess">
+              <div class="sess-num">13</div>
+              <div class="sess-body">
+                <div class="sess-title">Find Your Claude — AI Office Hours Quiz</div>
+                <div class="sess-desc">Built 4-question personalized tool finder for HCP marketers — routes to Claude Chat, Cowork, or Code based on role and workflow. Shipped to /quiz.</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Apr 12</span><span class="sess-tag st-green">deploy</span></div>
+            </div>
+            <div class="sess">
+              <div class="sess-num">14</div>
+              <div class="sess-body">
+                <div class="sess-title">HCP Redesigned Landing + Workflow Pages</div>
+                <div class="sess-desc">Built full React 19 + Vite 7 redesign of the HCP landing page with workflow pages — glassmorphism dark cinema aesthetic, production-ready, shipped to /hcp-landing.</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Apr 20</span><span class="sess-tag st-green">deploy</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -662,11 +678,6 @@
                 <span class="proj-name">ateksoils.us — Dad's Site</span>
                 <span class="proj-badge pb-green">personal · live</span>
               </a>
-              <a href="/ai-lead.html" class="proj-item shipped link">
-                <span class="proj-em">🤖</span>
-                <span class="proj-name">AI Programs Lead — Role Pitch</span>
-                <span class="proj-badge pb-green">personal · live</span>
-              </a>
               <a href="/quiz" target="_blank" rel="noopener" class="proj-item shipped link">
                 <span class="proj-em">🧠</span>
                 <span class="proj-name">Find Your Claude — AI Quiz</span>
@@ -677,6 +688,11 @@
                 <span class="proj-name">HCP Redesigned Landing + Workflows Page</span>
                 <span class="proj-badge pb-green">live</span>
               </a>
+              <div class="proj-item shipped link" onclick="openInfo('officehours')">
+                <span class="proj-em">🎓</span>
+                <span class="proj-name">AI Office Hours — Marketing Enablement</span>
+                <span class="proj-badge pb-green">ongoing · 2 qtrs</span>
+              </div>
             </div>
           </div>
 
@@ -695,8 +711,8 @@
             <div class="proj-heading">building <span class="ct">1</span></div>
             <div class="proj-list">
               <div class="proj-item soon">
-                <span class="proj-em">📋</span>
-                <span class="proj-name">Interactive Leave Behind</span>
+                <span class="proj-em">⭐</span>
+                <span class="proj-name">HCP Testimonials Hub</span>
                 <span class="proj-badge pb-blue">building</span>
               </div>
             </div>
@@ -774,7 +790,7 @@
       <div class="val-card hl">
         <div class="val-label">total engineering value</div>
         <div class="val-num" id="totalVal">$0</div>
-        <div class="val-desc">Equivalent cost to hire engineers to build all of this. Based on junior-to-mid SWE market rates ($43–$55/hr).</div>
+        <div class="val-desc">Equivalent cost to hire engineers and enablement leads to build and run all of this. Based on market rates for junior-to-mid SWE ($43–$55/hr) and AI program design.</div>
         <div class="val-lines">
           <div class="val-row-item"><span>Counter-Intel System (3 agents)</span><span class="amt">$16,500</span></div>
           <div class="val-row-item"><span>Sherwin-Williams × HCP Prototype</span><span class="amt">$7,500</span></div>
@@ -782,6 +798,8 @@
           <div class="val-row-item"><span>HCP Maps App</span><span class="amt">$4,000</span></div>
           <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
           <div class="val-row-item"><span>Desktop Reviews Prototype</span><span class="amt">$3,200</span></div>
+          <div class="val-row-item"><span>HCP Landing + Workflow Pages</span><span class="amt">$3,500</span></div>
+          <div class="val-row-item"><span>AI Enablement Program (2 qtrs, 90-person dept)</span><span class="amt">$7,000</span></div>
           <div class="val-row-item"><span>Meta Ads Deployer</span><span class="amt">$2,500</span></div>
           <div class="val-row-item"><span>40 Under 40 (v1 + app flow)</span><span class="amt">$400</span></div>
           <div class="val-row-item"><span>Sites, Docs &amp; Misc</span><span class="amt">$3,800</span></div>
@@ -835,7 +853,7 @@
     </div>
 
     <div class="footer">
-      analytics from claude code session logs &middot; updated apr 12, 2026 &middot;
+      analytics from claude code session logs &middot; updated apr 27, 2026 &middot;
       <a href="https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-jackson-sherwood-690663214/" target="_blank" rel="noopener">linkedin</a>
     </div>
   </div>
@@ -901,13 +919,13 @@
 
     const valKpi = document.getElementById('valKpi');
     const vObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 45500, '$', 1500); vObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 56000, '$', 1500); vObs.unobserve(e.target); });
     }, { threshold: 0.7 });
     vObs.observe(valKpi);
 
     const tvEl = document.getElementById('totalVal');
     const tvObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 45500, '$', 1500); tvObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 56000, '$', 1500); tvObs.unobserve(e.target); });
     }, { threshold: 0.4 });
     tvObs.observe(tvEl);
 
@@ -1050,6 +1068,11 @@
         linkText: 'View Prototype →',
         link2: 'https://docs.google.com/document/d/1bhgRzVTOHaaXEc_0p_iRoPacpyf18KTWWu9b1SBX5OI/edit?usp=sharing',
         link2Text: 'View Research Doc →'
+      },
+      officehours: {
+        emoji: '🎓',
+        title: 'AI Office Hours — Marketing Enablement',
+        desc: 'A weekly 1-hour structured session teaching the 90-person Housecall Pro marketing department how to use AI effectively — Claude Chat, Claude Cowork, and Claude Code. Each session covers a planned lesson: what each tool does, which teams it fits best, practical workflows for paid marketing, LCM, video, social, and beyond.<br><br>Beyond the group sessions, individual "AI consultations" run in parallel — 1:1s where I act as an AI deployment consultant, reviewing each person\'s tech stack and manual workflows and recommending specific tools and prompting strategies to unlock time savings.<br><br><strong>Program scope</strong><br>&middot;&nbsp; 2 quarters (~6 months) · 90-person marketing org<br>&middot;&nbsp; Weekly group sessions + on-demand 1:1 consultations<br>&middot;&nbsp; Teams covered: Paid, LCM, Video, Social, PMM, Events &amp; more<br>&middot;&nbsp; Tools taught: Chat, Cowork, Claude Code + Claude API basics<br><br><strong>Estimated impact</strong> <span style="opacity:0.5;font-size:0.85em">— rough estimates</span><br>&middot;&nbsp; Hours saved per week across dept: 20–40 hrs<br>&middot;&nbsp; Annualized time savings: ~$120K+ equivalent at avg. marketing salary'
       },
       metaads: {
         emoji: '⚡',
