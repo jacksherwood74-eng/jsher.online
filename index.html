@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <meta name="description" content="Jackson Sherwood · AI Enablement &amp; Agent Builder at Housecall Pro">
+  <meta name="description" content="Jackson Sherwood · AI Enablement + Agent &amp; Application Builder at Housecall Pro">
   <meta property="og:title" content="Jackson Sherwood">
-  <meta property="og:description" content="AI Enablement &amp; Agent Builder at Housecall Pro">
+  <meta property="og:description" content="AI Enablement + Agent &amp; Application Builder at Housecall Pro">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jsher.online">
   <meta property="og:image" content="https://jsher.online/assets/headshot.jpg">
@@ -434,7 +434,7 @@
       </div>
       <div class="profile-info">
         <div class="profile-name">Jackson Sherwood</div>
-        <div class="profile-role">AI Enablement &amp; Agent Builder &middot; <span>Housecall Pro</span> Marketing</div>
+        <div class="profile-role">AI Enablement + Agent &amp; Application Builder &middot; <span>Housecall Pro</span> Marketing</div>
         <div class="profile-bio">Got my start on the innovation team in late 2022, where GPT-3 first got me hooked, so I've been building with AI since its inception. Today I'm the bridge between Housecall Pro's marketing org and AI: shipping agents and apps, and getting the whole team building too.</div>
       </div>
       <div class="profile-right">
@@ -451,6 +451,11 @@
     <!-- KPIs -->
     <div class="kpis">
       <div class="kpi">
+        <div class="kpi-label">Total Token Usage</div>
+        <div class="kpi-val" id="tokKpi">0M</div>
+        <div class="kpi-sub">input + output, all sessions</div>
+      </div>
+      <div class="kpi">
         <div class="kpi-label">AI Sessions</div>
         <div class="kpi-val" data-target="124">0</div>
         <div class="kpi-sub">since jan 8, 2026</div>
@@ -459,11 +464,6 @@
         <div class="kpi-label">Messages Logged</div>
         <div class="kpi-val" data-target="34800">0</div>
         <div class="kpi-sub">human + ai turns</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Tool Executions</div>
-        <div class="kpi-val" data-target="11200">0</div>
-        <div class="kpi-sub">code runs · edits · ops</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Lines of Code</div>
@@ -513,12 +513,6 @@
             </div>
           </div>
           <div class="sessions">
-            <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="false">
-              <span class="qtr-chevron">▸</span>
-              <span class="qtr-label">Show 15 earlier sessions</span>
-              <span class="qtr-ct">15</span>
-            </button>
-            <div class="qtr-body collapsed">
             <div class="sess">
               <div class="sess-num">01</div>
               <div class="sess-body">
@@ -639,7 +633,6 @@
               </div>
               <div class="sess-right"><span class="sess-date">May 19</span><span class="sess-tag st-green">deploy</span></div>
             </div>
-            </div>
             <div class="sess">
               <div class="sess-num">16</div>
               <div class="sess-body">
@@ -698,7 +691,7 @@
 
           <!-- SHIPPED, grouped by quarter -->
           <div class="proj-section">
-            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">20</span></div>
+            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">21</span></div>
 
             <!-- Q1 2026, collapsed, on top -->
             <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="false">
@@ -770,7 +763,7 @@
             <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="true">
               <span class="qtr-chevron">▾</span>
               <span class="qtr-label">Q2 2026 · Apr–Jun</span>
-              <span class="qtr-ct">9</span>
+              <span class="qtr-ct">10</span>
             </button>
             <div class="qtr-body">
               <div class="proj-list">
@@ -819,6 +812,11 @@
                   <span class="proj-name">AI Office Hours: Marketing Enablement</span>
                   <span class="proj-badge pb-green">delivered · Q2</span>
                 </div>
+                <div class="proj-item shipped link" onclick="openInfo('misc')">
+                  <span class="proj-em">🧩</span>
+                  <span class="proj-name">Miscellaneous &amp; Ad-Hoc Builds</span>
+                  <span class="proj-badge pb-green">live · ongoing</span>
+                </div>
               </div>
             </div>
           </div>
@@ -851,38 +849,6 @@
                 <span class="proj-em">🎓</span>
                 <span class="proj-name">AI Office Hours: Q3 Cohort</span>
                 <span class="proj-badge pb-yellow">ongoing</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Miscellaneous, the connective tissue -->
-          <div class="proj-section">
-            <div class="proj-heading" style="color:var(--text-2)">miscellaneous · ongoing <span class="ct">5</span></div>
-            <div class="proj-list">
-              <div class="proj-item link" onclick="openInfo('connector')">
-                <span class="proj-em">🔗</span>
-                <span class="proj-name">AI × HCP Connector</span>
-                <span class="proj-badge pb-dim">the throughline</span>
-              </div>
-              <div class="proj-item link" onclick="openInfo('consults')">
-                <span class="proj-em">🧑‍🏫</span>
-                <span class="proj-name">1:1 Consults &amp; Walkthroughs</span>
-                <span class="proj-badge pb-dim">ongoing</span>
-              </div>
-              <div class="proj-item link" onclick="openInfo('dashboards')">
-                <span class="proj-em">🧰</span>
-                <span class="proj-name">On-Demand HTML Dashboards</span>
-                <span class="proj-badge pb-dim">on request</span>
-              </div>
-              <div class="proj-item link" onclick="openInfo('adhocintel')">
-                <span class="proj-em">🔎</span>
-                <span class="proj-name">Ad-Hoc Competitive Runs</span>
-                <span class="proj-badge pb-dim">for leadership</span>
-              </div>
-              <div class="proj-item link" onclick="openInfo('brandskills')">
-                <span class="proj-em">🎨</span>
-                <span class="proj-name">Brand Skills &amp; Custom Builds</span>
-                <span class="proj-badge pb-dim">ongoing</span>
               </div>
             </div>
           </div>
@@ -984,9 +950,10 @@
           <div class="val-row-item"><span>Sherwin-Williams × HCP Prototype</span><span class="amt">$7,500</span></div>
           <div class="val-row-item"><span>AI Enablement Program (2 qtrs, 90-person dept)</span><span class="amt">$7,000</span></div>
           <div class="val-row-item"><span>HCP Maps, shipped behind Okta</span><span class="amt">$6,500</span></div>
+          <div class="val-row-item"><span>Misc &amp; Ad-Hoc Builds (dashboards, consults, scrapes, skills)</span><span class="amt">$6,000</span></div>
           <div class="val-row-item"><span>HCP Testimonials Hub, shipped behind Okta</span><span class="amt">$5,500</span></div>
           <div class="val-row-item"><span>HCP Labs Prototype + Research</span><span class="amt">$4,000</span></div>
-          <div class="val-row-item"><span>Sites, Docs &amp; Misc</span><span class="amt">$3,800</span></div>
+          <div class="val-row-item"><span>Sites &amp; Docs</span><span class="amt">$3,800</span></div>
           <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
           <div class="val-row-item"><span>HCP Landing + Workflow Pages</span><span class="amt">$3,500</span></div>
           <div class="val-row-item"><span>Desktop Reviews Prototype</span><span class="amt">$3,200</span></div>
@@ -1111,13 +1078,29 @@
 
     const valKpi = document.getElementById('valKpi');
     const vObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 91500, '$', 1500); vObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 97500, '$', 1500); vObs.unobserve(e.target); });
     }, { threshold: 0.7 });
     vObs.observe(valKpi);
 
+    // Token usage KPI (formatted in millions)
+    const tokKpi = document.getElementById('tokKpi');
+    const tkObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const t0 = Date.now(), target = 59.5, dur = 1500;
+        (function tick() {
+          const p = Math.min(1, (Date.now() - t0) / dur);
+          tokKpi.textContent = (target * (1 - Math.pow(1 - p, 3))).toFixed(1) + 'M';
+          if (p < 1) requestAnimationFrame(tick);
+        })();
+        tkObs.unobserve(e.target);
+      });
+    }, { threshold: 0.7 });
+    tkObs.observe(tokKpi);
+
     const tvEl = document.getElementById('totalVal');
     const tvObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 91500, '$', 1500); tvObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 97500, '$', 1500); tvObs.unobserve(e.target); });
     }, { threshold: 0.4 });
     tvObs.observe(tvEl);
 
@@ -1291,30 +1274,10 @@
         title: 'Templatized Competitive Teardowns',
         desc: 'Turning ad-hoc competitive teardown requests into a repeatable, templatized workflow, a standard intake and a consistent output format so anyone on the team can request a competitor teardown and get a high-quality brief back fast. Built on top of the counter-intel stack.<br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · in the works</span>'
       },
-      connector: {
-        emoji: '🔗',
-        title: 'AI × HCP Connector',
-        desc: 'The throughline behind everything here. I sit between Housecall Pro\'s marketing org and AI: figuring out where Claude (Chat, Cowork, Code) and agents actually move the needle, then building it, teaching it, and handing it off. Part builder, part enablement lead, part internal consultant. A lot of this work doesn\'t fit neatly into a project card, but it adds up to a marketing team that ships with AI every day.'
-      },
-      consults: {
-        emoji: '🧑‍🏫',
-        title: '1:1 Consults & Walkthroughs',
-        desc: 'Individual sessions with teammates: I review their stack and manual workflows, then build personalized, custom HTML walkthroughs that show them exactly how to use AI for their role (built one for Tony, plus plenty of others). The fastest way to get someone from "curious" to "shipping with AI" is to sit down and build it with them.'
-      },
-      dashboards: {
-        emoji: '🧰',
-        title: 'On-Demand HTML Dashboards',
-        desc: 'Quick single-file HTML dashboards built on request whenever someone needs to see their data clearly. Usage trackers, status boards, one-off visualizations: spin one up, share the link, move on. Small builds on their own, but there have been a lot of them.'
-      },
-      adhocintel: {
-        emoji: '🔎',
-        title: 'Ad-Hoc Competitive Runs',
-        desc: 'Fast, on-request competitive scrapes and intel runs for VPs and leadership, outside the scheduled counter-intel bots. When someone needs a read on a competitor before a meeting, I pull it together quickly with the same scraping and Claude toolkit that powers the agents.'
-      },
-      brandskills: {
-        emoji: '🎨',
-        title: 'Brand Skills & Custom Builds',
-        desc: 'Building brand voice and creative skills (and other custom Claude skills) for teammates, then packaging them up and sending them out so people can run them on their own. Reusable building blocks that spread AI capability across the team without me in the loop every time.'
+      misc: {
+        emoji: '🧩',
+        title: 'Miscellaneous & Ad-Hoc Builds',
+        desc: 'The connective work that doesn\'t fit in one card but happens constantly. I\'m the bridge between Housecall Pro\'s marketing org and AI, and a lot of that is small, frequent, high-leverage builds:<br><br>&middot;&nbsp; <strong>1:1 consults &amp; walkthroughs:</strong> personalized HTML walkthroughs for teammates (built one for Tony, plus plenty of others), reviewing their stack and showing them exactly how to use AI.<br>&middot;&nbsp; <strong>On-demand dashboards:</strong> quick single-file HTML dashboards whenever someone needs to see their data.<br>&middot;&nbsp; <strong>Ad-hoc competitive runs:</strong> fast scrapes and intel pulls for VPs and leadership before meetings.<br>&middot;&nbsp; <strong>Brand skills &amp; custom builds:</strong> brand-voice and creative Claude skills, packaged and shared so people run them on their own.<br><br>Individually small, but it happens so often that it adds up: in time saved, and in a marketing team that ships with AI every day.'
       },
       alerts: {
         emoji: '🔍',
