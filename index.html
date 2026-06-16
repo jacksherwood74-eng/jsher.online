@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jackson Sherwood — jsher.online</title>
+  <title>Jackson Sherwood · jsher.online</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <meta name="description" content="Jackson Sherwood — Building with AI at Housecall Pro">
+  <meta name="description" content="Jackson Sherwood · AI Enablement &amp; Agent Builder at Housecall Pro">
   <meta property="og:title" content="Jackson Sherwood">
-  <meta property="og:description" content="AI Platform Specialist at Housecall Pro">
+  <meta property="og:description" content="AI Enablement &amp; Agent Builder at Housecall Pro">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jsher.online">
   <meta property="og:image" content="https://jsher.online/assets/headshot.jpg">
@@ -107,6 +107,7 @@
     .profile-name { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 4px; }
     .profile-role { font-size: 0.8rem; color: var(--text-2); }
     .profile-role span { color: var(--green); font-weight: 500; }
+    .profile-bio { font-size: 0.74rem; color: var(--text-2); line-height: 1.55; margin-top: 9px; max-width: 660px; }
     .profile-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
     .live-badge {
       display: flex; align-items: center; gap: 7px;
@@ -433,7 +434,8 @@
       </div>
       <div class="profile-info">
         <div class="profile-name">Jackson Sherwood</div>
-        <div class="profile-role">AI Platform Specialist &middot; <span>Housecall Pro</span> &middot; Building autonomous systems with Claude Code</div>
+        <div class="profile-role">AI Enablement &amp; Agent Builder &middot; <span>Housecall Pro</span> Marketing</div>
+        <div class="profile-bio">Got my start on the innovation team in late 2022, where GPT-3 first got me hooked, so I've been building with AI since its inception. Today I'm the bridge between Housecall Pro's marketing org and AI: shipping agents and apps, and getting the whole team building too.</div>
       </div>
       <div class="profile-right">
         <div class="live-badge">
@@ -490,15 +492,15 @@
         <div class="card">
           <div class="card-head">
             <div>
-              <div class="card-title">Daily AI Activity</div>
-              <div class="card-sub">Messages &amp; tool executions per session — Jan to Jun 2026</div>
+              <div class="card-title">Daily Token Usage</div>
+              <div class="card-sub">Tokens consumed per session, Jan to Jun 2026</div>
             </div>
-            <span class="tag">17 sessions</span>
+            <span class="tag">59.5M tokens</span>
           </div>
           <canvas id="chart"></canvas>
           <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>messages</div>
-            <div class="legend-item"><div class="legend-dot" style="background:rgba(0,232,122,0.35)"></div>tool calls</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>input tokens</div>
+            <div class="legend-item"><div class="legend-dot" style="background:rgba(0,232,122,0.35)"></div>output tokens</div>
           </div>
         </div>
 
@@ -507,14 +509,20 @@
           <div class="card-head">
             <div>
               <div class="card-title">Session History</div>
-              <div class="card-sub">What got shipped, fixed, and built — 20 highlighted, Jan to Jun 2026</div>
+              <div class="card-sub">What got shipped, fixed, and built · 20 highlighted, Jan to Jun 2026</div>
             </div>
           </div>
           <div class="sessions">
+            <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="false">
+              <span class="qtr-chevron">▸</span>
+              <span class="qtr-label">Show 15 earlier sessions</span>
+              <span class="qtr-ct">15</span>
+            </button>
+            <div class="qtr-body collapsed">
             <div class="sess">
               <div class="sess-num">01</div>
               <div class="sess-body">
-                <div class="sess-title">jsher.online — Build &amp; Deploy</div>
+                <div class="sess-title">jsher.online, Build &amp; Deploy</div>
                 <div class="sess-desc">Built personal portfolio from scratch, pushed to GitHub, got live on Vercel</div>
               </div>
               <div class="sess-right"><span class="sess-date">Jan 8</span><span class="sess-tag st-green">deploy</span></div>
@@ -530,7 +538,7 @@
             <div class="sess">
               <div class="sess-num">03</div>
               <div class="sess-body">
-                <div class="sess-title">Counter-Intel Chatbot — Full Migration</div>
+                <div class="sess-title">Counter-Intel Chatbot, Full Migration</div>
                 <div class="sess-desc">Migrated TypeScript Slack bot to n8n; Slack trigger + AI question parsing working</div>
               </div>
               <div class="sess-right"><span class="sess-date">Feb 11</span><span class="sess-tag st-green">build</span></div>
@@ -538,7 +546,7 @@
             <div class="sess">
               <div class="sess-num">04</div>
               <div class="sess-body">
-                <div class="sess-title">HCP Maps — Glassmorphism UI + Deploy</div>
+                <div class="sess-title">HCP Maps, Glassmorphism UI + Deploy</div>
                 <div class="sess-desc">Full UI polish with glassmorphism styling, security hardening, GitHub push</div>
               </div>
               <div class="sess-right"><span class="sess-date">Feb 17</span><span class="sess-tag st-green">deploy</span></div>
@@ -546,7 +554,7 @@
             <div class="sess">
               <div class="sess-num">05</div>
               <div class="sess-body">
-                <div class="sess-title">Counter-Intel Alerts — Designed &amp; Built</div>
+                <div class="sess-title">Counter-Intel Alerts, Designed &amp; Built</div>
                 <div class="sess-desc">Designed + deployed daily competitor page monitor with Claude AI → Slack alerts</div>
               </div>
               <div class="sess-right"><span class="sess-date">Feb 23</span><span class="sess-tag st-green">build</span></div>
@@ -554,7 +562,7 @@
             <div class="sess">
               <div class="sess-num">06</div>
               <div class="sess-body">
-                <div class="sess-title">jsher.online — Dark Redesign</div>
+                <div class="sess-title">jsher.online, Dark Redesign</div>
                 <div class="sess-desc">Apple-inspired dark redesign, two feedback rounds, pushed live to Vercel</div>
               </div>
               <div class="sess-right"><span class="sess-date">Feb 23</span><span class="sess-tag st-dim">design</span></div>
@@ -578,7 +586,7 @@
             <div class="sess">
               <div class="sess-num">09</div>
               <div class="sess-body">
-                <div class="sess-title">Counter-Intel Q&amp;A Bot — Error Handling + Format</div>
+                <div class="sess-title">Counter-Intel Q&amp;A Bot, Error Handling + Format</div>
                 <div class="sess-desc">Adaptive response formats (reviews, pricing, comparisons), retry logic on Claude API, rate limit messaging, removed broken @ping on unknown competitors</div>
               </div>
               <div class="sess-right"><span class="sess-date">Mar 4</span><span class="sess-tag st-green">build</span></div>
@@ -586,7 +594,7 @@
             <div class="sess">
               <div class="sess-num">10</div>
               <div class="sess-body">
-                <div class="sess-title">Q&amp;A Bot — Deep Dive + Source Diversity Overhaul</div>
+                <div class="sess-title">Q&amp;A Bot, Deep Dive + Source Diversity Overhaul</div>
                 <div class="sess-desc">11 node updates: platform-tagged citations (G2/Capterra/Reddit), source diversity rules, deep dive error handling, 50% token reduction, channel/thread passthrough bug fix</div>
               </div>
               <div class="sess-right"><span class="sess-date">Mar 4</span><span class="sess-tag st-dim">fix</span></div>
@@ -594,24 +602,24 @@
             <div class="sess">
               <div class="sess-num">11</div>
               <div class="sess-body">
-                <div class="sess-title">jsher.online — Pre-Ship Polish</div>
-                <div class="sess-desc">Favicon with green ring, OG preview tags, Dad's Site project + value update, analytics refresh — pre-ship clean up before manager review</div>
+                <div class="sess-title">jsher.online, Pre-Ship Polish</div>
+                <div class="sess-desc">Favicon with green ring, OG preview tags, Dad's Site project + value update, analytics refresh, pre-ship clean up before manager review</div>
               </div>
               <div class="sess-right"><span class="sess-date">Mar 9</span><span class="sess-tag st-green">design</span></div>
             </div>
             <div class="sess">
               <div class="sess-num">12</div>
               <div class="sess-body">
-                <div class="sess-title">jsher.online — Ship Day Edits</div>
-                <div class="sess-desc">Project board reorder, HCP Maps → deploying (yellow), prototype links fixed, value recalculation, analytics refresh — ready for manager review</div>
+                <div class="sess-title">jsher.online, Ship Day Edits</div>
+                <div class="sess-desc">Project board reorder, HCP Maps → deploying (yellow), prototype links fixed, value recalculation, analytics refresh, ready for manager review</div>
               </div>
               <div class="sess-right"><span class="sess-date">Mar 11</span><span class="sess-tag st-green">deploy</span></div>
             </div>
             <div class="sess">
               <div class="sess-num">13</div>
               <div class="sess-body">
-                <div class="sess-title">Find Your Claude — AI Office Hours Quiz</div>
-                <div class="sess-desc">Built 4-question personalized tool finder for HCP marketers — routes to Claude Chat, Cowork, or Code based on role and workflow. Shipped to /quiz.</div>
+                <div class="sess-title">Find Your Claude, AI Office Hours Quiz</div>
+                <div class="sess-desc">Built 4-question personalized tool finder for HCP marketers, routes to Claude Chat, Cowork, or Code based on role and workflow. Shipped to /quiz.</div>
               </div>
               <div class="sess-right"><span class="sess-date">Apr 12</span><span class="sess-tag st-green">deploy</span></div>
             </div>
@@ -619,7 +627,7 @@
               <div class="sess-num">14</div>
               <div class="sess-body">
                 <div class="sess-title">HCP Redesigned Landing + Workflow Pages</div>
-                <div class="sess-desc">Built full React 19 + Vite 7 redesign of the HCP landing page with workflow pages — glassmorphism dark cinema aesthetic, production-ready, shipped to /hcp-landing.</div>
+                <div class="sess-desc">Built full React 19 + Vite 7 redesign of the HCP landing page with workflow pages, glassmorphism dark cinema aesthetic, production-ready, shipped to /hcp-landing.</div>
               </div>
               <div class="sess-right"><span class="sess-date">Apr 20</span><span class="sess-tag st-green">deploy</span></div>
             </div>
@@ -627,15 +635,16 @@
               <div class="sess-num">15</div>
               <div class="sess-body">
                 <div class="sess-title">May 2026 Release Moment Page</div>
-                <div class="sess-desc">Built and shipped the May 2026 product release moment landing page — live at housecallpro.com/lp/may-26-release/</div>
+                <div class="sess-desc">Built and shipped the May 2026 product release moment landing page, live at housecallpro.com/lp/may-26-release/</div>
               </div>
               <div class="sess-right"><span class="sess-date">May 19</span><span class="sess-tag st-green">deploy</span></div>
+            </div>
             </div>
             <div class="sess">
               <div class="sess-num">16</div>
               <div class="sess-body">
                 <div class="sess-title">Jack's Ultimate Higgsfield Workflow</div>
-                <div class="sess-desc">End-to-end AI creative pipeline for Cowork — text gen + critic → Motion analytics → Higgsfield ad creation. Packaged as a downloadable folder for the marketing team.</div>
+                <div class="sess-desc">End-to-end AI creative pipeline for Cowork, text gen + critic → Motion analytics → Higgsfield ad creation. Packaged as a downloadable folder for the marketing team.</div>
               </div>
               <div class="sess-right"><span class="sess-date">May 20</span><span class="sess-tag st-green">build</span></div>
             </div>
@@ -643,30 +652,30 @@
               <div class="sess-num">17</div>
               <div class="sess-body">
                 <div class="sess-title">Counter-Intel Master Synthesis Agent</div>
-                <div class="sess-desc">Collapsed 5 separate competitive-intel bots into one master agent that orchestrates sub-agents and synthesizes a single prioritized weekly brief — with memory of what it already reported. Live in n8n.</div>
+                <div class="sess-desc">Collapsed 5 separate competitive-intel bots into one master agent that orchestrates sub-agents and synthesizes a single prioritized weekly brief, with memory of what it already reported. Live in n8n.</div>
               </div>
               <div class="sess-right"><span class="sess-date">Jun 3</span><span class="sess-tag st-green">build</span></div>
             </div>
             <div class="sess">
               <div class="sess-num">18</div>
               <div class="sess-body">
-                <div class="sess-title">PMM Brain v0 — 5-Agent GTM Planner</div>
-                <div class="sess-desc">Built v0 of the PMM Brain: PRD ingest → draft writer + comp scraper + data intelligence (parallel) → GTM assembler, over a hybrid live-data + examples context. Demoed to leadership — one of the largest AI builds to date.</div>
+                <div class="sess-title">PMM Brain v0, 5-Agent GTM Planner</div>
+                <div class="sess-desc">Built v0 of the PMM Brain: PRD ingest → draft writer + comp scraper + data intelligence (parallel) → GTM assembler, over a hybrid live-data + examples context. Demoed to leadership, one of the largest AI builds to date.</div>
               </div>
               <div class="sess-right"><span class="sess-date">Jun 9</span><span class="sess-tag st-green">build</span></div>
             </div>
             <div class="sess">
               <div class="sess-num">19</div>
               <div class="sess-body">
-                <div class="sess-title">HCP Maps + Testimonials — Shipped Behind Okta</div>
-                <div class="sess-desc">Shipped the first two vibe-coded production apps at Housecall Pro behind Okta SSO — the internal Maps tool for sales reps and the Testimonials Hub for social proof on demos.</div>
+                <div class="sess-title">HCP Maps + Testimonials, Shipped Behind Okta</div>
+                <div class="sess-desc">Shipped the first two vibe-coded production apps at Housecall Pro behind Okta SSO, the internal Maps tool for sales reps and the Testimonials Hub for social proof on demos.</div>
               </div>
               <div class="sess-right"><span class="sess-date">Jun 11</span><span class="sess-tag st-green">deploy</span></div>
             </div>
             <div class="sess">
               <div class="sess-num">20</div>
               <div class="sess-body">
-                <div class="sess-title">jsher.online — Quarterly Board + Q2 Wrap</div>
+                <div class="sess-title">jsher.online, Quarterly Board + Q2 Wrap</div>
                 <div class="sess-desc">Reorganized the project board by quarter, promoted the Q2 flagship apps to shipped, refreshed all metrics and value, and laid out the Q3 roadmap.</div>
               </div>
               <div class="sess-right"><span class="sess-date">Jun 15</span><span class="sess-tag st-green">deploy</span></div>
@@ -687,67 +696,11 @@
             </div>
           </div>
 
-          <!-- SHIPPED — grouped by quarter -->
+          <!-- SHIPPED, grouped by quarter -->
           <div class="proj-section">
             <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">20</span></div>
 
-            <!-- Q2 2026 — open by default -->
-            <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="true">
-              <span class="qtr-chevron">▾</span>
-              <span class="qtr-label">Q2 2026 · Apr–Jun</span>
-              <span class="qtr-ct">9</span>
-            </button>
-            <div class="qtr-body">
-              <div class="proj-list">
-                <div class="proj-item shipped link" onclick="openInfo('maps')">
-                  <span class="proj-em">🗺️</span>
-                  <span class="proj-name">Housecall Pro Maps</span>
-                  <span class="proj-badge pb-green">live · Okta</span>
-                </div>
-                <div class="proj-item shipped link" onclick="openInfo('testimonials')">
-                  <span class="proj-em">⭐</span>
-                  <span class="proj-name">HCP Testimonials Hub</span>
-                  <span class="proj-badge pb-green">live · Okta</span>
-                </div>
-                <div class="proj-item shipped link" onclick="openInfo('synthesis')">
-                  <span class="proj-em">🛰️</span>
-                  <span class="proj-name">Counter-Intel Master Synthesis Agent</span>
-                  <span class="proj-badge pb-green">live</span>
-                </div>
-                <div class="proj-item shipped link" onclick="openInfo('pmmbrain')">
-                  <span class="proj-em">🧠</span>
-                  <span class="proj-name">PMM Brain — v0</span>
-                  <span class="proj-badge pb-green">v0 · demoed</span>
-                </div>
-                <a href="https://www.housecallpro.com/lp/may-26-release/" target="_blank" rel="noopener" class="proj-item shipped link">
-                  <span class="proj-em">🚀</span>
-                  <span class="proj-name">May 2026 Release Moment Page</span>
-                  <span class="proj-badge pb-green">live</span>
-                </a>
-                <div class="proj-item shipped link" onclick="openInfo('ultimateworkflow')">
-                  <span class="proj-em">🔗</span>
-                  <span class="proj-name">Jack's Ultimate Higgsfield Workflow</span>
-                  <span class="proj-badge pb-green">download</span>
-                </div>
-                <a href="/hcp-landing" target="_blank" rel="noopener" class="proj-item shipped link">
-                  <span class="proj-em">🏠</span>
-                  <span class="proj-name">HCP Redesigned Landing + Workflows Page</span>
-                  <span class="proj-badge pb-green">live</span>
-                </a>
-                <a href="/quiz" target="_blank" rel="noopener" class="proj-item shipped link">
-                  <span class="proj-em">🧭</span>
-                  <span class="proj-name">Find Your Claude — AI Quiz</span>
-                  <span class="proj-badge pb-green">live</span>
-                </a>
-                <div class="proj-item shipped link" onclick="openInfo('officehours')">
-                  <span class="proj-em">🎓</span>
-                  <span class="proj-name">AI Office Hours — Marketing Enablement</span>
-                  <span class="proj-badge pb-green">delivered · Q2</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Q1 2026 — collapsed by default -->
+            <!-- Q1 2026, collapsed, on top -->
             <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="false">
               <span class="qtr-chevron">▸</span>
               <span class="qtr-label">Q1 2026 · Jan–Mar</span>
@@ -807,41 +760,129 @@
                 </div>
                 <a href="https://ateksoils.us" target="_blank" rel="noopener" class="proj-item shipped link">
                   <span class="proj-em">🌱</span>
-                  <span class="proj-name">ateksoils.us — Dad's Site</span>
+                  <span class="proj-name">ateksoils.us · Dad's Site</span>
                   <span class="proj-badge pb-green">personal · live</span>
                 </a>
               </div>
             </div>
+
+            <!-- Q2 2026, open, on bottom -->
+            <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="true">
+              <span class="qtr-chevron">▾</span>
+              <span class="qtr-label">Q2 2026 · Apr–Jun</span>
+              <span class="qtr-ct">9</span>
+            </button>
+            <div class="qtr-body">
+              <div class="proj-list">
+                <div class="proj-item shipped link" onclick="openInfo('maps')">
+                  <span class="proj-em">🗺️</span>
+                  <span class="proj-name">Housecall Pro Maps</span>
+                  <span class="proj-badge pb-green">live · Okta</span>
+                </div>
+                <div class="proj-item shipped link" onclick="openInfo('testimonials')">
+                  <span class="proj-em">⭐</span>
+                  <span class="proj-name">HCP Testimonials Hub</span>
+                  <span class="proj-badge pb-green">live · Okta</span>
+                </div>
+                <div class="proj-item shipped link" onclick="openInfo('synthesis')">
+                  <span class="proj-em">🛰️</span>
+                  <span class="proj-name">Counter-Intel Master Synthesis Agent</span>
+                  <span class="proj-badge pb-green">live</span>
+                </div>
+                <div class="proj-item shipped link" onclick="openInfo('pmmbrain')">
+                  <span class="proj-em">🧠</span>
+                  <span class="proj-name">PMM Brain v0</span>
+                  <span class="proj-badge pb-green">v0 · demoed</span>
+                </div>
+                <a href="https://www.housecallpro.com/lp/may-26-release/" target="_blank" rel="noopener" class="proj-item shipped link">
+                  <span class="proj-em">🚀</span>
+                  <span class="proj-name">May 2026 Release Moment Page</span>
+                  <span class="proj-badge pb-green">live</span>
+                </a>
+                <div class="proj-item shipped link" onclick="openInfo('ultimateworkflow')">
+                  <span class="proj-em">🔗</span>
+                  <span class="proj-name">Jack's Ultimate Higgsfield Workflow</span>
+                  <span class="proj-badge pb-green">download</span>
+                </div>
+                <a href="/hcp-landing" target="_blank" rel="noopener" class="proj-item shipped link">
+                  <span class="proj-em">🏠</span>
+                  <span class="proj-name">HCP Redesigned Landing + Workflows Page</span>
+                  <span class="proj-badge pb-green">live</span>
+                </a>
+                <a href="/quiz" target="_blank" rel="noopener" class="proj-item shipped link">
+                  <span class="proj-em">🧭</span>
+                  <span class="proj-name">Find Your Claude: AI Quiz</span>
+                  <span class="proj-badge pb-green">live</span>
+                </a>
+                <div class="proj-item shipped link" onclick="openInfo('officehours')">
+                  <span class="proj-em">🎓</span>
+                  <span class="proj-name">AI Office Hours: Marketing Enablement</span>
+                  <span class="proj-badge pb-green">delivered · Q2</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <!-- Q3 2026 — the roadmap -->
+          <!-- Q3 2026, the roadmap -->
           <div class="proj-section">
-            <div class="proj-heading" style="color:var(--blue)">Q3 2026 · building / deploying <span class="ct">5</span></div>
+            <div class="proj-heading" style="color:var(--yellow)">Q3 2026 · building / deploying <span class="ct">5</span></div>
             <div class="proj-list">
               <div class="proj-item inprog link" onclick="openInfo('creativeai')">
                 <span class="proj-em">🎬</span>
                 <span class="proj-name">AI Creative Intelligence Pipeline</span>
-                <span class="proj-badge pb-blue">Q3 · flagship</span>
+                <span class="proj-badge pb-yellow">Q3 · flagship</span>
               </div>
               <div class="proj-item inprog link" onclick="openInfo('pmmprod')">
                 <span class="proj-em">🧠</span>
                 <span class="proj-name">Operationalize PMM Brain</span>
-                <span class="proj-badge pb-blue">next</span>
+                <span class="proj-badge pb-yellow">next</span>
               </div>
               <div class="proj-item inprog link" onclick="openInfo('marketplace')">
                 <span class="proj-em">🧩</span>
                 <span class="proj-name">HCP Marketing Plugin Marketplace</span>
-                <span class="proj-badge pb-blue">planned</span>
+                <span class="proj-badge pb-yellow">planned</span>
               </div>
               <div class="proj-item inprog link" onclick="openInfo('teardowns')">
                 <span class="proj-em">📋</span>
                 <span class="proj-name">Templatized Competitive Teardowns</span>
-                <span class="proj-badge pb-blue">in works</span>
+                <span class="proj-badge pb-yellow">in works</span>
               </div>
               <div class="proj-item inprog link" onclick="openInfo('officehours')">
                 <span class="proj-em">🎓</span>
-                <span class="proj-name">AI Office Hours — Q3 Cohort</span>
-                <span class="proj-badge pb-blue">ongoing</span>
+                <span class="proj-name">AI Office Hours: Q3 Cohort</span>
+                <span class="proj-badge pb-yellow">ongoing</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Miscellaneous, the connective tissue -->
+          <div class="proj-section">
+            <div class="proj-heading" style="color:var(--text-2)">miscellaneous · ongoing <span class="ct">5</span></div>
+            <div class="proj-list">
+              <div class="proj-item link" onclick="openInfo('connector')">
+                <span class="proj-em">🔗</span>
+                <span class="proj-name">AI × HCP Connector</span>
+                <span class="proj-badge pb-dim">the throughline</span>
+              </div>
+              <div class="proj-item link" onclick="openInfo('consults')">
+                <span class="proj-em">🧑‍🏫</span>
+                <span class="proj-name">1:1 Consults &amp; Walkthroughs</span>
+                <span class="proj-badge pb-dim">ongoing</span>
+              </div>
+              <div class="proj-item link" onclick="openInfo('dashboards')">
+                <span class="proj-em">🧰</span>
+                <span class="proj-name">On-Demand HTML Dashboards</span>
+                <span class="proj-badge pb-dim">on request</span>
+              </div>
+              <div class="proj-item link" onclick="openInfo('adhocintel')">
+                <span class="proj-em">🔎</span>
+                <span class="proj-name">Ad-Hoc Competitive Runs</span>
+                <span class="proj-badge pb-dim">for leadership</span>
+              </div>
+              <div class="proj-item link" onclick="openInfo('brandskills')">
+                <span class="proj-em">🎨</span>
+                <span class="proj-name">Brand Skills &amp; Custom Builds</span>
+                <span class="proj-badge pb-dim">ongoing</span>
               </div>
             </div>
           </div>
@@ -938,12 +979,12 @@
         <div class="val-desc">Equivalent cost to hire engineers and enablement leads to build and run all of this. Based on market rates for junior-to-mid SWE ($43–$55/hr) and AI program design.</div>
         <div class="val-lines">
           <div class="val-row-item"><span>Counter-Intel System (Daily + Weekly + Q&amp;A)</span><span class="amt">$16,500</span></div>
-          <div class="val-row-item"><span>PMM Brain v0 — 5-agent GTM system</span><span class="amt">$13,000</span></div>
+          <div class="val-row-item"><span>PMM Brain v0, 5-agent GTM system</span><span class="amt">$13,000</span></div>
           <div class="val-row-item"><span>Counter-Intel Master Synthesis Agent</span><span class="amt">$9,000</span></div>
           <div class="val-row-item"><span>Sherwin-Williams × HCP Prototype</span><span class="amt">$7,500</span></div>
           <div class="val-row-item"><span>AI Enablement Program (2 qtrs, 90-person dept)</span><span class="amt">$7,000</span></div>
-          <div class="val-row-item"><span>HCP Maps — shipped behind Okta</span><span class="amt">$6,500</span></div>
-          <div class="val-row-item"><span>HCP Testimonials Hub — shipped behind Okta</span><span class="amt">$5,500</span></div>
+          <div class="val-row-item"><span>HCP Maps, shipped behind Okta</span><span class="amt">$6,500</span></div>
+          <div class="val-row-item"><span>HCP Testimonials Hub, shipped behind Okta</span><span class="amt">$5,500</span></div>
           <div class="val-row-item"><span>HCP Labs Prototype + Research</span><span class="amt">$4,000</span></div>
           <div class="val-row-item"><span>Sites, Docs &amp; Misc</span><span class="amt">$3,800</span></div>
           <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
@@ -959,7 +1000,7 @@
       <div class="val-card">
         <div class="val-label">monthly automation savings</div>
         <div class="val-num">$3,354<span style="font-size:1rem;color:var(--text-2);font-weight:500">/mo</span></div>
-        <div class="val-desc">4 autonomous agents — now anchored by a master synthesis agent — eliminating manual competitive research, synthesis, reporting, and on-demand intel every week.</div>
+        <div class="val-desc">4 autonomous agents, now anchored by a master synthesis agent, eliminating manual competitive research, synthesis, reporting, and on-demand intel every week.</div>
         <div class="val-lines">
           <div class="val-row-item"><span>Master Synthesis Agent (24 hrs/mo)</span><span class="amt">$1,032</span></div>
           <div class="val-row-item"><span>Daily Alerts (22 hrs/mo)</span><span class="amt">$946</span></div>
@@ -995,8 +1036,8 @@
           <div class="you-here">
             <span class="you-arrow">→</span>
             <div>
-              <div class="you-text">Jackson's Output: Senior SWE</div>
-              <div class="you-sub">production apps behind Okta · agent fleets · dept-wide enablement</div>
+              <div class="you-text">Jackson's Output: Mid SWE</div>
+              <div class="you-sub">production apps · agent fleets · dept-wide enablement</div>
             </div>
           </div>
         </div>
@@ -1095,23 +1136,23 @@
 
     // Activity chart
     const DATA = [
-      { label: 'Jan 8',  msgs: 126,  tools: 36  },
-      { label: 'Feb 11', msgs: 1796, tools: 227 },
-      { label: 'Feb 17', msgs: 1861, tools: 283 },
-      { label: 'Feb 19', msgs: 1207, tools: 278 },
-      { label: 'Feb 23', msgs: 889,  tools: 156 },
-      { label: 'Feb 26', msgs: 913,  tools: 160 },
-      { label: 'Mar 5',  msgs: 354,  tools: 123 },
-      { label: 'Mar 10', msgs: 356,  tools: 117 },
-      { label: 'Mar 14', msgs: 1909, tools: 607 },
-      { label: 'Mar 19', msgs: 732,  tools: 213 },
-      { label: 'Apr 3',  msgs: 995,  tools: 305 },
-      { label: 'Apr 20', msgs: 1180, tools: 360 },
-      { label: 'May 19', msgs: 1520, tools: 470 },
-      { label: 'May 27', msgs: 2140, tools: 690 },
-      { label: 'Jun 3',  msgs: 1890, tools: 560 },
-      { label: 'Jun 9',  msgs: 2460, tools: 820 },
-      { label: 'Jun 15', msgs: 1640, tools: 510 },
+      { label: 'Jan 8',  inTok: 400000,  outTok: 80000   },
+      { label: 'Feb 11', inTok: 3200000, outTok: 500000  },
+      { label: 'Feb 17', inTok: 3600000, outTok: 600000  },
+      { label: 'Feb 19', inTok: 2400000, outTok: 500000  },
+      { label: 'Feb 23', inTok: 1800000, outTok: 350000  },
+      { label: 'Feb 26', inTok: 1900000, outTok: 360000  },
+      { label: 'Mar 5',  inTok: 900000,  outTok: 250000  },
+      { label: 'Mar 10', inTok: 950000,  outTok: 240000  },
+      { label: 'Mar 14', inTok: 4100000, outTok: 900000  },
+      { label: 'Mar 19', inTok: 1600000, outTok: 450000  },
+      { label: 'Apr 3',  inTok: 2200000, outTok: 600000  },
+      { label: 'Apr 20', inTok: 2600000, outTok: 700000  },
+      { label: 'May 19', inTok: 3300000, outTok: 850000  },
+      { label: 'May 27', inTok: 5200000, outTok: 1300000 },
+      { label: 'Jun 3',  inTok: 4300000, outTok: 1000000 },
+      { label: 'Jun 9',  inTok: 6100000, outTok: 1600000 },
+      { label: 'Jun 15', inTok: 3700000, outTok: 950000  },
     ];
 
     const canvas = document.getElementById('chart');
@@ -1138,7 +1179,7 @@
       const W = rect.width, H = rect.height;
       const P = { t: 10, r: 12, b: 24, l: 42 };
       const cW = W - P.l - P.r, cH = H - P.t - P.b;
-      const maxV = Math.max(...DATA.map(d => d.msgs));
+      const maxV = Math.max(...DATA.map(d => d.inTok));
       const grpW = cW / DATA.length;
       const bW = grpW * 0.28, gap = grpW * 0.055;
 
@@ -1151,19 +1192,20 @@
         ctx.font = '9px JetBrains Mono, monospace';
         ctx.textAlign = 'right';
         const lv = Math.round((maxV / 4) * i);
-        ctx.fillText(lv >= 1000 ? (lv/1000).toFixed(1)+'k' : lv, P.l - 5, y + 3);
+        const lbl = lv >= 1e6 ? (lv/1e6).toFixed(1)+'M' : lv >= 1000 ? Math.round(lv/1000)+'k' : lv;
+        ctx.fillText(lbl, P.l - 5, y + 3);
       }
 
       DATA.forEach((d, i) => {
         const x = P.l + i * grpW + grpW * 0.14;
-        // messages bar — solid green
-        const mH = (d.msgs / maxV) * cH * prog;
+        // input tokens bar, solid green
+        const mH = (d.inTok / maxV) * cH * prog;
         const g1 = ctx.createLinearGradient(x, P.t + cH - mH, x, P.t + cH);
         g1.addColorStop(0, 'rgba(0,232,122,0.9)'); g1.addColorStop(1, 'rgba(0,232,122,0.2)');
         ctx.fillStyle = g1; rr(ctx, x, P.t + cH - mH, bW, mH);
 
-        // tools bar — dim green
-        const tH = (d.tools / maxV) * cH * prog;
+        // output tokens bar, dim green
+        const tH = (d.outTok / maxV) * cH * prog;
         const tX = x + bW + gap;
         const g2 = ctx.createLinearGradient(tX, P.t + cH - tH, tX, P.t + cH);
         g2.addColorStop(0, 'rgba(0,232,122,0.35)'); g2.addColorStop(1, 'rgba(0,232,122,0.06)');
@@ -1208,73 +1250,98 @@
       maps: {
         emoji: '🗺️',
         title: 'Housecall Pro Maps',
-        desc: 'An internal interactive map tool that turns the sales pitch into proof. It plots ~55K existing Housecall Pro pros by location and industry, so a rep can ask a prospect their zip code and trade, then show them live: <em>"There are already 2 plumbing companies in your zip on Housecall Pro — here they are."</em> Instant local market penetration, right inside the demo.<br><br>Built with React + Mapbox and shipped to production behind Okta SSO — one of the <strong>first vibe-coded apps ever shipped at Housecall Pro</strong>.',
+        desc: 'An internal interactive map tool that turns the sales pitch into proof. It plots ~55K existing Housecall Pro pros by location and industry, so a rep can ask a prospect their zip code and trade, then show them live: <em>"There are already 2 plumbing companies in your zip on Housecall Pro, here they are."</em> Instant local market penetration, right inside the demo.<br><br>Built with React + Mapbox and shipped to production behind Okta SSO, one of the <strong>first vibe-coded apps ever shipped at Housecall Pro</strong>.',
         link: 'https://hcp-maps.vercel.app/',
         linkText: 'Open Maps (Okta) →'
       },
       testimonials: {
         emoji: '⭐',
         title: 'HCP Testimonials Hub',
-        desc: 'A social-proofing hub built for the sales team. It surfaces real customer testimonials, quotes, and success stories — segmented by industry — so reps can drop relevant proof straight into a demo and build trust at the exact moment it moves a deal. The goal: lift demo-to-close conversion by showing every prospect proof from pros just like them.<br><br>Shipped to production behind Okta SSO alongside Maps — together the <strong>first two vibe-coded apps shipped at Housecall Pro</strong>.',
+        desc: 'A social-proofing hub built for the sales team. It surfaces real customer testimonials, quotes, and success stories, segmented by industry, so reps can drop relevant proof straight into a demo and build trust at the exact moment it moves a deal. The goal: lift demo-to-close conversion by showing every prospect proof from pros just like them.<br><br>Shipped to production behind Okta SSO alongside Maps, together the <strong>first two vibe-coded apps shipped at Housecall Pro</strong>.',
         link: 'https://hcp-testimonials.vercel.app/',
         linkText: 'Open Testimonials (Okta) →'
       },
       synthesis: {
         emoji: '🛰️',
         title: 'Counter-Intel Master Synthesis Agent',
-        desc: 'A single master agent that orchestrates a fleet of sub-agents to replace the 5 separate competitive-intel bots that ran before. Each sub-agent owns one stream — pricing, product, reviews, hiring, press — then the master agent synthesizes everything into one prioritized weekly brief, with memory of what it has already reported so it never repeats itself.<br><br>Built in n8n with Claude. The synthesis layer is where a lot of the new engineering went — and it anchors most of the monthly automation savings. HCP internal.'
+        desc: 'A single master agent that orchestrates a fleet of sub-agents to replace the 5 separate competitive-intel bots that ran before. Each sub-agent owns one stream, pricing, product, reviews, hiring, press, then the master agent synthesizes everything into one prioritized weekly brief, with memory of what it has already reported so it never repeats itself.<br><br>Built in n8n with Claude. The synthesis layer is where a lot of the new engineering went, and it anchors most of the monthly automation savings. HCP internal.'
       },
       pmmbrain: {
         emoji: '🧠',
-        title: 'PMM Brain — v0',
-        desc: 'A product-marketing "brain" that turns a PRD into a full go-to-market plan. Five specialized agents — PRD ingest, draft writer, competitive scraper, data intelligence, and a GTM assembler — work in parallel over a hybrid context of live company data and historical GTM examples.<br><br>v0 is built and was demoed to leadership — one of the largest AI builds to date (a lot of tokens went into this one). Taking it to production is the Q3 priority. HCP internal.'
+        title: 'PMM Brain, v0',
+        desc: 'A product-marketing "brain" that turns a PRD into a full go-to-market plan. Five specialized agents, PRD ingest, draft writer, competitive scraper, data intelligence, and a GTM assembler, work in parallel over a hybrid context of live company data and historical GTM examples.<br><br>v0 is built and was demoed to leadership, one of the largest AI builds to date (a lot of tokens went into this one). Taking it to production is the Q3 priority. HCP internal.'
       },
       creativeai: {
         emoji: '🎬',
         title: 'AI Creative Intelligence Pipeline',
-        desc: 'The flagship Q3 initiative — an AI pipeline that informs <strong>60%+ of new paid ad creative before production</strong>. By feeding real performance data and creative analysis into generation, it lifts paid creative efficiency against the H1-2026 baseline instead of guessing.<br><br><strong>Targets vs. H1-2026 baseline</strong><br>&middot;&nbsp; Inform 60%+ of new paid creative pre-production<br>&middot;&nbsp; Click-through rate: <strong>+2–4%</strong><br>&middot;&nbsp; Cost per lead (CPL): <strong>−2–4%</strong><br>&middot;&nbsp; CAC: <strong>−2–3%</strong><br>&middot;&nbsp; Lift FFC<br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · in design</span>'
+        desc: 'The flagship Q3 initiative, an AI pipeline that informs <strong>60%+ of new paid ad creative before production</strong>. By feeding real performance data and creative analysis into generation, it lifts paid creative efficiency against the H1-2026 baseline instead of guessing.<br><br><strong>Targets vs. H1-2026 baseline</strong><br>&middot;&nbsp; Inform 60%+ of new paid creative pre-production<br>&middot;&nbsp; Click-through rate: <strong>+2–4%</strong><br>&middot;&nbsp; Cost per lead (CPL): <strong>−2–4%</strong><br>&middot;&nbsp; CAC: <strong>−2–3%</strong><br>&middot;&nbsp; FFC: <strong>+1–2%</strong><br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · in design</span>'
       },
       pmmprod: {
         emoji: '🧠',
         title: 'Operationalize PMM Brain',
-        desc: 'Taking PMM Brain from v0 to production-grade in Q3 — hardening the 5-agent GTM pipeline, wiring permanent data connections, and rolling it out as the default GTM planning tool for product marketing. The Q3 evolution of the v0 that was built and demoed in Q2.<br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · next up</span>'
+        desc: 'Taking PMM Brain from v0 to production-grade in Q3, hardening the 5-agent GTM pipeline, wiring permanent data connections, and rolling it out as the default GTM planning tool for product marketing. The Q3 evolution of the v0 that was built and demoed in Q2.<br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · next up</span>'
       },
       marketplace: {
         emoji: '🧩',
         title: 'HCP Marketing Plugin Marketplace',
-        desc: 'An internal marketplace of Claude Code and Claude Cowork plugins built for the entire marketing org. Packaged skills and workflows — ad deployers, teardown templates, creative pipelines, brand voice — that any marketer can install and run in a couple of clicks. The goal: turn one-off AI builds into reusable, shareable tools across the department.<br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · planned</span>'
+        desc: 'An internal marketplace of Claude Code and Claude Cowork plugins built for the entire marketing org. Packaged skills and workflows, ad deployers, teardown templates, creative pipelines, brand voice, that any marketer can install and run in a couple of clicks. The goal: turn one-off AI builds into reusable, shareable tools across the department.<br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · planned</span>'
       },
       teardowns: {
         emoji: '📋',
         title: 'Templatized Competitive Teardowns',
-        desc: 'Turning ad-hoc competitive teardown requests into a repeatable, templatized workflow — a standard intake and a consistent output format so anyone on the team can request a competitor teardown and get a high-quality brief back fast. Built on top of the counter-intel stack.<br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · in the works</span>'
+        desc: 'Turning ad-hoc competitive teardown requests into a repeatable, templatized workflow, a standard intake and a consistent output format so anyone on the team can request a competitor teardown and get a high-quality brief back fast. Built on top of the counter-intel stack.<br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · in the works</span>'
+      },
+      connector: {
+        emoji: '🔗',
+        title: 'AI × HCP Connector',
+        desc: 'The throughline behind everything here. I sit between Housecall Pro\'s marketing org and AI: figuring out where Claude (Chat, Cowork, Code) and agents actually move the needle, then building it, teaching it, and handing it off. Part builder, part enablement lead, part internal consultant. A lot of this work doesn\'t fit neatly into a project card, but it adds up to a marketing team that ships with AI every day.'
+      },
+      consults: {
+        emoji: '🧑‍🏫',
+        title: '1:1 Consults & Walkthroughs',
+        desc: 'Individual sessions with teammates: I review their stack and manual workflows, then build personalized, custom HTML walkthroughs that show them exactly how to use AI for their role (built one for Tony, plus plenty of others). The fastest way to get someone from "curious" to "shipping with AI" is to sit down and build it with them.'
+      },
+      dashboards: {
+        emoji: '🧰',
+        title: 'On-Demand HTML Dashboards',
+        desc: 'Quick single-file HTML dashboards built on request whenever someone needs to see their data clearly. Usage trackers, status boards, one-off visualizations: spin one up, share the link, move on. Small builds on their own, but there have been a lot of them.'
+      },
+      adhocintel: {
+        emoji: '🔎',
+        title: 'Ad-Hoc Competitive Runs',
+        desc: 'Fast, on-request competitive scrapes and intel runs for VPs and leadership, outside the scheduled counter-intel bots. When someone needs a read on a competitor before a meeting, I pull it together quickly with the same scraping and Claude toolkit that powers the agents.'
+      },
+      brandskills: {
+        emoji: '🎨',
+        title: 'Brand Skills & Custom Builds',
+        desc: 'Building brand voice and creative skills (and other custom Claude skills) for teammates, then packaging them up and sending them out so people can run them on their own. Reusable building blocks that spread AI capability across the team without me in the loop every time.'
       },
       alerts: {
         emoji: '🔍',
         title: 'Counter-Intel Alert System',
-        desc: 'This agent runs daily, quietly monitoring 63 competitor pages across 8 verticals — surfacing meaningful changes through Claude AI analysis and dropping alerts straight into Slack. It\'s an internal Housecall Pro tool. If you\'re on the team, hit up Jackson in Slack and he\'ll walk you through it.'
+        desc: 'This agent runs daily, quietly monitoring 63 competitor pages across 8 verticals, surfacing meaningful changes through Claude AI analysis and dropping alerts straight into Slack. It\'s an internal Housecall Pro tool. If you\'re on the team, hit up Jackson in Slack and he\'ll walk you through it.'
       },
       chatbot: {
         emoji: '💬',
         title: 'Counter-Intel Q&A Bot',
-        desc: 'Ask it anything about a competitor — pricing tiers, customer reviews, feature comparisons, recent news — and it pulls live intel in seconds. Built on n8n with Firecrawl + Claude. Lives in a private HCP Slack channel. If you\'re on the team, ask your manager about #counter-intel access.'
+        desc: 'Ask it anything about a competitor, pricing tiers, customer reviews, feature comparisons, recent news, and it pulls live intel in seconds. Built on n8n with Firecrawl + Claude. Lives in a private HCP Slack channel. If you\'re on the team, ask your manager about #counter-intel access.'
       },
       digest: {
         emoji: '📊',
         title: 'Weekly Digest Agent',
-        desc: 'Every Monday morning this agent drops a curated competitive intelligence brief in Slack — top signals, trending reviews, pricing moves, and product changes across the competitive landscape. HCP internal only. Ask your manager about getting on the #ci-digest list.'
+        desc: 'Every Monday morning this agent drops a curated competitive intelligence brief in Slack, top signals, trending reviews, pricing moves, and product changes across the competitive landscape. HCP internal only. Ask your manager about getting on the #ci-digest list.'
       },
       referral: {
         emoji: '🚀',
         title: 'Desktop Reviews Prototype',
-        desc: 'Built a complete desktop reviews flow prototype on Lovable — designed, prototyped, and presented to the engineering team as an assisted product spec. Engineering shipped it nearly as-is. The result: 300%+ year-over-year growth in referrals. A real example of AI-assisted prototyping accelerating product development at HCP.',
+        desc: 'Built a complete desktop reviews flow prototype on Lovable, designed, prototyped, and presented to the engineering team as an assisted product spec. Engineering shipped it nearly as-is. The result: 300%+ year-over-year growth in referrals. A real example of AI-assisted prototyping accelerating product development at HCP.',
         link: 'https://id-preview--e6f6c0c9-0f81-45d1-8a54-00801ed68c47.lovable.app/',
         linkText: 'View Prototype →'
       },
       labs: {
         emoji: '🧪',
         title: 'Housecall Pro Labs Prototype',
-        desc: 'Designed a concept AI Labs experience for Housecall Pro, inspired by NVIDIA, AMD, Microsoft, and Google Labs. Built the interactive prototype on Lovable to spark conversation about HCP\'s AI brand and capabilities internally. Paired with a deep-dive research document synthesizing AI lab positioning strategies, pulling from dozens of research papers and product frameworks — all created with AI assistance.',
+        desc: 'Designed a concept AI Labs experience for Housecall Pro, inspired by NVIDIA, AMD, Microsoft, and Google Labs. Built the interactive prototype on Lovable to spark conversation about HCP\'s AI brand and capabilities internally. Paired with a deep-dive research document synthesizing AI lab positioning strategies, pulling from dozens of research papers and product frameworks, all created with AI assistance.',
         link: 'https://id-preview--870cda69-2ffd-428a-bb4c-1c9d5538a77b.lovable.app/',
         linkText: 'View Prototype →',
         link2: 'https://docs.google.com/document/d/1bhgRzVTOHaaXEc_0p_iRoPacpyf18KTWWu9b1SBX5OI/edit?usp=sharing',
@@ -1282,14 +1349,14 @@
       },
       officehours: {
         emoji: '🎓',
-        title: 'AI Office Hours — Marketing Enablement',
-        desc: 'A weekly 1-hour structured session teaching the 90-person Housecall Pro marketing department how to use AI effectively — Claude Chat, Claude Cowork, and Claude Code. Each session covers a planned lesson: what each tool does, which teams it fits best, practical workflows for paid marketing, LCM, video, social, and beyond.<br><br>Beyond the group sessions, individual "AI consultations" run in parallel — 1:1s where I act as an AI deployment consultant, reviewing each person\'s tech stack and manual workflows and recommending specific tools and prompting strategies to unlock time savings.<br><br><strong>Program scope</strong><br>&middot;&nbsp; 2 quarters (~6 months) · 90-person marketing org<br>&middot;&nbsp; Weekly group sessions + on-demand 1:1 consultations<br>&middot;&nbsp; Teams covered: Paid, LCM, Video, Social, PMM, Events &amp; more<br>&middot;&nbsp; Tools taught: Chat, Cowork, Claude Code + Claude API basics<br><br><strong>Estimated impact</strong> <span style="opacity:0.5;font-size:0.85em">— rough estimates</span><br>&middot;&nbsp; Marketing\'s Claude usage: <strong>4.5× increase</strong><br>&middot;&nbsp; Hours saved per week across dept: 20–40 hrs<br>&middot;&nbsp; Annualized time savings: ~$120K+ equivalent at avg. marketing salary<br><br>Ran every week through Q2 and <strong>continues into Q3</strong> with a fresh cohort of sessions.'
+        title: 'AI Office Hours, Marketing Enablement',
+        desc: 'A weekly 1-hour structured session teaching the 90-person Housecall Pro marketing department how to use AI effectively, Claude Chat, Claude Cowork, and Claude Code. Each session covers a planned lesson: what each tool does, which teams it fits best, practical workflows for paid marketing, LCM, video, social, and beyond.<br><br>Beyond the group sessions, individual "AI consultations" run in parallel, 1:1s where I act as an AI deployment consultant, reviewing each person\'s tech stack and manual workflows and recommending specific tools and prompting strategies to unlock time savings.<br><br><strong>Program scope</strong><br>&middot;&nbsp; 2 quarters (~6 months) · 90-person marketing org<br>&middot;&nbsp; Weekly group sessions + on-demand 1:1 consultations<br>&middot;&nbsp; Teams covered: Paid, LCM, Video, Social, PMM, Events &amp; more<br>&middot;&nbsp; Tools taught: Chat, Cowork, Claude Code + Claude API basics<br><br><strong>Estimated impact</strong> <span style="opacity:0.5;font-size:0.85em">, rough estimates</span><br>&middot;&nbsp; Marketing\'s Claude usage: <strong>4.5× increase</strong><br>&middot;&nbsp; Hours saved per week across dept: 20–40 hrs<br>&middot;&nbsp; Annualized time savings: ~$120K+ equivalent at avg. marketing salary<br><br>Ran every week through Q2 and <strong>continues into Q3</strong> with a fresh cohort of sessions.'
       },
       ultimateworkflow: {
         emoji: '🔗',
         title: 'Jack\'s Ultimate Higgsfield Workflow',
         badge: false,
-        desc: 'An end-to-end AI creative workflow you can open in Claude Cowork and run in a few clicks. Starts with text generation and a built-in text critic, then pulls top-performing creatives and analytics from Motion, feeds that performance data into Higgsfield to generate high-performing ad creative — video, images, captions, and taglines — all informed by real campaign data.<br><br><strong>The pipeline</strong><br>&middot;&nbsp; Text Generator → Text Critic (quality gate)<br>&middot;&nbsp; Motion Analytics → Pull best-performing creatives &amp; hooks<br>&middot;&nbsp; Higgsfield → Generate new ads using winning patterns<br><br>Download the folder, open it in Claude Cowork, and go from zero to production-ready ad creative in minutes.',
+        desc: 'An end-to-end AI creative workflow you can open in Claude Cowork and run in a few clicks. Starts with text generation and a built-in text critic, then pulls top-performing creatives and analytics from Motion, feeds that performance data into Higgsfield to generate high-performing ad creative, video, images, captions, and taglines, all informed by real campaign data.<br><br><strong>The pipeline</strong><br>&middot;&nbsp; Text Generator → Text Critic (quality gate)<br>&middot;&nbsp; Motion Analytics → Pull best-performing creatives &amp; hooks<br>&middot;&nbsp; Higgsfield → Generate new ads using winning patterns<br><br>Download the folder, open it in Claude Cowork, and go from zero to production-ready ad creative in minutes.',
         link: '/assets/jacks-ultimate-higgsfield-workflow.zip',
         linkText: 'Download .zip →',
         download: true
@@ -1298,7 +1365,7 @@
         emoji: '⚡',
         title: 'Meta Ads Deployer',
         badge: false,
-        desc: 'A Claude Code skill that lets the performance marketing team deploy full Meta ad campaigns straight from VS Code — video uploads, ad sets, creatives, and UTM tracking — all in one guided workflow. Just run <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:0.88em">/meta-ads-campaign</code>, answer a few questions, type DEPLOY, and it\'s live in Ads Manager (paused for review before any spend goes live).<br><br><strong>Estimated business impact</strong> <span style="opacity:0.5;font-size:0.85em">— rough estimates</span><br>&middot;&nbsp; ~30 min saved per ad deployed<br>&middot;&nbsp; FFC lift: ~12–15%<br>&middot;&nbsp; CAC reduction: ~5–7%<br><br>Download the zip, open it in VS Code, add your credentials to <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:0.88em">.env</code>, and run the skill.',
+        desc: 'A Claude Code skill that lets the performance marketing team deploy full Meta ad campaigns straight from VS Code, video uploads, ad sets, creatives, and UTM tracking, all in one guided workflow. Just run <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:0.88em">/meta-ads-campaign</code>, answer a few questions, type DEPLOY, and it\'s live in Ads Manager (paused for review before any spend goes live).<br><br><strong>Estimated business impact</strong> <span style="opacity:0.5;font-size:0.85em">, rough estimates</span><br>&middot;&nbsp; ~30 min saved per ad deployed<br>&middot;&nbsp; FFC lift: ~12–15%<br>&middot;&nbsp; CAC reduction: ~5–7%<br><br>Download the zip, open it in VS Code, add your credentials to <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:0.88em">.env</code>, and run the skill.',
         link: '/assets/meta-ads-deployer.zip',
         linkText: 'Download .zip →',
         download: true
