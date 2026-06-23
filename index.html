@@ -457,17 +457,17 @@
       </div>
       <div class="kpi">
         <div class="kpi-label">AI Sessions</div>
-        <div class="kpi-val" data-target="124">0</div>
+        <div class="kpi-val" data-target="148">0</div>
         <div class="kpi-sub">since jan 8, 2026</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Messages Logged</div>
-        <div class="kpi-val" data-target="34800">0</div>
+        <div class="kpi-val" data-target="42900">0</div>
         <div class="kpi-sub">human + ai turns</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Lines of Code</div>
-        <div class="kpi-val" data-target="64800">0</div>
+        <div class="kpi-val" data-target="71000">0</div>
         <div class="kpi-sub">across all projects</div>
       </div>
       <div class="kpi">
@@ -495,7 +495,7 @@
               <div class="card-title">Daily Token Usage</div>
               <div class="card-sub">Tokens consumed per session, Jan to Jun 2026</div>
             </div>
-            <span class="tag">59.5M tokens</span>
+            <span class="tag">71.8M tokens</span>
           </div>
           <canvas id="chart"></canvas>
           <div class="chart-legend">
@@ -509,7 +509,7 @@
           <div class="card-head">
             <div>
               <div class="card-title">Session History</div>
-              <div class="card-sub">What got shipped, fixed, and built · 20 highlighted, Jan to Jun 2026</div>
+              <div class="card-sub">What got shipped, fixed, and built · 22 highlighted, Jan to Jun 2026</div>
             </div>
           </div>
           <div class="sessions">
@@ -672,6 +672,22 @@
                 <div class="sess-desc">Reorganized the project board by quarter, promoted the Q2 flagship apps to shipped, refreshed all metrics and value, and laid out the Q3 roadmap.</div>
               </div>
               <div class="sess-right"><span class="sess-date">Jun 15</span><span class="sess-tag st-green">deploy</span></div>
+            </div>
+            <div class="sess">
+              <div class="sess-num">21</div>
+              <div class="sess-body">
+                <div class="sess-title">HCP Marketing Plugin Marketplace, v0.4.0</div>
+                <div class="sess-desc">Shipped the org-wide marketing Claude plugin marketplace to main: marketing-core, community, and a brand-new seo-content plugin (7 skills) built in the same session.</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Jun 18</span><span class="sess-tag st-green">deploy</span></div>
+            </div>
+            <div class="sess">
+              <div class="sess-num">22</div>
+              <div class="sess-body">
+                <div class="sess-title">Mechanical Ads Engine, V0 Running</div>
+                <div class="sess-desc">Built a multi-agent paid-creative engine end to end: generate, composite, and gate static ad assets. First two waves shipped (24 HVAC assets x3 sizes) with Supabase + Higgsfield wired in.</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Jun 23</span><span class="sess-tag st-green">build</span></div>
             </div>
           </div>
         </div>
@@ -1012,7 +1028,7 @@
     </div>
 
     <div class="footer">
-      analytics from claude code session logs &middot; updated jun 15, 2026 &middot;
+      analytics from claude code session logs &middot; updated jun 23, 2026 &middot;
       <a href="https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-jackson-sherwood-690663214/" target="_blank" rel="noopener">linkedin</a>
     </div>
   </div>
@@ -1078,7 +1094,7 @@
 
     const valKpi = document.getElementById('valKpi');
     const vObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 97500, '$', 1500); vObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 112500, '$', 1500); vObs.unobserve(e.target); });
     }, { threshold: 0.7 });
     vObs.observe(valKpi);
 
@@ -1087,7 +1103,7 @@
     const tkObs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
-        const t0 = Date.now(), target = 59.5, dur = 1500;
+        const t0 = Date.now(), target = 71.8, dur = 1500;
         (function tick() {
           const p = Math.min(1, (Date.now() - t0) / dur);
           tokKpi.textContent = (target * (1 - Math.pow(1 - p, 3))).toFixed(1) + 'M';
@@ -1100,7 +1116,7 @@
 
     const tvEl = document.getElementById('totalVal');
     const tvObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 97500, '$', 1500); tvObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 112500, '$', 1500); tvObs.unobserve(e.target); });
     }, { threshold: 0.4 });
     tvObs.observe(tvEl);
 
@@ -1136,6 +1152,9 @@
       { label: 'Jun 3',  inTok: 4300000, outTok: 1000000 },
       { label: 'Jun 9',  inTok: 6100000, outTok: 1600000 },
       { label: 'Jun 15', inTok: 3700000, outTok: 950000  },
+      { label: 'Jun 18', inTok: 802000,  outTok: 1496000 },
+      { label: 'Jun 22', inTok: 3307000, outTok: 2115000 },
+      { label: 'Jun 23', inTok: 417000,  outTok: 1807000 },
     ];
 
     const canvas = document.getElementById('chart');
