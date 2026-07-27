@@ -457,17 +457,17 @@
       </div>
       <div class="kpi">
         <div class="kpi-label">AI Sessions</div>
-        <div class="kpi-val" data-target="148">0</div>
+        <div class="kpi-val" data-target="208">0</div>
         <div class="kpi-sub">since jan 8, 2026</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Messages Logged</div>
-        <div class="kpi-val" data-target="42900">0</div>
+        <div class="kpi-val" data-target="51259">0</div>
         <div class="kpi-sub">human + ai turns</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Lines of Code</div>
-        <div class="kpi-val" data-target="71000">0</div>
+        <div class="kpi-val" data-target="85240">0</div>
         <div class="kpi-sub">across all projects</div>
       </div>
       <div class="kpi">
@@ -1028,7 +1028,7 @@
     </div>
 
     <div class="footer">
-      analytics from claude code session logs &middot; updated jun 23, 2026 &middot;
+      analytics from claude code session logs &middot; updated jul 27, 2026 &middot;
       <a href="https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-jackson-sherwood-690663214/" target="_blank" rel="noopener">linkedin</a>
     </div>
   </div>
@@ -1103,7 +1103,7 @@
     const tkObs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
-        const t0 = Date.now(), target = 71.8, dur = 1500;
+        const t0 = Date.now(), target = 86.0, dur = 1500;
         (function tick() {
           const p = Math.min(1, (Date.now() - t0) / dur);
           tokKpi.textContent = (target * (1 - Math.pow(1 - p, 3))).toFixed(1) + 'M';
