@@ -707,7 +707,7 @@
 
           <!-- SHIPPED, grouped by quarter -->
           <div class="proj-section">
-            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">21</span></div>
+            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">25</span></div>
 
             <!-- Q1 2026, collapsed, on top -->
             <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="false">
@@ -775,13 +775,13 @@
               </div>
             </div>
 
-            <!-- Q2 2026, open, on bottom -->
-            <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="true">
-              <span class="qtr-chevron">▾</span>
+            <!-- Q2 2026, collapsed -->
+            <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="false">
+              <span class="qtr-chevron">▸</span>
               <span class="qtr-label">Q2 2026 · Apr–Jun</span>
               <span class="qtr-ct">10</span>
             </button>
-            <div class="qtr-body">
+            <div class="qtr-body collapsed">
               <div class="proj-list">
                 <div class="proj-item shipped link" onclick="openInfo('maps')">
                   <span class="proj-em">🗺️</span>
@@ -835,11 +835,42 @@
                 </div>
               </div>
             </div>
+
+            <!-- Q3 2026, open, shipping now -->
+            <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="true">
+              <span class="qtr-chevron">▾</span>
+              <span class="qtr-label">Q3 2026 · Jul–Sep</span>
+              <span class="qtr-ct">4</span>
+            </button>
+            <div class="qtr-body">
+              <div class="proj-list">
+                <div class="proj-item shipped link" onclick="openInfo('maps')">
+                  <span class="proj-em">🗺️</span>
+                  <span class="proj-name">Housecall Pro Maps</span>
+                  <span class="proj-badge pb-green">live · Okta</span>
+                </div>
+                <a href="https://www.housecallpro.com/lp/trades-thursday-hub/" target="_blank" rel="noopener" class="proj-item shipped link">
+                  <span class="proj-em">🛠️</span>
+                  <span class="proj-name">Trades Thursday Hub</span>
+                  <span class="proj-badge pb-green">live</span>
+                </a>
+                <a href="https://www.housecallpro.com/lp/top-50-unforgettable-names/" target="_blank" rel="noopener" class="proj-item shipped link">
+                  <span class="proj-em">🏆</span>
+                  <span class="proj-name">Top 50 Unforgettable Names</span>
+                  <span class="proj-badge pb-green">live</span>
+                </a>
+                <div class="proj-item shipped link" onclick="openInfo('marketplace')">
+                  <span class="proj-em">🧩</span>
+                  <span class="proj-name">HCP Marketing Plugin Marketplace</span>
+                  <span class="proj-badge pb-green">live</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <!-- Q3 2026, the roadmap -->
+          <!-- Q3 2026, still in flight -->
           <div class="proj-section">
-            <div class="proj-heading" style="color:var(--yellow)">Q3 2026 · building / deploying <span class="ct">5</span></div>
+            <div class="proj-heading" style="color:var(--yellow)">Q3 2026 · building / deploying <span class="ct">4</span></div>
             <div class="proj-list">
               <div class="proj-item inprog link" onclick="openInfo('creativeai')">
                 <span class="proj-em">🎬</span>
@@ -850,11 +881,6 @@
                 <span class="proj-em">🧠</span>
                 <span class="proj-name">Operationalize PMM Brain</span>
                 <span class="proj-badge pb-yellow">next</span>
-              </div>
-              <div class="proj-item inprog link" onclick="openInfo('marketplace')">
-                <span class="proj-em">🧩</span>
-                <span class="proj-name">HCP Marketing Plugin Marketplace</span>
-                <span class="proj-badge pb-yellow">planned</span>
               </div>
               <div class="proj-item inprog link" onclick="openInfo('teardowns')">
                 <span class="proj-em">📋</span>
@@ -1288,7 +1314,7 @@
       marketplace: {
         emoji: '🧩',
         title: 'HCP Marketing Plugin Marketplace',
-        desc: 'An internal marketplace of Claude Code and Claude Cowork plugins built for the entire marketing org. Packaged skills and workflows, ad deployers, teardown templates, creative pipelines, brand voice, that any marketer can install and run in a couple of clicks. The goal: turn one-off AI builds into reusable, shareable tools across the department.<br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · planned</span>'
+        desc: 'An internal marketplace of Claude Code and Claude Cowork plugins built for the entire marketing org. Packaged skills and workflows, ad deployers, teardown templates, creative pipelines, brand voice, that any marketer can install and run in a couple of clicks. The goal: turn one-off AI builds into reusable, shareable tools across the department.<br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · live</span>'
       },
       teardowns: {
         emoji: '📋',
