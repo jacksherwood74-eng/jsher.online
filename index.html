@@ -6,7 +6,7 @@
   <title>Jackson Sherwood · jsher.online</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@85..125,500..900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@85..125,500..900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..500&display=swap" rel="stylesheet">
   <meta name="description" content="Jackson Sherwood · AI Enablement + Agent &amp; Application Builder at Housecall Pro">
   <meta property="og:title" content="Jackson Sherwood">
   <meta property="og:description" content="AI Enablement + Agent &amp; Application Builder at Housecall Pro">
@@ -27,7 +27,7 @@
       --border:      rgba(255,255,255,0.07);
       --border-2:    rgba(255,255,255,0.13);
       --text:        #e4e4e4;
-      --text-2:      #606060;
+      --text-2:      #8a8f98;  /* was #606060 = 3.11:1, under AA for small text */
       --text-3:      #6b7078;  /* was #2e2e2e = 1.44:1 on --bg, i.e. invisible */
       --green:       #00e87a;
       --green-dim:   rgba(0,232,122,0.10);
@@ -41,7 +41,24 @@
       --blue-border: rgba(6,147,227,0.28);
       --mono: 'JetBrains Mono', 'SF Mono', monospace;
       --display: 'Archivo', 'Inter', -apple-system, sans-serif;
+      --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+
+      /* Motion ladder. Exits are shorter than enters, one easing for
+         interface moves and one for anything that travels a distance. */
+      --ease-out:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-emph: cubic-bezier(0.32, 0.72, 0, 1);
+      --t-fast:   120ms;
+      --t-base:   180ms;
+      --t-enter:  420ms;
     }
+
+    /* One rule across the page: prose is set in the serif, data is not. */
+    .profile-bio, #infoDesc {
+      font-family: var(--serif);
+      font-optical-sizing: auto;
+      font-weight: 400;
+    }
+    #infoDesc { font-size: 0.94rem; line-height: 1.62; }
 
     /* Display face: expanded industrial grotesk, used only for name,
        numbers and card titles so the data reads as instrumentation. */
@@ -114,7 +131,7 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       margin-bottom: 20px;
-      animation: up 0.5s ease both;
+      animation: up var(--t-enter) var(--ease-out) both;
     }
     .avatar-wrap {
       width: 64px; height: 64px; flex-shrink: 0;
@@ -135,7 +152,10 @@
     }
     .profile-role { font-size: 0.8rem; color: var(--text-2); }
     .profile-role span { color: var(--green); font-weight: 500; }
-    .profile-bio { font-size: 0.74rem; color: var(--text-2); line-height: 1.55; margin-top: 9px; max-width: 660px; }
+    .profile-bio {
+      font-size: 0.95rem; color: var(--text-2); line-height: 1.6;
+      margin-top: 11px; max-width: 620px; letter-spacing: 0.003em;
+    }
     .profile-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
     .live-badge {
       display: flex; align-items: center; gap: 7px;
@@ -156,7 +176,7 @@
     .kpis {
       display: grid; grid-template-columns: repeat(6, 1fr);
       gap: 12px; margin-bottom: 20px;
-      animation: up 0.5s ease 0.07s both;
+      animation: up var(--t-enter) var(--ease-out) 60ms both;
     }
     .kpi {
       background: var(--surface); border: 1px solid var(--border);
@@ -186,7 +206,7 @@
     .grid-main {
       display: grid; grid-template-columns: 1fr 340px;
       gap: 16px; margin-bottom: 16px;
-      animation: up 0.5s ease 0.14s both;
+      animation: up var(--t-enter) var(--ease-out) 120ms both;
     }
     .col-left { display: flex; flex-direction: column; gap: 16px; }
     .col-right { display: flex; flex-direction: column; gap: 16px; }
@@ -395,7 +415,7 @@
     .value-row {
       display: grid; grid-template-columns: 1fr 1fr 1fr;
       gap: 16px; margin-bottom: 16px;
-      animation: up 0.5s ease 0.21s both;
+      animation: up var(--t-enter) var(--ease-out) 180ms both;
     }
     .val-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
     .val-card.hl {
@@ -449,15 +469,23 @@
       position: fixed; inset: 0; background: rgba(0,0,0,0.75);
       backdrop-filter: blur(8px); z-index: 100;
       display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--t-fast) var(--ease-out);   /* exit: fast */
     }
-    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-overlay.active {
+      opacity: 1; pointer-events: auto;
+      transition-duration: 175ms;                          /* enter: slower */
+    }
     .modal {
       background: #161618; border: 1px solid var(--border-2);
       border-radius: 14px; padding: 26px; width: 320px; max-width: 90vw;
-      transform: scale(0.97) translateY(10px); transition: transform 0.2s;
+      transform: scale(0.95); opacity: 0.6;
+      transition: transform var(--t-fast) var(--ease-out), opacity var(--t-fast) var(--ease-out);
     }
-    .modal-overlay.active .modal { transform: scale(1) translateY(0); }
+    .modal-overlay.active .modal {
+      transform: scale(1); opacity: 1;
+      transition: transform 175ms var(--ease-emph), opacity 175ms var(--ease-out);
+    }
     .modal-title { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
     .modal-sub { font-size: 0.8rem; color: var(--text-2); margin-bottom: 18px; }
     .modal-input {
@@ -480,7 +508,18 @@
     .btn-submit:hover { background: #00ff88; }
 
     /* ── ANIMATIONS ──────────────────────── */
-    @keyframes up { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes up { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+    /* Reduced motion: honour it globally, not just on the build log. */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .bup, .bdn { transform: scaleY(1) !important; }
+    }
 
     /* ── RESPONSIVE ──────────────────────── */
     @media (max-width: 1100px) {
@@ -1324,7 +1363,10 @@
         const t = e.target.closest && e.target.closest('.bday');
         if (t) showTip(t, e.clientY);
       });
-      el.addEventListener('mouseleave', hideTip);
+      el.addEventListener('mouseleave', function () {
+        const pinned = el.querySelector('.bday.on');
+        if (pinned) showTip(pinned, null); else hideTip();
+      });
 
       // One tab stop for the whole chart, arrow keys scrub day to day.
       // 181 individually tabbable bars would be worse than no keyboard support.
@@ -1351,6 +1393,22 @@
         const p = el.querySelector('.bday.on');
         if (p) p.classList.remove('on');
         cur = -1;
+      });
+
+      // Click or tap pins a day's readout. On touch there is no hover, so
+      // without this the chart is unreadable on a phone. These are private
+      // repos with no public commit URLs, so pinning is the honest action.
+      el.addEventListener('click', function (e) {
+        const t = e.target.closest && e.target.closest('.bday');
+        if (!t) return;
+        const wasOn = t.classList.contains('on');
+        const p = el.querySelector('.bday.on');
+        if (p) p.classList.remove('on');
+        if (wasOn) { hideTip(); cur = -1; live.textContent = ''; return; }
+        t.classList.add('on');
+        cur = Array.prototype.indexOf.call(el.children, t);
+        showTip(t, null);
+        live.textContent = readout(t);
       });
 
       const o = new IntersectionObserver(function (es) {
