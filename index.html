@@ -457,17 +457,17 @@
       </div>
       <div class="kpi">
         <div class="kpi-label">AI Sessions</div>
-        <div class="kpi-val" data-target="208">0</div>
+        <div class="kpi-val" data-target="218">0</div>
         <div class="kpi-sub">since jan 8, 2026</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Messages Logged</div>
-        <div class="kpi-val" data-target="51259">0</div>
+        <div class="kpi-val" data-target="55167">0</div>
         <div class="kpi-sub">human + ai turns</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Lines of Code</div>
-        <div class="kpi-val" data-target="85240">0</div>
+        <div class="kpi-val" data-target="91429">0</div>
         <div class="kpi-sub">across all projects</div>
       </div>
       <div class="kpi">
@@ -968,6 +968,7 @@
           <div class="val-row-item"><span>HCP Maps, shipped behind Okta</span><span class="amt">$6,500</span></div>
           <div class="val-row-item"><span>Misc &amp; Ad-Hoc Builds (dashboards, consults, scrapes, skills)</span><span class="amt">$6,000</span></div>
           <div class="val-row-item"><span>HCP Testimonials Hub, shipped behind Okta</span><span class="amt">$5,500</span></div>
+          <div class="val-row-item"><span>Trades Thursday Hub (Mapbox + zip finder), shipped live</span><span class="amt">$5,500</span></div>
           <div class="val-row-item"><span>HCP Labs Prototype + Research</span><span class="amt">$4,000</span></div>
           <div class="val-row-item"><span>Sites &amp; Docs</span><span class="amt">$3,800</span></div>
           <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
@@ -976,6 +977,7 @@
           <div class="val-row-item"><span>Ultimate Higgsfield Workflow (Cowork)</span><span class="amt">$3,000</span></div>
           <div class="val-row-item"><span>May 2026 Release Moment Page</span><span class="amt">$2,500</span></div>
           <div class="val-row-item"><span>Meta Ads Deployer</span><span class="amt">$2,500</span></div>
+          <div class="val-row-item"><span>Top 50 Unforgettable Names LP (QA + enablement)</span><span class="amt">$1,500</span></div>
           <div class="val-row-item"><span>40 Under 40 (v1 + app flow)</span><span class="amt">$400</span></div>
         </div>
       </div>
@@ -1028,7 +1030,7 @@
     </div>
 
     <div class="footer">
-      analytics from claude code session logs &middot; updated jul 27, 2026 &middot;
+      analytics from claude code session logs &middot; updated jul 31, 2026 &middot;
       <a href="https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-jackson-sherwood-690663214/" target="_blank" rel="noopener">linkedin</a>
     </div>
   </div>
@@ -1094,7 +1096,7 @@
 
     const valKpi = document.getElementById('valKpi');
     const vObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 112500, '$', 1500); vObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 119500, '$', 1500); vObs.unobserve(e.target); });
     }, { threshold: 0.7 });
     vObs.observe(valKpi);
 
@@ -1103,7 +1105,7 @@
     const tkObs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
-        const t0 = Date.now(), target = 86.0, dur = 1500;
+        const t0 = Date.now(), target = 90.0, dur = 1500;
         (function tick() {
           const p = Math.min(1, (Date.now() - t0) / dur);
           tokKpi.textContent = (target * (1 - Math.pow(1 - p, 3))).toFixed(1) + 'M';
@@ -1116,7 +1118,7 @@
 
     const tvEl = document.getElementById('totalVal');
     const tvObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 112500, '$', 1500); tvObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 119500, '$', 1500); tvObs.unobserve(e.target); });
     }, { threshold: 0.4 });
     tvObs.observe(tvEl);
 
