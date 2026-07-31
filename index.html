@@ -6,7 +6,7 @@
   <title>Jackson Sherwood · jsher.online</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@85..125,500..900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <meta name="description" content="Jackson Sherwood · AI Enablement + Agent &amp; Application Builder at Housecall Pro">
   <meta property="og:title" content="Jackson Sherwood">
   <meta property="og:description" content="AI Enablement + Agent &amp; Application Builder at Housecall Pro">
@@ -40,6 +40,14 @@
       --blue-dim:    rgba(6,147,227,0.12);
       --blue-border: rgba(6,147,227,0.28);
       --mono: 'JetBrains Mono', 'SF Mono', monospace;
+      --display: 'Archivo', 'Inter', -apple-system, sans-serif;
+    }
+
+    /* Display face: expanded industrial grotesk, used only for name,
+       numbers and card titles so the data reads as instrumentation. */
+    .profile-name, .kpi-val, .val-num, .card-title, .blog-stat b {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 112;
     }
 
     html { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-font-smoothing: antialiased; }
@@ -55,6 +63,22 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
+
+    /* Film grain + vignette. Keeps a flat dark UI from reading as a
+       default template, and gives the cards something to sit on. */
+    body::before, body::after {
+      content: ''; position: fixed; inset: 0;
+      pointer-events: none; z-index: 1;
+    }
+    body::before {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.035;
+    }
+    body::after {
+      background: radial-gradient(ellipse 90% 60% at 50% 0%, transparent 40%, rgba(0,0,0,0.5) 100%);
+    }
+    /* page content sits above the texture */
+    .nav, .wrap { position: relative; z-index: 2; }
 
     /* ── NAV ─────────────────────────────── */
     .nav {
@@ -104,7 +128,11 @@
       display: block;
     }
     .profile-info { flex: 1; }
-    .profile-name { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 4px; }
+    .profile-name {
+      font-size: clamp(1.65rem, 3vw, 2.25rem); font-weight: 800;
+      letter-spacing: -0.035em; line-height: 1.02; margin-bottom: 6px;
+      font-variation-settings: 'wdth' 118;
+    }
     .profile-role { font-size: 0.8rem; color: var(--text-2); }
     .profile-role span { color: var(--green); font-weight: 500; }
     .profile-bio { font-size: 0.74rem; color: var(--text-2); line-height: 1.55; margin-top: 9px; max-width: 660px; }
@@ -140,7 +168,7 @@
     .kpi::after {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
       background: linear-gradient(90deg, transparent, var(--green), transparent);
-      opacity: 0.4;
+      opacity: 0.22;
     }
     .kpi-label {
       font-size: 0.65rem; font-weight: 500; text-transform: uppercase;
@@ -182,8 +210,63 @@
       background: rgba(255,255,255,0.04); color: var(--text-2); border: 1px solid var(--border);
     }
 
-    /* ── CHART ───────────────────────────── */
-    #chart { width: 100%; height: 180px; display: block; }
+    /* ── BUILD LOG ───────────────────────── */
+    .blog-wrap { position: relative; }
+    .blog {
+      display: flex; align-items: stretch; gap: 1px;
+      height: 148px; width: 100%;
+      position: relative; cursor: crosshair;
+    }
+    /* centre axis the two channels grow from */
+    .blog::after {
+      content: ''; position: absolute; left: 0; right: 0; top: 50%;
+      height: 1px; background: rgba(255,255,255,0.10); pointer-events: none;
+    }
+    .bday {
+      flex: 1 1 0; min-width: 0; height: 100%;
+      display: grid; grid-template-rows: 1fr 1fr;
+    }
+    .bup, .bdn {
+      width: 100%; border-radius: 1px;
+      transform: scaleY(0);
+      transition: transform 0.55s cubic-bezier(0.2,0.8,0.2,1), background 0.15s;
+      transition-delay: calc(var(--i) * 3.5ms);
+    }
+    .bup { align-self: end;   transform-origin: bottom; background: var(--green); opacity: 0.85; }
+    .bdn { align-self: start; transform-origin: top;    background: rgba(255,255,255,0.20); }
+    .blog.go .bup, .blog.go .bdn { transform: scaleY(1); }
+    .bday:hover .bup { opacity: 1; box-shadow: 0 0 8px var(--green); }
+    .bday:hover .bdn { background: rgba(255,255,255,0.42); }
+    .blog-axis {
+      position: relative; height: 15px; margin-top: 7px;
+      font-family: var(--mono); font-size: 0.6rem; color: var(--text-3);
+    }
+    .blog-axis span { position: absolute; transform: translateX(-1px); }
+    .blog-tip {
+      position: absolute; z-index: 20; pointer-events: none; opacity: 0;
+      transform: translate(-50%, -100%);
+      background: rgba(18,18,20,0.97); border: 1px solid var(--border-2);
+      border-radius: 7px; padding: 6px 9px; white-space: nowrap;
+      font-family: var(--mono); font-size: 0.62rem; color: var(--text);
+      transition: opacity 0.12s;
+    }
+    .blog-tip b { display: block; color: var(--green); margin-bottom: 2px; font-weight: 500; }
+    .blog-stats { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 13px; }
+    .blog-stat { font-family: var(--mono); font-size: 0.65rem; color: var(--text-2); }
+    .blog-stat b {
+      display: block; font-size: 1.15rem; font-weight: 700; color: var(--text);
+      letter-spacing: -0.02em; margin-bottom: 1px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bup, .bdn { transition: none; transform: scaleY(1); }
+    }
+    /* 181 days into a phone: drop the gaps so bars stay whole pixels */
+    @media (max-width: 760px) {
+      .blog { gap: 0; height: 112px; }
+      .blog-stats { gap: 14px; }
+      .blog-stat b { font-size: 1rem; }
+    }
+
     .chart-legend { display: flex; gap: 16px; margin-top: 10px; }
     .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: var(--text-2); font-family: var(--mono); }
     .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
@@ -404,6 +487,9 @@
       .wrap { padding: 20px 16px 60px; }
       .nav { padding: 0 16px; }
       .kpis { grid-template-columns: repeat(2, 1fr); }
+      .kpi { padding: 15px 14px; }
+      /* Archivo runs wider than Inter: shrink so $119,500 still fits */
+      .kpi-val { font-size: 1.5rem; font-variation-settings: 'wdth' 100; }
       .value-row { grid-template-columns: 1fr; }
       .profile { flex-wrap: wrap; }
       .profile-right { flex-direction: row; align-items: center; }
@@ -488,19 +574,29 @@
       <!-- LEFT -->
       <div class="col-left">
 
-        <!-- Chart -->
+        <!-- Build Log -->
         <div class="card">
           <div class="card-head">
             <div>
-              <div class="card-title">Daily Token Usage</div>
-              <div class="card-sub">Tokens consumed per session, Jan to Jun 2026</div>
+              <div class="card-title">Build Log</div>
+              <div class="card-sub">Every commit I pushed and every AI session behind it, Feb to Jul 2026</div>
             </div>
-            <span class="tag">71.8M tokens</span>
+            <span class="tag">211 commits</span>
           </div>
-          <canvas id="chart"></canvas>
+          <div class="blog-wrap">
+            <div class="blog" id="blog"></div>
+            <div class="blog-axis" id="blogAxis"></div>
+            <div class="blog-tip" id="blogTip"></div>
+          </div>
           <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>input tokens</div>
-            <div class="legend-item"><div class="legend-dot" style="background:rgba(0,232,122,0.35)"></div>output tokens</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>commits, above the line</div>
+            <div class="legend-item"><div class="legend-dot" style="background:rgba(255,255,255,0.2)"></div>ai sessions, below</div>
+          </div>
+          <div class="blog-stats">
+            <div class="blog-stat"><b>211</b>commits authored</div>
+            <div class="blog-stat"><b>103</b>days with activity</div>
+            <div class="blog-stat"><b>11</b>repos, public + private</div>
+            <div class="blog-stat"><b>13</b>busiest day, jun 9</div>
           </div>
         </div>
 
@@ -707,7 +803,7 @@
 
           <!-- SHIPPED, grouped by quarter -->
           <div class="proj-section">
-            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">25</span></div>
+            <div class="proj-heading" style="color:var(--green)">shipped <span class="ct">24</span></div>
 
             <!-- Q1 2026, collapsed, on top -->
             <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="false">
@@ -840,15 +936,10 @@
             <button class="qtr-toggle" onclick="toggleQtr(this)" aria-expanded="true">
               <span class="qtr-chevron">▾</span>
               <span class="qtr-label">Q3 2026 · Jul–Sep</span>
-              <span class="qtr-ct">4</span>
+              <span class="qtr-ct">3</span>
             </button>
             <div class="qtr-body">
               <div class="proj-list">
-                <div class="proj-item shipped link" onclick="openInfo('maps')">
-                  <span class="proj-em">🗺️</span>
-                  <span class="proj-name">Housecall Pro Maps</span>
-                  <span class="proj-badge pb-green">live · Okta</span>
-                </div>
                 <a href="https://www.housecallpro.com/lp/trades-thursday-hub/" target="_blank" rel="noopener" class="proj-item shipped link">
                   <span class="proj-em">🛠️</span>
                   <span class="proj-name">Trades Thursday Hub</span>
@@ -1161,111 +1252,74 @@
     const senEl = document.querySelector('.sen-list');
     if (senEl) senObs.observe(senEl);
 
-    // Activity chart
-    const DATA = [
-      { label: 'Jan 8',  inTok: 400000,  outTok: 80000   },
-      { label: 'Feb 11', inTok: 3200000, outTok: 500000  },
-      { label: 'Feb 17', inTok: 3600000, outTok: 600000  },
-      { label: 'Feb 19', inTok: 2400000, outTok: 500000  },
-      { label: 'Feb 23', inTok: 1800000, outTok: 350000  },
-      { label: 'Feb 26', inTok: 1900000, outTok: 360000  },
-      { label: 'Mar 5',  inTok: 900000,  outTok: 250000  },
-      { label: 'Mar 10', inTok: 950000,  outTok: 240000  },
-      { label: 'Mar 14', inTok: 4100000, outTok: 900000  },
-      { label: 'Mar 19', inTok: 1600000, outTok: 450000  },
-      { label: 'Apr 3',  inTok: 2200000, outTok: 600000  },
-      { label: 'Apr 20', inTok: 2600000, outTok: 700000  },
-      { label: 'May 19', inTok: 3300000, outTok: 850000  },
-      { label: 'May 27', inTok: 5200000, outTok: 1300000 },
-      { label: 'Jun 3',  inTok: 4300000, outTok: 1000000 },
-      { label: 'Jun 9',  inTok: 6100000, outTok: 1600000 },
-      { label: 'Jun 15', inTok: 3700000, outTok: 950000  },
-      { label: 'Jun 18', inTok: 802000,  outTok: 1496000 },
-      { label: 'Jun 22', inTok: 3307000, outTok: 2115000 },
-      { label: 'Jun 23', inTok: 417000,  outTok: 1807000 },
-    ];
+    // ── BUILD LOG ────────────────────────
+    // Real data: commits authored across 11 local repos (public + private)
+    // paired with Claude Code sessions per day. Regenerate on metrics refresh.
+    const ACT = {"start":"2026-02-01","days":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,3],[0,1],[0,0],[0,0],[0,0],[0,1],[0,3],[0,1],[0,2],[0,1],[0,0],[0,0],[10,2],[2,2],[0,3],[2,1],[0,0],[0,0],[0,0],[10,12],[2,7],[4,6],[4,2],[2,2],[0,0],[0,0],[2,2],[0,0],[10,1],[0,0],[0,0],[1,6],[0,0],[4,3],[0,4],[0,2],[0,7],[0,1],[0,0],[0,2],[0,2],[6,3],[0,3],[0,3],[0,2],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,5],[0,2],[2,9],[6,4],[2,6],[0,2],[0,0],[0,1],[0,0],[2,1],[0,4],[0,3],[0,3],[0,3],[4,1],[0,0],[0,0],[2,2],[2,0],[0,5],[0,0],[0,1],[0,0],[0,0],[1,4],[0,3],[0,2],[0,0],[0,1],[0,0],[0,0],[0,3],[2,2],[0,1],[10,2],[0,3],[0,0],[0,0],[0,2],[9,3],[0,1],[0,0],[0,0],[0,0],[0,0],[0,1],[1,4],[2,2],[4,0],[0,3],[0,0],[0,0],[0,0],[0,2],[2,1],[12,4],[6,2],[0,0],[0,0],[2,1],[0,4],[0,4],[0,6],[0,5],[0,0],[0,0],[10,2],[13,4],[0,3],[2,1],[0,0],[0,0],[0,0],[1,3],[2,1],[3,3],[6,4],[0,1],[0,0],[0,0],[3,4],[10,7],[1,4],[0,3],[5,3],[0,0],[0,0],[4,2],[0,1],[0,2],[0,0],[0,0],[0,0],[0,0],[0,5],[0,5],[0,2],[0,1],[5,7],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[1,4],[0,3],[1,7],[0,0],[0,0],[3,4],[1,2],[4,6],[4,7],[2,4]]};
 
-    const canvas = document.getElementById('chart');
-    const ctx = canvas.getContext('2d');
-    let animStart = null;
+    (function () {
+      const el = document.getElementById('blog');
+      if (!el) return;
+      const days = ACT.days;
+      const start = new Date(ACT.start + 'T12:00:00');
+      const maxC = Math.max.apply(null, days.map(function (d) { return d[0]; })) || 1;
+      const maxS = Math.max.apply(null, days.map(function (d) { return d[1]; })) || 1;
+      // sqrt scale + a floor so single-commit days stay legible
+      const H = function (v, m) { return v ? 14 + 86 * Math.sqrt(v / m) : 0; };
+      const MON = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
 
-    function rr(c, x, y, w, h) {
-      if (h < 1) return;
-      const r = Math.min(3, w / 2);
-      c.beginPath();
-      c.moveTo(x + r, y);
-      c.lineTo(x + w - r, y); c.arcTo(x+w, y, x+w, y+r, r);
-      c.lineTo(x+w, y+h); c.lineTo(x, y+h); c.lineTo(x, y+r);
-      c.arcTo(x, y, x+r, y, r); c.closePath(); c.fill();
-    }
-
-    function drawChart(prog) {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      canvas.width  = rect.width  * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-
-      const W = rect.width, H = rect.height;
-      const P = { t: 10, r: 12, b: 24, l: 42 };
-      const cW = W - P.l - P.r, cH = H - P.t - P.b;
-      const maxV = Math.max(...DATA.map(d => d.inTok));
-      const grpW = cW / DATA.length;
-      const bW = grpW * 0.28, gap = grpW * 0.055;
-
-      for (let i = 0; i <= 4; i++) {
-        const y = P.t + cH - (cH / 4) * i;
-        ctx.strokeStyle = 'rgba(255,255,255,0.04)';
-        ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(P.l, y); ctx.lineTo(W - P.r, y); ctx.stroke();
-        ctx.fillStyle = 'rgba(255,255,255,0.2)';
-        ctx.font = '9px JetBrains Mono, monospace';
-        ctx.textAlign = 'right';
-        const lv = Math.round((maxV / 4) * i);
-        const lbl = lv >= 1e6 ? (lv/1e6).toFixed(1)+'M' : lv >= 1000 ? Math.round(lv/1000)+'k' : lv;
-        ctx.fillText(lbl, P.l - 5, y + 3);
-      }
-
-      DATA.forEach((d, i) => {
-        const x = P.l + i * grpW + grpW * 0.14;
-        // input tokens bar, solid green
-        const mH = (d.inTok / maxV) * cH * prog;
-        const g1 = ctx.createLinearGradient(x, P.t + cH - mH, x, P.t + cH);
-        g1.addColorStop(0, 'rgba(0,232,122,0.9)'); g1.addColorStop(1, 'rgba(0,232,122,0.2)');
-        ctx.fillStyle = g1; rr(ctx, x, P.t + cH - mH, bW, mH);
-
-        // output tokens bar, dim green
-        const tH = (d.outTok / maxV) * cH * prog;
-        const tX = x + bW + gap;
-        const g2 = ctx.createLinearGradient(tX, P.t + cH - tH, tX, P.t + cH);
-        g2.addColorStop(0, 'rgba(0,232,122,0.35)'); g2.addColorStop(1, 'rgba(0,232,122,0.06)');
-        ctx.fillStyle = g2; rr(ctx, tX, P.t + cH - tH, bW, tH);
-
-        if (DATA.length <= 12 || i % 2 === 0) {
-          ctx.fillStyle = 'rgba(255,255,255,0.2)';
-          ctx.textAlign = 'center';
-          ctx.font = '9px JetBrains Mono, monospace';
-          ctx.fillText(d.label, x + bW + gap / 2, P.t + cH + 16);
-        }
+      const frag = document.createDocumentFragment();
+      const seen = {}, marks = [];
+      days.forEach(function (d, i) {
+        const dt = new Date(start.getTime() + i * 86400000);
+        const col = document.createElement('div');
+        col.className = 'bday';
+        col.style.setProperty('--i', i);
+        col.dataset.d = MON[dt.getMonth()] + ' ' + dt.getDate();
+        col.dataset.c = d[0];
+        col.dataset.s = d[1];
+        const up = document.createElement('div');
+        up.className = 'bup'; up.style.height = H(d[0], maxC) + '%';
+        const dn = document.createElement('div');
+        dn.className = 'bdn'; dn.style.height = H(d[1], maxS) + '%';
+        col.appendChild(up); col.appendChild(dn);
+        frag.appendChild(col);
+        if (!seen[dt.getMonth()]) { seen[dt.getMonth()] = 1; marks.push({ i: i, l: MON[dt.getMonth()] }); }
       });
-    }
+      el.appendChild(frag);
 
-    function animChart(ts) {
-      if (!animStart) animStart = ts;
-      const p = Math.min(1, (ts - animStart) / 1100);
-      drawChart(1 - Math.pow(1 - p, 3));
-      if (p < 1) requestAnimationFrame(animChart);
-    }
-
-    const cObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        document.fonts.ready.then(() => requestAnimationFrame(animChart));
-        cObs.unobserve(e.target);
+      const ax = document.getElementById('blogAxis');
+      marks.forEach(function (m) {
+        const s = document.createElement('span');
+        s.textContent = m.l;
+        s.style.left = (m.i / days.length * 100) + '%';
+        ax.appendChild(s);
       });
-    }, { threshold: 0.2 });
-    cObs.observe(canvas);
-    window.addEventListener('resize', () => { animStart = null; requestAnimationFrame(animChart); });
+
+      const tip = document.getElementById('blogTip');
+      const wrap = el.parentNode;
+      el.addEventListener('mousemove', function (e) {
+        const t = e.target.closest && e.target.closest('.bday');
+        if (!t) return;
+        tip.innerHTML = '<b>' + t.dataset.d + '</b>' + t.dataset.c + ' commits &middot; ' + t.dataset.s + ' ai sessions';
+        const r = wrap.getBoundingClientRect(), tr = t.getBoundingClientRect();
+        let x = tr.left - r.left + tr.width / 2;
+        x = Math.max(52, Math.min(r.width - 52, x));
+        tip.style.left = x + 'px';
+        tip.style.top = Math.max(18, e.clientY - r.top - 10) + 'px';
+        tip.style.opacity = '1';
+      });
+      el.addEventListener('mouseleave', function () { tip.style.opacity = '0'; });
+
+      const o = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          el.classList.add('go');
+          o.unobserve(e.target);
+        });
+      }, { threshold: 0.15 });
+      o.observe(el);
+    })();
 
     // Quarter accordion toggle
     function toggleQtr(btn) {
