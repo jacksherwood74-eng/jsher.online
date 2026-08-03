@@ -479,12 +479,22 @@
     .modal {
       background: #161618; border: 1px solid var(--border-2);
       border-radius: 14px; padding: 26px; width: 320px; max-width: 90vw;
+      /* long write-ups used to run off the bottom of the screen with no way back */
+      max-height: 82vh; overflow-y: auto; overscroll-behavior: contain;
       transform: scale(0.95); opacity: 0.6;
       transition: transform var(--t-fast) var(--ease-out), opacity var(--t-fast) var(--ease-out);
     }
     .modal-overlay.active .modal {
       transform: scale(1); opacity: 1;
       transition: transform 175ms var(--ease-emph), opacity 175ms var(--ease-out);
+    }
+    /* project write-ups need a wider measure than the access prompt does */
+    #infoModal .modal { width: 440px; }
+    .modal::-webkit-scrollbar { width: 11px; }
+    .modal::-webkit-scrollbar-track { background: transparent; }
+    .modal::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.14); border-radius: 6px;
+      border: 3px solid #161618;
     }
     .modal-title { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
     .modal-sub { font-size: 0.8rem; color: var(--text-2); margin-bottom: 18px; }
@@ -650,7 +660,7 @@
           <div class="card-head">
             <div>
               <div class="card-title">Session History</div>
-              <div class="card-sub">What got shipped, fixed, and built · 22 highlighted, Jan to Jun 2026</div>
+              <div class="card-sub">What got shipped, fixed, and built · 23 highlighted, Jan to Aug 2026</div>
             </div>
           </div>
           <div class="sessions">
@@ -829,6 +839,14 @@
                 <div class="sess-desc">Built a multi-agent paid-creative engine end to end: generate, composite, and gate static ad assets. First two waves shipped (24 HVAC assets x3 sizes) with Supabase + Higgsfield wired in.</div>
               </div>
               <div class="sess-right"><span class="sess-date">Jun 23</span><span class="sess-tag st-green">build</span></div>
+            </div>
+            <div class="sess">
+              <div class="sess-num">23</div>
+              <div class="sess-body">
+                <div class="sess-title">AI Spotlight, Presented to 1,500</div>
+                <div class="sess-desc">Built and delivered the marketing AI story to a 1,500-person company audience: how a 90-person marketing org went from using AI to building with it, with the shipped tools to back it up.</div>
+              </div>
+              <div class="sess-right"><span class="sess-date">Aug 2</span><span class="sess-tag st-green">talk</span></div>
             </div>
           </div>
         </div>
@@ -1514,7 +1532,7 @@
       officehours: {
         emoji: '🎓',
         title: 'AI Office Hours, Marketing Enablement',
-        desc: 'A weekly 1-hour structured session teaching the 90-person Housecall Pro marketing department how to use AI effectively, Claude Chat, Claude Cowork, and Claude Code. Each session covers a planned lesson: what each tool does, which teams it fits best, practical workflows for paid marketing, LCM, video, social, and beyond.<br><br>Beyond the group sessions, individual "AI consultations" run in parallel, 1:1s where I act as an AI deployment consultant, reviewing each person\'s tech stack and manual workflows and recommending specific tools and prompting strategies to unlock time savings.<br><br><strong>Program scope</strong><br>&middot;&nbsp; 2 quarters (~6 months) · 90-person marketing org<br>&middot;&nbsp; Weekly group sessions + on-demand 1:1 consultations<br>&middot;&nbsp; Teams covered: Paid, LCM, Video, Social, PMM, Events &amp; more<br>&middot;&nbsp; Tools taught: Chat, Cowork, Claude Code + Claude API basics<br><br><strong>Estimated impact</strong> <span style="opacity:0.5;font-size:0.85em">, rough estimates</span><br>&middot;&nbsp; Marketing\'s Claude usage: <strong>4.5× increase</strong><br>&middot;&nbsp; Hours saved per week across dept: 20–40 hrs<br>&middot;&nbsp; Annualized time savings: ~$120K+ equivalent at avg. marketing salary<br><br>Ran every week through Q2 and <strong>continues into Q3</strong> with a fresh cohort of sessions.'
+        desc: 'A weekly 1-hour session teaching Housecall Pro\'s 90-person marketing org to <strong>build</strong> with AI, not just use it. Claude Chat, Cowork, and Claude Code, plus 1:1 consults where I audit someone\'s stack and hand back a workflow they own.<br><br><strong>What it produced</strong><br>&middot;&nbsp; Marketing\'s Claude usage: <strong>4.5× increase</strong><br>&middot;&nbsp; 20–40 hrs/week saved across the dept, ~$120K+ annualized<br>&middot;&nbsp; The org shipped its own tools: a testimonial validator, a capital coach for frontline reps, and three Claude-built landing pages<br><br><strong>Q3, from users to builders</strong><br>&middot;&nbsp; A 3-week Claude Code course, curriculum written by me: repo to shipped landing page<br>&middot;&nbsp; Session speaker for AI grad onboarding, covering the vibe-coding side<br>&middot;&nbsp; Presented the marketing AI story to <strong>1,500 people</strong> at the company AI Spotlight'
       },
       ultimateworkflow: {
         emoji: '🔗',
