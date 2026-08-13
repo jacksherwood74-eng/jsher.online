@@ -231,63 +231,17 @@
     }
 
     /* ── BUILD LOG ───────────────────────── */
-    .blog-wrap { position: relative; }
-    .blog {
-      display: flex; align-items: stretch; gap: 1px;
-      height: 148px; width: 100%;
-      position: relative; cursor: crosshair;
-    }
-    /* centre axis the two channels grow from */
-    .blog::after {
-      content: ''; position: absolute; left: 0; right: 0; top: 50%;
-      height: 1px; background: rgba(255,255,255,0.10); pointer-events: none;
-    }
-    .bday {
-      flex: 1 1 0; min-width: 0; height: 100%;
-      display: grid; grid-template-rows: 1fr 1fr;
-    }
-    .bup, .bdn {
-      width: 100%; border-radius: 1px;
-      transform: scaleY(0);
-      transition: transform 0.55s cubic-bezier(0.2,0.8,0.2,1), background 0.15s;
-      transition-delay: calc(var(--i) * 3.5ms);
-    }
-    .bup { align-self: end;   transform-origin: bottom; background: var(--green); opacity: 0.85; }
-    .bdn { align-self: start; transform-origin: top;    background: rgba(255,255,255,0.20); }
-    .blog.go .bup, .blog.go .bdn { transform: scaleY(1); }
-    .bday:hover .bup, .bday.on .bup { opacity: 1; }
-    .bday:hover .bdn, .bday.on .bdn { background: rgba(255,255,255,0.42); }
-    .blog:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; border-radius: 3px; }
     .sr-only {
       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
       overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
     }
-    .blog-axis {
-      position: relative; height: 15px; margin-top: 7px;
-      font-family: var(--mono); font-size: 0.6rem; color: var(--text-3);
-    }
-    .blog-axis span { position: absolute; transform: translateX(-1px); }
-    .blog-tip {
-      position: absolute; z-index: 20; pointer-events: none; opacity: 0;
-      transform: translate(-50%, -100%);
-      background: rgba(18,18,20,0.97); border: 1px solid var(--border-2);
-      border-radius: 7px; padding: 6px 9px; white-space: nowrap;
-      font-family: var(--mono); font-size: 0.62rem; color: var(--text);
-      transition: opacity 0.12s;
-    }
-    .blog-tip b { display: block; color: var(--green); margin-bottom: 2px; font-weight: 500; }
-    .blog-stats { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 13px; }
+    .blog-stats { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 13px; }
     .blog-stat { font-family: var(--mono); font-size: 0.65rem; color: var(--text-2); }
     .blog-stat b {
       display: block; font-size: 1.15rem; font-weight: 700; color: var(--text);
       letter-spacing: -0.02em; margin-bottom: 1px;
     }
-    @media (prefers-reduced-motion: reduce) {
-      .bup, .bdn { transition: none; transform: scaleY(1); }
-    }
-    /* 181 days into a phone: drop the gaps so bars stay whole pixels */
     @media (max-width: 760px) {
-      .blog { gap: 0; height: 112px; }
       .blog-stats { gap: 14px; }
       .blog-stat b { font-size: 1rem; }
     }
@@ -297,7 +251,7 @@
     .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
 
     /* ── CONTRIBUTION HEATMAP ────────────── */
-    .heat-filters { display: flex; gap: 6px; }
+    .heat-filters { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
     .heat-pill {
       font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.04em;
       text-transform: uppercase; color: var(--text-2); background: var(--surface);
@@ -377,6 +331,8 @@
       .heat-main { max-width: none; }
     }
     @media (max-width: 560px) {
+      .heat-head { flex-direction: column; align-items: flex-start; gap: 11px; }
+      .heat-filters { justify-content: flex-start; }
       .heat-dows { display: none; }
       .heat-foot { flex-direction: column; align-items: flex-start; gap: 9px; }
     }
@@ -717,44 +673,18 @@
       <!-- LEFT -->
       <div class="col-left">
 
-        <!-- Build Log -->
+        <!-- Build Log: commits + the AI sessions behind them, one grid -->
         <div class="card">
-          <div class="card-head">
+          <div class="card-head heat-head">
             <div>
               <div class="card-title">Build Log</div>
-              <div class="card-sub">Every commit I pushed and every AI session behind it, Feb to Jul 2026</div>
+              <div class="card-sub" id="heatSub">Every commit I pushed and the AI sessions behind it</div>
             </div>
-            <span class="tag">211 commits</span>
-          </div>
-          <div class="blog-wrap">
-            <div class="blog" id="blog"></div>
-            <div class="blog-axis" id="blogAxis"></div>
-            <div class="blog-tip" id="blogTip"></div>
-            <span class="sr-only" id="blogLive" aria-live="polite"></span>
-          </div>
-          <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>commits, above the line</div>
-            <div class="legend-item"><div class="legend-dot" style="background:rgba(255,255,255,0.2)"></div>ai sessions, below</div>
-          </div>
-          <div class="blog-stats">
-            <div class="blog-stat"><b>211</b>commits authored</div>
-            <div class="blog-stat"><b>103</b>days with activity</div>
-            <div class="blog-stat"><b>11</b>repos, public + private</div>
-            <div class="blog-stat"><b>13</b>busiest day, jun 9</div>
-          </div>
-        </div>
-
-        <!-- Contribution heatmap -->
-        <div class="card">
-          <div class="card-head">
-            <div>
-              <div class="card-title">Contribution Graph</div>
-              <div class="card-sub" id="heatSub">Commits authored to GitHub and company GitLab</div>
-            </div>
-            <div class="heat-filters" role="group" aria-label="Filter contributions by source">
+            <div class="heat-filters" role="group" aria-label="Choose what the graph shows">
               <button class="heat-pill" type="button" data-src="all" aria-pressed="true">all</button>
               <button class="heat-pill" type="button" data-src="gh" aria-pressed="false">github</button>
               <button class="heat-pill" type="button" data-src="gl" aria-pressed="false">gitlab</button>
+              <button class="heat-pill" type="button" data-src="ai" aria-pressed="false">sessions</button>
             </div>
           </div>
           <div class="heat-body">
@@ -789,8 +719,9 @@
               </div>
             </div>
             <div class="blog-stats heat-side">
-              <div class="blog-stat"><b id="heatGh">267</b>github commits</div>
-              <div class="blog-stat"><b id="heatGl">34</b>gitlab commits</div>
+              <div class="blog-stat"><b>267</b>github commits</div>
+              <div class="blog-stat"><b>34</b>gitlab commits</div>
+              <div class="blog-stat"><b>372</b>ai sessions</div>
               <div class="blog-stat"><b>14</b>repos, personal + company</div>
               <div class="blog-stat"><b>6</b>day streak, aug 2 to 7</div>
             </div>
@@ -1444,7 +1375,7 @@
     }, { threshold: 0.4 });
     tvObs.observe(tvEl);
 
-    /* ── Contribution heatmap ──────────────────────────────
+    /* ── Build Log ─────────────────────────────────────────
        Commits authored by me, counted straight out of the local clones of
        every repo I work in, so private GitHub orgs and company GitLab both
        show up. Shape is [github, gitlab, "top repos that day"].            */
@@ -1484,6 +1415,30 @@
       "2026-08-12":[7,0,"hcp-pmm-brain, trades-thursday-hub, parker-brain-hcp"]
     };
 
+    /* Claude Code sessions per day, the work behind the commits. Jun 3 on is
+       counted out of the transcripts; earlier days are the tallies recorded
+       at the time, since Claude Code prunes transcripts older than that.   */
+    const SESS = {
+      "2026-02-23":2,"2026-02-24":2,"2026-02-25":3,"2026-02-26":1,"2026-03-02":12,"2026-03-03":7,
+      "2026-03-04":6,"2026-03-05":2,"2026-03-06":2,"2026-03-09":2,"2026-03-11":1,"2026-03-14":6,
+      "2026-03-16":3,"2026-03-17":4,"2026-03-18":2,"2026-03-19":7,"2026-03-20":1,"2026-03-22":2,
+      "2026-03-23":2,"2026-03-24":3,"2026-03-25":3,"2026-03-26":3,"2026-03-27":2,"2026-04-03":5,
+      "2026-04-04":2,"2026-04-05":9,"2026-04-06":4,"2026-04-07":6,"2026-04-08":2,"2026-04-10":1,
+      "2026-04-12":1,"2026-04-13":4,"2026-04-14":3,"2026-04-15":3,"2026-04-16":3,"2026-04-17":1,
+      "2026-04-20":2,"2026-04-22":5,"2026-04-24":1,"2026-04-27":4,"2026-04-28":3,"2026-04-29":2,
+      "2026-05-01":1,"2026-05-04":3,"2026-05-05":2,"2026-05-06":1,"2026-05-07":2,"2026-05-08":3,
+      "2026-05-11":2,"2026-05-12":3,"2026-05-13":1,"2026-05-18":1,"2026-05-19":4,"2026-05-20":2,
+      "2026-05-22":3,"2026-05-26":2,"2026-05-27":1,"2026-05-28":4,"2026-05-29":2,"2026-06-01":1,
+      "2026-06-02":4,"2026-06-03":1,"2026-06-04":6,"2026-06-05":5,"2026-06-08":2,"2026-06-09":4,
+      "2026-06-10":3,"2026-06-11":1,"2026-06-15":3,"2026-06-16":1,"2026-06-17":3,"2026-06-18":4,
+      "2026-06-19":1,"2026-06-22":4,"2026-06-23":7,"2026-06-24":1,"2026-06-25":1,"2026-06-26":2,
+      "2026-06-29":2,"2026-06-30":2,"2026-07-01":4,"2026-07-06":3,"2026-07-07":5,"2026-07-08":2,
+      "2026-07-09":1,"2026-07-10":7,"2026-07-14":1,"2026-07-22":4,"2026-07-23":3,"2026-07-24":8,
+      "2026-07-27":2,"2026-07-28":3,"2026-07-29":5,"2026-07-30":6,"2026-07-31":16,"2026-08-03":13,
+      "2026-08-04":12,"2026-08-05":6,"2026-08-06":7,"2026-08-07":12,"2026-08-10":3,"2026-08-11":6,
+      "2026-08-12":7,"2026-08-13":2
+    };
+
     (function heatmap() {
       const grid   = document.getElementById('heatGrid');
       const months = document.getElementById('heatMonths');
@@ -1499,15 +1454,19 @@
       const parse = s => { const [y, m, d] = s.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)); };
       const end = parse(iso(new Date()));
       end.setUTCDate(end.getUTCDate() + (6 - end.getUTCDay()));
-      const firstDay = parse(Object.keys(HEAT).sort()[0]);
+      const firstDay = parse(Object.keys(HEAT).concat(Object.keys(SESS)).sort()[0]);
       firstDay.setUTCDate(firstDay.getUTCDate() - firstDay.getUTCDay());
       const WEEKS = Math.round((end - firstDay + 864e5) / (7 * 864e5));
 
       const valueOf = k => {
+        if (src === 'ai') return SESS[k] || 0;
         const v = HEAT[k];
         if (!v) return 0;
         return src === 'gh' ? v[0] : src === 'gl' ? v[1] : v[0] + v[1];
       };
+      const noun = n => src === 'ai'
+        ? n + (n === 1 ? ' session' : ' sessions')
+        : n + (n === 1 ? ' commit' : ' commits');
 
       let cells = [], weeks = 0;
 
@@ -1564,15 +1523,28 @@
         return 1;
       }
 
-      function label(k) {
+      // Whichever channel is selected leads; the other still gets named, so a
+      // day always reads as both the work and the commits it produced.
+      function detail(k) {
         const v = HEAT[k] || [0, 0, ''];
+        const c = v[0] + v[1], s = SESS[k] || 0;
+        const bits = [];
+        if (src === 'ai') {
+          if (c) bits.push(c + (c === 1 ? ' commit' : ' commits'));
+        } else {
+          if (src === 'all' && v[1]) bits.push(v[0] + ' github, ' + v[1] + ' gitlab');
+          if (s) bits.push(s + (s === 1 ? ' ai session' : ' ai sessions'));
+        }
+        return bits.join(' · ');
+      }
+
+      function label(k) {
         const n = valueOf(k);
         const d = parse(k);
         const when = MON[d.getUTCMonth()] + ' ' + d.getUTCDate();
-        if (!n) return when + ' · no commits';
-        let s = when + ' · ' + n + (n === 1 ? ' commit' : ' commits');
-        if (src === 'all' && v[1]) s += ' (' + v[0] + ' github, ' + v[1] + ' gitlab)';
-        return s + (v[2] ? ' · ' + v[2] : '');
+        if (!n) return when + ' · nothing';
+        const extra = detail(k), repos = (HEAT[k] || [0, 0, ''])[2];
+        return when + ' · ' + noun(n) + (extra ? ' · ' + extra : '') + (repos ? ' · ' + repos : '');
       }
 
       function render() {
@@ -1585,10 +1557,10 @@
           el.classList.toggle('hit', n > 0);
           el.setAttribute('title', label(el.dataset.day));
         });
-        document.getElementById('heatCount').textContent =
-          total.toLocaleString() + ' commits, ' + active + ' active days';
-        grid.setAttribute('aria-label',
-          'Daily commit heatmap. ' + total + ' commits across ' + active + ' active days.');
+        const summary = total.toLocaleString() + ' ' + noun(total).split(' ')[1] +
+                        ', ' + active + ' active days';
+        document.getElementById('heatCount').textContent = summary;
+        grid.setAttribute('aria-label', 'Daily activity heatmap. ' + summary + '.');
       }
 
       function showTip(el) {
@@ -1596,9 +1568,11 @@
         const k = el.dataset.day, v = HEAT[k] || [0, 0, ''], n = valueOf(k);
         const d = parse(k);
         const b = document.createElement('b');
-        b.textContent = n + (n === 1 ? ' commit' : ' commits');
+        b.textContent = noun(n);
         const t = document.createTextNode(MON[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + d.getUTCFullYear());
         tip.appendChild(b); tip.appendChild(t);
+        const extra = detail(k);
+        if (extra) { const em = document.createElement('em'); em.textContent = extra; tip.appendChild(em); }
         if (v[2]) { const em = document.createElement('em'); em.textContent = v[2]; tip.appendChild(em); }
         const r = el.getBoundingClientRect(), w = wrap.getBoundingClientRect();
         tip.style.left = (r.left - w.left + wrap.scrollLeft + r.width / 2) + 'px';
@@ -1647,7 +1621,7 @@
       const from = new Date(end);
       from.setUTCDate(from.getUTCDate() - (WEEKS * 7 - 1));
       document.getElementById('heatSub').textContent =
-        'Commits authored to GitHub and company GitLab, ' +
+        'Every commit I pushed and the AI sessions behind it, ' +
         MON[from.getUTCMonth()] + ' to ' + MON[end.getUTCMonth()] + ' ' + end.getUTCFullYear();
       // Narrow screens scroll this sideways: start them at the recent weeks.
       wrap.scrollLeft = wrap.scrollWidth;
@@ -1665,130 +1639,6 @@
     }, { threshold: 0.4 });
     const senEl = document.querySelector('.sen-list');
     if (senEl) senObs.observe(senEl);
-
-    // ── BUILD LOG ────────────────────────
-    // Real data: commits authored across 11 local repos (public + private)
-    // paired with Claude Code sessions per day. Regenerate on metrics refresh.
-    const ACT = {"start":"2026-02-01","days":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,3],[0,1],[0,0],[0,0],[0,0],[0,1],[0,3],[0,1],[0,2],[0,1],[0,0],[0,0],[10,2],[2,2],[0,3],[2,1],[0,0],[0,0],[0,0],[10,12],[2,7],[4,6],[4,2],[2,2],[0,0],[0,0],[2,2],[0,0],[10,1],[0,0],[0,0],[1,6],[0,0],[4,3],[0,4],[0,2],[0,7],[0,1],[0,0],[0,2],[0,2],[6,3],[0,3],[0,3],[0,2],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,5],[0,2],[2,9],[6,4],[2,6],[0,2],[0,0],[0,1],[0,0],[2,1],[0,4],[0,3],[0,3],[0,3],[4,1],[0,0],[0,0],[2,2],[2,0],[0,5],[0,0],[0,1],[0,0],[0,0],[1,4],[0,3],[0,2],[0,0],[0,1],[0,0],[0,0],[0,3],[2,2],[0,1],[10,2],[0,3],[0,0],[0,0],[0,2],[9,3],[0,1],[0,0],[0,0],[0,0],[0,0],[0,1],[1,4],[2,2],[4,0],[0,3],[0,0],[0,0],[0,0],[0,2],[2,1],[12,4],[6,2],[0,0],[0,0],[2,1],[0,4],[0,4],[0,6],[0,5],[0,0],[0,0],[10,2],[13,4],[0,3],[2,1],[0,0],[0,0],[0,0],[1,3],[2,1],[3,3],[6,4],[0,1],[0,0],[0,0],[3,4],[10,7],[1,4],[0,3],[5,3],[0,0],[0,0],[4,2],[0,1],[0,2],[0,0],[0,0],[0,0],[0,0],[0,5],[0,5],[0,2],[0,1],[5,7],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[1,4],[0,3],[1,7],[0,0],[0,0],[3,4],[1,2],[4,6],[4,7],[2,4]]};
-
-    (function () {
-      const el = document.getElementById('blog');
-      if (!el) return;
-      const days = ACT.days;
-      const start = new Date(ACT.start + 'T12:00:00');
-      const maxC = Math.max.apply(null, days.map(function (d) { return d[0]; })) || 1;
-      const maxS = Math.max.apply(null, days.map(function (d) { return d[1]; })) || 1;
-      // sqrt scale + a floor so single-commit days stay legible
-      const H = function (v, m) { return v ? 14 + 86 * Math.sqrt(v / m) : 0; };
-      const MON = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-
-      const frag = document.createDocumentFragment();
-      const seen = {}, marks = [];
-      days.forEach(function (d, i) {
-        const dt = new Date(start.getTime() + i * 86400000);
-        const col = document.createElement('div');
-        col.className = 'bday';
-        col.style.setProperty('--i', i);
-        col.dataset.d = MON[dt.getMonth()] + ' ' + dt.getDate();
-        col.dataset.c = d[0];
-        col.dataset.s = d[1];
-        const up = document.createElement('div');
-        up.className = 'bup'; up.style.height = H(d[0], maxC) + '%';
-        const dn = document.createElement('div');
-        dn.className = 'bdn'; dn.style.height = H(d[1], maxS) + '%';
-        col.appendChild(up); col.appendChild(dn);
-        frag.appendChild(col);
-        if (!seen[dt.getMonth()]) { seen[dt.getMonth()] = 1; marks.push({ i: i, l: MON[dt.getMonth()] }); }
-      });
-      el.appendChild(frag);
-
-      const ax = document.getElementById('blogAxis');
-      marks.forEach(function (m) {
-        const s = document.createElement('span');
-        s.textContent = m.l;
-        s.style.left = (m.i / days.length * 100) + '%';
-        ax.appendChild(s);
-      });
-
-      const tip = document.getElementById('blogTip');
-      const live = document.getElementById('blogLive');
-      const wrap = el.parentNode;
-
-      function readout(t) {
-        return t.dataset.d + ': ' + t.dataset.c + ' commits, ' + t.dataset.s + ' ai sessions';
-      }
-      function showTip(t, clientY) {
-        tip.innerHTML = '<b>' + t.dataset.d + '</b>' + t.dataset.c + ' commits &middot; ' + t.dataset.s + ' ai sessions';
-        const r = wrap.getBoundingClientRect(), tr = t.getBoundingClientRect();
-        let x = tr.left - r.left + tr.width / 2;
-        x = Math.max(52, Math.min(r.width - 52, x));
-        tip.style.left = x + 'px';
-        tip.style.top = (clientY == null ? 22 : Math.max(18, clientY - r.top - 10)) + 'px';
-        tip.style.opacity = '1';
-      }
-      function hideTip() { tip.style.opacity = '0'; }
-
-      el.addEventListener('mousemove', function (e) {
-        const t = e.target.closest && e.target.closest('.bday');
-        if (t) showTip(t, e.clientY);
-      });
-      el.addEventListener('mouseleave', function () {
-        const pinned = el.querySelector('.bday.on');
-        if (pinned) showTip(pinned, null); else hideTip();
-      });
-
-      // One tab stop for the whole chart, arrow keys scrub day to day.
-      // 181 individually tabbable bars would be worse than no keyboard support.
-      let cur = -1;
-      el.tabIndex = 0;
-      el.setAttribute('role', 'group');
-      el.setAttribute('aria-label',
-        'Build activity, ' + days.length + ' days from February to July 2026. ' +
-        'Use the left and right arrow keys to step through days.');
-      el.addEventListener('keydown', function (e) {
-        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-        e.preventDefault();
-        if (cur < 0) cur = days.length - 1;
-        else cur = Math.max(0, Math.min(days.length - 1, cur + (e.key === 'ArrowRight' ? 1 : -1)));
-        const prev = el.querySelector('.bday.on');
-        if (prev) prev.classList.remove('on');
-        const t = el.children[cur];
-        t.classList.add('on');
-        showTip(t, null);
-        live.textContent = readout(t);
-      });
-      el.addEventListener('blur', function () {
-        hideTip();
-        const p = el.querySelector('.bday.on');
-        if (p) p.classList.remove('on');
-        cur = -1;
-      });
-
-      // Click or tap pins a day's readout. On touch there is no hover, so
-      // without this the chart is unreadable on a phone. These are private
-      // repos with no public commit URLs, so pinning is the honest action.
-      el.addEventListener('click', function (e) {
-        const t = e.target.closest && e.target.closest('.bday');
-        if (!t) return;
-        const wasOn = t.classList.contains('on');
-        const p = el.querySelector('.bday.on');
-        if (p) p.classList.remove('on');
-        if (wasOn) { hideTip(); cur = -1; live.textContent = ''; return; }
-        t.classList.add('on');
-        cur = Array.prototype.indexOf.call(el.children, t);
-        showTip(t, null);
-        live.textContent = readout(t);
-      });
-
-      const o = new IntersectionObserver(function (es) {
-        es.forEach(function (e) {
-          if (!e.isIntersecting) return;
-          el.classList.add('go');
-          o.unobserve(e.target);
-        });
-      }, { threshold: 0.15 });
-      o.observe(el);
-    })();
 
     // Quarter accordion toggle
     function toggleQtr(btn) {
