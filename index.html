@@ -296,6 +296,74 @@
     .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: var(--text-2); font-family: var(--mono); }
     .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
 
+    /* ── CONTRIBUTION HEATMAP ────────────── */
+    .heat-filters { display: flex; gap: 6px; }
+    .heat-pill {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.04em;
+      text-transform: uppercase; color: var(--text-2); background: var(--surface);
+      border: 1px solid var(--border); border-radius: 5px; padding: 4px 9px;
+      cursor: pointer; transition: color var(--t-fast) var(--ease-out),
+                                   border-color var(--t-fast) var(--ease-out),
+                                   background var(--t-fast) var(--ease-out);
+    }
+    .heat-pill:hover { color: var(--text); border-color: var(--border-2); }
+    .heat-pill[aria-pressed="true"] {
+      color: var(--green); background: var(--green-dim); border-color: var(--green-border);
+    }
+    .heat-pill:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    .heat-wrap { position: relative; overflow-x: auto; padding-bottom: 2px; }
+    .heat-scroll { display: flex; gap: 10px; min-width: max-content; }
+    .heat-dows {
+      display: grid; grid-template-rows: repeat(7, 1fr); gap: 3px;
+      padding-top: 17px; font-family: var(--mono); font-size: 0.55rem; color: var(--text-3);
+    }
+    .heat-dows span { height: 11px; line-height: 11px; }
+    .heat-grid-wrap { display: flex; flex-direction: column; gap: 4px; }
+    .heat-months {
+      position: relative; height: 13px;
+      font-family: var(--mono); font-size: 0.58rem; color: var(--text-3);
+    }
+    .heat-months span { position: absolute; top: 0; }
+    .heat-grid { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 11px); gap: 3px; }
+    .heat-cell {
+      width: 11px; height: 11px; border-radius: 2px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.02);
+      transition: transform var(--t-fast) var(--ease-out),
+                  background var(--t-base) var(--ease-out);
+    }
+    .heat-cell[data-lv="1"] { background: rgba(0,232,122,0.20); border-color: rgba(0,232,122,0.14); }
+    .heat-cell[data-lv="2"] { background: rgba(0,232,122,0.42); border-color: rgba(0,232,122,0.26); }
+    .heat-cell[data-lv="3"] { background: rgba(0,232,122,0.66); border-color: rgba(0,232,122,0.38); }
+    .heat-cell[data-lv="4"] { background: var(--green); border-color: var(--green); }
+    .heat-cell.hit { cursor: pointer; }
+    .heat-cell.hit:hover, .heat-cell.on { transform: scale(1.35); }
+    .heat-grid:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 3px; }
+
+    .heat-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 11px; flex-wrap: wrap; }
+    .heat-scale { display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 0.6rem; color: var(--text-3); }
+    .heat-scale i { width: 10px; height: 10px; border-radius: 2px; display: block; }
+    .heat-tip {
+      position: absolute; pointer-events: none; opacity: 0;
+      background: #17181a; border: 1px solid var(--border-2); border-radius: 6px;
+      padding: 7px 9px; font-family: var(--mono); font-size: 0.62rem; color: var(--text-2);
+      white-space: nowrap; z-index: 5; transform: translate(-50%, -100%);
+      transition: opacity var(--t-fast) var(--ease-out);
+    }
+    .heat-tip.show { opacity: 1; }
+    .heat-tip b { display: block; color: var(--green); font-weight: 500; margin-bottom: 2px; }
+    .heat-tip em { display: block; font-style: normal; color: var(--text-3); margin-top: 2px; }
+
+    @media (max-width: 560px) {
+      .heat-dows { display: none; }
+      .heat-foot { flex-direction: column; align-items: flex-start; gap: 9px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .heat-cell { transition: none; }
+      .heat-cell.hit:hover, .heat-cell.on { transform: none; box-shadow: 0 0 0 2px var(--green); }
+    }
+
     /* ── SESSIONS ────────────────────────── */
     .sessions { display: flex; flex-direction: column; gap: 1px; }
     .sess {
@@ -593,22 +661,22 @@
       <div class="kpi">
         <div class="kpi-label">Total Token Usage</div>
         <div class="kpi-val" id="tokKpi">0M</div>
-        <div class="kpi-sub">input + output, all sessions</div>
+        <div class="kpi-sub">in + out + cache writes</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">AI Sessions</div>
-        <div class="kpi-val" data-target="218">0</div>
+        <div class="kpi-val" data-target="333">0</div>
         <div class="kpi-sub">since jan 8, 2026</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Messages Logged</div>
-        <div class="kpi-val" data-target="55167">0</div>
+        <div class="kpi-val" data-target="94690">0</div>
         <div class="kpi-sub">human + ai turns</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Lines of Code</div>
-        <div class="kpi-val" data-target="91429">0</div>
-        <div class="kpi-sub">across all projects</div>
+        <div class="kpi-val" data-target="223115">0</div>
+        <div class="kpi-sub">written + edited, all projects</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Active Agents</div>
@@ -652,6 +720,55 @@
             <div class="blog-stat"><b>103</b>days with activity</div>
             <div class="blog-stat"><b>11</b>repos, public + private</div>
             <div class="blog-stat"><b>13</b>busiest day, jun 9</div>
+          </div>
+        </div>
+
+        <!-- Contribution heatmap -->
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Contribution Graph</div>
+              <div class="card-sub">Commits authored to GitHub and company GitLab, Feb to Aug 2026</div>
+            </div>
+            <div class="heat-filters" role="group" aria-label="Filter contributions by source">
+              <button class="heat-pill" type="button" data-src="all" aria-pressed="true">all</button>
+              <button class="heat-pill" type="button" data-src="gh" aria-pressed="false">github</button>
+              <button class="heat-pill" type="button" data-src="gl" aria-pressed="false">gitlab</button>
+            </div>
+          </div>
+          <div class="heat-wrap">
+            <div class="heat-scroll">
+              <div class="heat-dows" aria-hidden="true">
+                <span></span><span>mon</span><span></span><span>wed</span><span></span><span>fri</span><span></span>
+              </div>
+              <div class="heat-grid-wrap">
+                <div class="heat-months" id="heatMonths" aria-hidden="true"></div>
+                <div class="heat-grid" id="heatGrid" role="img" tabindex="0"
+                     aria-label="Daily commit heatmap, February to August 2026"></div>
+              </div>
+            </div>
+            <div class="heat-tip" id="heatTip" role="presentation"></div>
+            <span class="sr-only" id="heatLive" aria-live="polite"></span>
+          </div>
+          <div class="heat-foot">
+            <div class="chart-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div><span id="heatCount">301 commits, 60 active days</span></div>
+            </div>
+            <div class="heat-scale">
+              less
+              <i style="background:rgba(255,255,255,0.045)"></i>
+              <i style="background:rgba(0,232,122,0.20)"></i>
+              <i style="background:rgba(0,232,122,0.42)"></i>
+              <i style="background:rgba(0,232,122,0.66)"></i>
+              <i style="background:var(--green)"></i>
+              more
+            </div>
+          </div>
+          <div class="blog-stats">
+            <div class="blog-stat"><b id="heatGh">267</b>github commits</div>
+            <div class="blog-stat"><b id="heatGl">34</b>gitlab commits</div>
+            <div class="blog-stat"><b>14</b>repos, personal + company</div>
+            <div class="blog-stat"><b>6</b>day streak, aug 2 to 7</div>
           </div>
         </div>
 
@@ -1285,7 +1402,7 @@
     const tkObs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
-        const t0 = Date.now(), target = 90.0, dur = 1500;
+        const t0 = Date.now(), target = 369.9, dur = 1500;
         (function tick() {
           const p = Math.min(1, (Date.now() - t0) / dur);
           tokKpi.textContent = (target * (1 - Math.pow(1 - p, 3))).toFixed(1) + 'M';
@@ -1301,6 +1418,198 @@
       entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 119500, '$', 1500); tvObs.unobserve(e.target); });
     }, { threshold: 0.4 });
     tvObs.observe(tvEl);
+
+    /* ── Contribution heatmap ──────────────────────────────
+       Commits authored by me, counted straight out of the local clones of
+       every repo I work in, so private GitHub orgs and company GitLab both
+       show up. Shape is [github, gitlab, "top repos that day"].            */
+    const HEAT = {
+      "2026-02-23":[5,0,"jsher.online, hcp-maps"],"2026-02-24":[1,0,"jsher.online"],
+      "2026-02-26":[1,0,"hcp-maps"],"2026-03-02":[5,0,"jsher.online, hcp-maps"],
+      "2026-03-03":[1,0,"jsher.online"],"2026-03-04":[2,0,"jsher.online"],"2026-03-05":[2,0,"jsher.online"],
+      "2026-03-06":[1,0,"jsher.online"],"2026-03-09":[1,0,"jsher.online"],"2026-03-11":[5,0,"jsher.online"],
+      "2026-03-14":[1,0,"onboarding-leave-behind"],"2026-03-16":[2,0,"hcp-maps, jsher.online"],
+      "2026-03-24":[3,0,"hcp-maps"],"2026-04-05":[1,0,"jsher.online"],"2026-04-06":[3,0,"jsher.online"],
+      "2026-04-07":[1,0,"jsher.online"],"2026-04-12":[1,0,"jsher.online"],"2026-04-17":[2,0,"jsher.online"],
+      "2026-04-20":[1,0,"jsher.online"],"2026-04-21":[2,0,"jsher.online"],"2026-04-27":[1,0,"jsher.online"],
+      "2026-05-05":[1,0,"hcp-maps"],"2026-05-07":[5,0,"hcp-maps"],
+      "2026-05-12":[7,0,"hcp-testimonials, hcp-maps"],"2026-05-19":[1,0,"jsher.online"],
+      "2026-05-20":[2,0,"jsher.online"],"2026-05-21":[2,0,"hcp-maps"],"2026-05-27":[1,0,"hcp-maps"],
+      "2026-05-28":[11,0,"hcp-maps, hcp-pmm-brain"],"2026-05-29":[6,0,"hcp-pmm-brain, hcp-maps"],
+      "2026-06-01":[2,0,"hcp-pmm-brain, hcp-maps"],"2026-06-08":[10,0,"hcp-pmm-brain"],
+      "2026-06-09":[13,0,"hcp-pmm-brain"],"2026-06-11":[2,0,"hcp-maps"],"2026-06-15":[1,0,"jsher.online"],
+      "2026-06-16":[2,0,"jsher.online"],"2026-06-17":[3,0,"hcp-marketing-plugins"],
+      "2026-06-18":[6,0,"hcp-marketing-plugins, hcp-maps"],
+      "2026-06-22":[3,0,"hcp-maps, mechanical-ads-engine"],
+      "2026-06-23":[10,0,"mechanical-ads-engine, jsher.online"],"2026-06-24":[1,0,"mechanical-ads-engine"],
+      "2026-06-26":[5,0,"hcp-marketing-plugins"],"2026-06-29":[4,0,"hcp-marketing-plugins"],
+      "2026-07-10":[5,0,"trades-thursday-hub"],"2026-07-22":[1,0,"trades-thursday-hub"],
+      "2026-07-24":[1,0,"trades-thursday-hub"],
+      "2026-07-27":[3,0,"top50campaign, jsher.online, trades-thursday-hub"],
+      "2026-07-28":[1,0,"trades-thursday-hub"],"2026-07-29":[4,0,"trades-thursday-hub"],
+      "2026-07-30":[4,0,"trades-thursday-hub, top50campaign"],
+      "2026-07-31":[7,0,"jsher.online, hcp-marketing-plugins"],
+      "2026-08-02":[2,0,"jsher.online, context-diet"],
+      "2026-08-03":[8,0,"hcp-marketing-plugins, context-diet"],
+      "2026-08-04":[11,0,"parker-brain-hcp, hcp-pmm-brain"],"2026-08-05":[2,0,"torque"],
+      "2026-08-06":[1,0,"trades-thursday-hub"],
+      "2026-08-07":[60,28,"parker-brain-hcp, community-hub, trades-thursday-test"],
+      "2026-08-10":[6,0,"hcp-pmm-brain, parker-brain-hcp"],
+      "2026-08-11":[4,6,"community-hub, parker-brain-hcp"],
+      "2026-08-12":[7,0,"hcp-pmm-brain, trades-thursday-hub, parker-brain-hcp"]
+    };
+
+    (function heatmap() {
+      const grid   = document.getElementById('heatGrid');
+      const months = document.getElementById('heatMonths');
+      const tip    = document.getElementById('heatTip');
+      const live   = document.getElementById('heatLive');
+      const wrap   = grid.closest('.heat-wrap');
+      const MON = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+      const CELL = 14; // 11px cell + 3px gap
+      let src = 'all';
+
+      // Grid runs from the Sunday on or before the first commit through the
+      // Saturday of the week holding the last one.
+      const keys  = Object.keys(HEAT).sort();
+      const iso   = d => d.toISOString().slice(0, 10);
+      const parse = s => { const [y, m, d] = s.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+      const start = parse(keys[0]);
+      start.setUTCDate(start.getUTCDate() - start.getUTCDay());
+      const end = parse(keys[keys.length - 1]);
+      end.setUTCDate(end.getUTCDate() + (6 - end.getUTCDay()));
+
+      const dates = [];
+      for (let d = new Date(start); d <= end; d.setUTCDate(d.getUTCDate() + 1)) dates.push(new Date(d));
+
+      const valueOf = k => {
+        const v = HEAT[k];
+        if (!v) return 0;
+        return src === 'gh' ? v[0] : src === 'gl' ? v[1] : v[0] + v[1];
+      };
+
+      // Month rulers: label the first column that lands in each month, and
+      // drop any label a following one would sit on top of.
+      const marks = [];
+      let lastMon = -1;
+      dates.forEach((d, i) => {
+        if (i % 7 !== 0 || d.getUTCMonth() === lastMon) return;
+        lastMon = d.getUTCMonth();
+        marks.push([i / 7, MON[lastMon]]);
+      });
+      marks.forEach(([col, name], i) => {
+        if (marks[i + 1] && marks[i + 1][0] - col < 3) return;
+        const s = document.createElement('span');
+        s.textContent = name;
+        s.style.left = col * CELL + 'px';
+        months.appendChild(s);
+      });
+
+      const cells = dates.map(d => {
+        const el = document.createElement('div');
+        el.className = 'heat-cell';
+        el.dataset.day = iso(d);
+        grid.appendChild(el);
+        return el;
+      });
+
+      // Shade by percentile of the active days, not by share of the maximum.
+      // One 88-commit day would otherwise squash every other day flat.
+      function thresholds() {
+        const v = cells.map(c => valueOf(c.dataset.day)).filter(Boolean).sort((a, b) => a - b);
+        const at = p => v[Math.min(v.length - 1, Math.floor(v.length * p))] || 1;
+        return [at(0.5), at(0.78), at(0.93)];
+      }
+      function level(n, t) {
+        if (!n) return 0;
+        if (n >= t[2]) return 4;
+        if (n >= t[1]) return 3;
+        if (n >= t[0]) return 2;
+        return 1;
+      }
+
+      function label(k) {
+        const v = HEAT[k] || [0, 0, ''];
+        const n = valueOf(k);
+        const d = parse(k);
+        const when = MON[d.getUTCMonth()] + ' ' + d.getUTCDate();
+        if (!n) return when + ' · no commits';
+        let s = when + ' · ' + n + (n === 1 ? ' commit' : ' commits');
+        if (src === 'all' && v[1]) s += ' (' + v[0] + ' github, ' + v[1] + ' gitlab)';
+        return s + (v[2] ? ' · ' + v[2] : '');
+      }
+
+      function render() {
+        let total = 0, active = 0;
+        const t = thresholds();
+        cells.forEach(el => {
+          const n = valueOf(el.dataset.day);
+          if (n) { total += n; active++; }
+          el.dataset.lv = level(n, t);
+          el.classList.toggle('hit', n > 0);
+          el.setAttribute('title', label(el.dataset.day));
+        });
+        document.getElementById('heatCount').textContent =
+          total.toLocaleString() + ' commits, ' + active + ' active days';
+        grid.setAttribute('aria-label',
+          'Daily commit heatmap, February to August 2026. ' + total + ' commits across ' + active + ' active days.');
+      }
+
+      function showTip(el) {
+        tip.innerHTML = '';
+        const k = el.dataset.day, v = HEAT[k] || [0, 0, ''], n = valueOf(k);
+        const d = parse(k);
+        const b = document.createElement('b');
+        b.textContent = n + (n === 1 ? ' commit' : ' commits');
+        const t = document.createTextNode(MON[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', 2026');
+        tip.appendChild(b); tip.appendChild(t);
+        if (v[2]) { const em = document.createElement('em'); em.textContent = v[2]; tip.appendChild(em); }
+        const r = el.getBoundingClientRect(), w = wrap.getBoundingClientRect();
+        tip.style.left = (r.left - w.left + wrap.scrollLeft + r.width / 2) + 'px';
+        tip.style.top  = (r.top - w.top - 8) + 'px';
+        tip.classList.add('show');
+      }
+      const hideTip = () => tip.classList.remove('show');
+
+      grid.addEventListener('mouseover', e => {
+        const el = e.target.closest('.heat-cell.hit');
+        if (el) showTip(el); else hideTip();
+      });
+      grid.addEventListener('mouseleave', hideTip);
+
+      // Keyboard: arrow through the active days, announced to screen readers.
+      let idx = -1;
+      grid.addEventListener('keydown', e => {
+        const hits = cells.filter(c => c.classList.contains('hit'));
+        if (!hits.length) return;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') idx = Math.min(hits.length - 1, idx + 1);
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') idx = Math.max(0, idx - 1);
+        else if (e.key === 'Escape') { hits.forEach(c => c.classList.remove('on')); hideTip(); idx = -1; return; }
+        else return;
+        e.preventDefault();
+        hits.forEach(c => c.classList.remove('on'));
+        const el = hits[idx];
+        el.classList.add('on');
+        showTip(el);
+        el.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        live.textContent = label(el.dataset.day);
+      });
+      grid.addEventListener('blur', () => { hideTip(); cells.forEach(c => c.classList.remove('on')); idx = -1; });
+
+      document.querySelectorAll('.heat-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          src = btn.dataset.src;
+          document.querySelectorAll('.heat-pill').forEach(b =>
+            b.setAttribute('aria-pressed', String(b === btn)));
+          hideTip();
+          render();
+        });
+      });
+
+      render();
+      // Land on the most recent weeks, the way GitHub does.
+      wrap.scrollLeft = wrap.scrollWidth;
+    })();
 
     // Seniority bars
     const senObs = new IntersectionObserver(entries => {
