@@ -312,22 +312,31 @@
     }
     .heat-pill:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
 
-    .heat-wrap { position: relative; overflow-x: auto; padding-bottom: 2px; }
-    .heat-scroll { display: flex; gap: 10px; min-width: max-content; }
+    /* Cells are fluid: the year's worth of columns divides the card width, so
+       the graph fills its container instead of stranding half of it empty.
+       --cols is set from JS. Below 720px it reverts to fixed cells + scroll. */
+    .heat-wrap { position: relative; padding-bottom: 2px; --gap: 3px; }
+    .heat-scroll { display: flex; gap: 10px; align-items: stretch; }
     .heat-dows {
-      display: grid; grid-template-rows: repeat(7, 1fr); gap: 3px;
+      display: grid; grid-template-rows: repeat(7, 1fr); gap: var(--gap);
       padding-top: 17px; font-family: var(--mono); font-size: 0.55rem; color: var(--text-3);
+      flex: none;
     }
-    .heat-dows span { height: 11px; line-height: 11px; }
-    .heat-grid-wrap { display: flex; flex-direction: column; gap: 4px; }
+    .heat-dows span { display: flex; align-items: center; }
+    .heat-grid-wrap { display: flex; flex-direction: column; gap: 4px; flex: 1 1 auto; min-width: 0; }
     .heat-months {
       position: relative; height: 13px;
       font-family: var(--mono); font-size: 0.58rem; color: var(--text-3);
     }
     .heat-months span { position: absolute; top: 0; }
-    .heat-grid { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 11px); gap: 3px; }
+    .heat-grid {
+      display: grid; gap: var(--gap);
+      grid-template-rows: repeat(7, 1fr);
+      grid-template-columns: repeat(var(--cols, 53), minmax(0, 1fr));
+      grid-auto-flow: column;
+    }
     .heat-cell {
-      width: 11px; height: 11px; border-radius: 2px;
+      aspect-ratio: 1; border-radius: 2px;
       background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.02);
       transition: transform var(--t-fast) var(--ease-out),
@@ -355,6 +364,12 @@
     .heat-tip b { display: block; color: var(--green); font-weight: 500; margin-bottom: 2px; }
     .heat-tip em { display: block; font-style: normal; color: var(--text-3); margin-top: 2px; }
 
+    @media (max-width: 720px) {
+      .heat-wrap { overflow-x: auto; }
+      .heat-scroll { min-width: max-content; }
+      .heat-grid { grid-template-columns: repeat(var(--cols, 53), 11px); grid-template-rows: repeat(7, 11px); }
+      .heat-grid-wrap { flex: none; }
+    }
     @media (max-width: 560px) {
       .heat-dows { display: none; }
       .heat-foot { flex-direction: column; align-items: flex-start; gap: 9px; }
@@ -728,7 +743,7 @@
           <div class="card-head">
             <div>
               <div class="card-title">Contribution Graph</div>
-              <div class="card-sub">Commits authored to GitHub and company GitLab, Feb to Aug 2026</div>
+              <div class="card-sub" id="heatSub">Commits authored to GitHub and company GitLab</div>
             </div>
             <div class="heat-filters" role="group" aria-label="Filter contributions by source">
               <button class="heat-pill" type="button" data-src="all" aria-pressed="true">all</button>
@@ -744,7 +759,7 @@
               <div class="heat-grid-wrap">
                 <div class="heat-months" id="heatMonths" aria-hidden="true"></div>
                 <div class="heat-grid" id="heatGrid" role="img" tabindex="0"
-                     aria-label="Daily commit heatmap, February to August 2026"></div>
+                     aria-label="Daily commit heatmap, trailing 12 months"></div>
               </div>
             </div>
             <div class="heat-tip" id="heatTip" role="presentation"></div>
@@ -1466,21 +1481,16 @@
       const live   = document.getElementById('heatLive');
       const wrap   = grid.closest('.heat-wrap');
       const MON = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-      const CELL = 14; // 11px cell + 3px gap
+      const WEEKS = 53;
       let src = 'all';
 
-      // Grid runs from the Sunday on or before the first commit through the
-      // Saturday of the week holding the last one.
-      const keys  = Object.keys(HEAT).sort();
+      // A trailing year, ending on the Saturday of the current week, so the
+      // grid is always 53 columns wide and fills the card.
       const iso   = d => d.toISOString().slice(0, 10);
       const parse = s => { const [y, m, d] = s.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)); };
-      const start = parse(keys[0]);
-      start.setUTCDate(start.getUTCDate() - start.getUTCDay());
-      const end = parse(keys[keys.length - 1]);
+      const today = parse(iso(new Date()));
+      const end = new Date(today);
       end.setUTCDate(end.getUTCDate() + (6 - end.getUTCDay()));
-
-      const dates = [];
-      for (let d = new Date(start); d <= end; d.setUTCDate(d.getUTCDate() + 1)) dates.push(new Date(d));
 
       const valueOf = k => {
         const v = HEAT[k];
@@ -1488,30 +1498,45 @@
         return src === 'gh' ? v[0] : src === 'gl' ? v[1] : v[0] + v[1];
       };
 
-      // Month rulers: label the first column that lands in each month, and
-      // drop any label a following one would sit on top of.
-      const marks = [];
-      let lastMon = -1;
-      dates.forEach((d, i) => {
-        if (i % 7 !== 0 || d.getUTCMonth() === lastMon) return;
-        lastMon = d.getUTCMonth();
-        marks.push([i / 7, MON[lastMon]]);
-      });
-      marks.forEach(([col, name], i) => {
-        if (marks[i + 1] && marks[i + 1][0] - col < 3) return;
-        const s = document.createElement('span');
-        s.textContent = name;
-        s.style.left = col * CELL + 'px';
-        months.appendChild(s);
-      });
+      let cells = [], weeks = 0;
 
-      const cells = dates.map(d => {
-        const el = document.createElement('div');
-        el.className = 'heat-cell';
-        el.dataset.day = iso(d);
-        grid.appendChild(el);
-        return el;
-      });
+      function build(w) {
+        weeks = w;
+        grid.textContent = '';
+        months.textContent = '';
+        grid.style.setProperty('--cols', w);
+
+        const start = new Date(end);
+        start.setUTCDate(start.getUTCDate() - (w * 7 - 1));
+        const dates = [];
+        for (let d = new Date(start); d <= end; d.setUTCDate(d.getUTCDate() + 1)) dates.push(new Date(d));
+
+        // Month rulers: label the first column that lands in each month, and
+        // drop any label a following one would sit on top of.
+        const marks = [];
+        let lastMon = -1;
+        dates.forEach((d, i) => {
+          if (i % 7 !== 0 || d.getUTCMonth() === lastMon) return;
+          lastMon = d.getUTCMonth();
+          marks.push([i / 7, MON[lastMon]]);
+        });
+        marks.forEach(([col, name], i) => {
+          if (marks[i + 1] && marks[i + 1][0] - col < 3) return;
+          if (col > w - 2) return;
+          const s = document.createElement('span');
+          s.textContent = name;
+          s.style.left = (col / w * 100) + '%';
+          months.appendChild(s);
+        });
+
+        cells = dates.map(d => {
+          const el = document.createElement('div');
+          el.className = 'heat-cell';
+          el.dataset.day = iso(d);
+          grid.appendChild(el);
+          return el;
+        });
+      }
 
       // Shade by percentile of the active days, not by share of the maximum.
       // One 88-commit day would otherwise squash every other day flat.
@@ -1552,7 +1577,7 @@
         document.getElementById('heatCount').textContent =
           total.toLocaleString() + ' commits, ' + active + ' active days';
         grid.setAttribute('aria-label',
-          'Daily commit heatmap, February to August 2026. ' + total + ' commits across ' + active + ' active days.');
+          'Daily commit heatmap. ' + total + ' commits across ' + active + ' active days.');
       }
 
       function showTip(el) {
@@ -1561,7 +1586,7 @@
         const d = parse(k);
         const b = document.createElement('b');
         b.textContent = n + (n === 1 ? ' commit' : ' commits');
-        const t = document.createTextNode(MON[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', 2026');
+        const t = document.createTextNode(MON[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + d.getUTCFullYear());
         tip.appendChild(b); tip.appendChild(t);
         if (v[2]) { const em = document.createElement('em'); em.textContent = v[2]; tip.appendChild(em); }
         const r = el.getBoundingClientRect(), w = wrap.getBoundingClientRect();
@@ -1606,9 +1631,23 @@
         });
       });
 
-      render();
-      // Land on the most recent weeks, the way GitHub does.
-      wrap.scrollLeft = wrap.scrollWidth;
+      // A full year fills the card on a wide screen. On a phone the same year
+      // would be six months of empty squares before anything interesting, so
+      // narrow screens get the active window only.
+      const wide = window.matchMedia('(min-width: 721px)');
+      const fit = () => {
+        const w = wide.matches ? WEEKS : 26;
+        if (w === weeks) return;
+        idx = -1;
+        build(w);
+        render();
+        document.getElementById('heatSub').textContent =
+          'Commits authored to GitHub and company GitLab, ' +
+          (w === WEEKS ? 'trailing 12 months' : 'last 6 months');
+        wrap.scrollLeft = wrap.scrollWidth;
+      };
+      wide.addEventListener('change', fit);
+      fit();
     })();
 
     // Seniority bars
