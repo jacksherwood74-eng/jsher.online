@@ -315,7 +315,7 @@
     /* Cells are fluid: the year's worth of columns divides the card width, so
        the graph fills its container instead of stranding half of it empty.
        --cols is set from JS. Below 720px it reverts to fixed cells + scroll. */
-    .heat-wrap { position: relative; padding-bottom: 2px; --gap: 3px; }
+    .heat-wrap { position: relative; padding-bottom: 2px; --gap: 4px; }
     .heat-scroll { display: flex; gap: 10px; align-items: stretch; }
     .heat-dows {
       display: grid; grid-template-rows: repeat(7, 1fr); gap: var(--gap);
@@ -336,8 +336,8 @@
       grid-auto-flow: column;
     }
     .heat-cell {
-      aspect-ratio: 1; border-radius: 2px;
-      background: rgba(255,255,255,0.045);
+      aspect-ratio: 1; border-radius: 4px;
+      background: rgba(255,255,255,0.032);
       border: 1px solid rgba(255,255,255,0.02);
       transition: transform var(--t-fast) var(--ease-out),
                   background var(--t-base) var(--ease-out);
@@ -350,6 +350,11 @@
     .heat-cell.hit:hover, .heat-cell.on { transform: scale(1.35); }
     .heat-grid:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 3px; }
 
+    /* The grid spans the card, capped so it can't turn into slabs on an
+       ultrawide monitor. */
+    .heat-body { display: block; }
+    .heat-main { max-width: calc(var(--cols, 26) * 37px + 44px); }
+    .heat-side { margin-top: 13px; }
     .heat-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 11px; flex-wrap: wrap; }
     .heat-scale { display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 0.6rem; color: var(--text-3); }
     .heat-scale i { width: 10px; height: 10px; border-radius: 2px; display: block; }
@@ -367,8 +372,9 @@
     @media (max-width: 720px) {
       .heat-wrap { overflow-x: auto; }
       .heat-scroll { min-width: max-content; }
-      .heat-grid { grid-template-columns: repeat(var(--cols, 53), 11px); grid-template-rows: repeat(7, 11px); }
+      .heat-grid { grid-template-columns: repeat(var(--cols, 26), 13px); grid-template-rows: repeat(7, 13px); }
       .heat-grid-wrap { flex: none; }
+      .heat-main { max-width: none; }
     }
     @media (max-width: 560px) {
       .heat-dows { display: none; }
@@ -751,39 +757,43 @@
               <button class="heat-pill" type="button" data-src="gl" aria-pressed="false">gitlab</button>
             </div>
           </div>
-          <div class="heat-wrap">
-            <div class="heat-scroll">
-              <div class="heat-dows" aria-hidden="true">
-                <span></span><span>mon</span><span></span><span>wed</span><span></span><span>fri</span><span></span>
+          <div class="heat-body">
+            <div class="heat-main">
+              <div class="heat-wrap">
+                <div class="heat-scroll">
+                  <div class="heat-dows" aria-hidden="true">
+                    <span></span><span>mon</span><span></span><span>wed</span><span></span><span>fri</span><span></span>
+                  </div>
+                  <div class="heat-grid-wrap">
+                    <div class="heat-months" id="heatMonths" aria-hidden="true"></div>
+                    <div class="heat-grid" id="heatGrid" role="img" tabindex="0"
+                         aria-label="Daily commit heatmap"></div>
+                  </div>
+                </div>
+                <div class="heat-tip" id="heatTip" role="presentation"></div>
+                <span class="sr-only" id="heatLive" aria-live="polite"></span>
               </div>
-              <div class="heat-grid-wrap">
-                <div class="heat-months" id="heatMonths" aria-hidden="true"></div>
-                <div class="heat-grid" id="heatGrid" role="img" tabindex="0"
-                     aria-label="Daily commit heatmap, trailing 12 months"></div>
+              <div class="heat-foot">
+                <div class="chart-legend">
+                  <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div><span id="heatCount">301 commits, 60 active days</span></div>
+                </div>
+                <div class="heat-scale">
+                  less
+                  <i style="background:rgba(255,255,255,0.032)"></i>
+                  <i style="background:rgba(0,232,122,0.20)"></i>
+                  <i style="background:rgba(0,232,122,0.42)"></i>
+                  <i style="background:rgba(0,232,122,0.66)"></i>
+                  <i style="background:var(--green)"></i>
+                  more
+                </div>
               </div>
             </div>
-            <div class="heat-tip" id="heatTip" role="presentation"></div>
-            <span class="sr-only" id="heatLive" aria-live="polite"></span>
-          </div>
-          <div class="heat-foot">
-            <div class="chart-legend">
-              <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div><span id="heatCount">301 commits, 60 active days</span></div>
+            <div class="blog-stats heat-side">
+              <div class="blog-stat"><b id="heatGh">267</b>github commits</div>
+              <div class="blog-stat"><b id="heatGl">34</b>gitlab commits</div>
+              <div class="blog-stat"><b>14</b>repos, personal + company</div>
+              <div class="blog-stat"><b>6</b>day streak, aug 2 to 7</div>
             </div>
-            <div class="heat-scale">
-              less
-              <i style="background:rgba(255,255,255,0.045)"></i>
-              <i style="background:rgba(0,232,122,0.20)"></i>
-              <i style="background:rgba(0,232,122,0.42)"></i>
-              <i style="background:rgba(0,232,122,0.66)"></i>
-              <i style="background:var(--green)"></i>
-              more
-            </div>
-          </div>
-          <div class="blog-stats">
-            <div class="blog-stat"><b id="heatGh">267</b>github commits</div>
-            <div class="blog-stat"><b id="heatGl">34</b>gitlab commits</div>
-            <div class="blog-stat"><b>14</b>repos, personal + company</div>
-            <div class="blog-stat"><b>6</b>day streak, aug 2 to 7</div>
           </div>
         </div>
 
@@ -1481,16 +1491,17 @@
       const live   = document.getElementById('heatLive');
       const wrap   = grid.closest('.heat-wrap');
       const MON = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-      const WEEKS = 53;
       let src = 'all';
 
-      // A trailing year, ending on the Saturday of the current week, so the
-      // grid is always 53 columns wide and fills the card.
+      // The window runs from the week of the first commit to the Saturday of
+      // the current week. No point rendering months I wasn't pushing in.
       const iso   = d => d.toISOString().slice(0, 10);
       const parse = s => { const [y, m, d] = s.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)); };
-      const today = parse(iso(new Date()));
-      const end = new Date(today);
+      const end = parse(iso(new Date()));
       end.setUTCDate(end.getUTCDate() + (6 - end.getUTCDay()));
+      const firstDay = parse(Object.keys(HEAT).sort()[0]);
+      firstDay.setUTCDate(firstDay.getUTCDate() - firstDay.getUTCDay());
+      const WEEKS = Math.round((end - firstDay + 864e5) / (7 * 864e5));
 
       const valueOf = k => {
         const v = HEAT[k];
@@ -1504,7 +1515,7 @@
         weeks = w;
         grid.textContent = '';
         months.textContent = '';
-        grid.style.setProperty('--cols', w);
+        wrap.closest('.heat-body').style.setProperty('--cols', w);
 
         const start = new Date(end);
         start.setUTCDate(start.getUTCDate() - (w * 7 - 1));
@@ -1631,23 +1642,15 @@
         });
       });
 
-      // A full year fills the card on a wide screen. On a phone the same year
-      // would be six months of empty squares before anything interesting, so
-      // narrow screens get the active window only.
-      const wide = window.matchMedia('(min-width: 721px)');
-      const fit = () => {
-        const w = wide.matches ? WEEKS : 26;
-        if (w === weeks) return;
-        idx = -1;
-        build(w);
-        render();
-        document.getElementById('heatSub').textContent =
-          'Commits authored to GitHub and company GitLab, ' +
-          (w === WEEKS ? 'trailing 12 months' : 'last 6 months');
-        wrap.scrollLeft = wrap.scrollWidth;
-      };
-      wide.addEventListener('change', fit);
-      fit();
+      build(WEEKS);
+      render();
+      const from = new Date(end);
+      from.setUTCDate(from.getUTCDate() - (WEEKS * 7 - 1));
+      document.getElementById('heatSub').textContent =
+        'Commits authored to GitHub and company GitLab, ' +
+        MON[from.getUTCMonth()] + ' to ' + MON[end.getUTCMonth()] + ' ' + end.getUTCFullYear();
+      // Narrow screens scroll this sideways: start them at the recent weeks.
+      wrap.scrollLeft = wrap.scrollWidth;
     })();
 
     // Seniority bars
