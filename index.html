@@ -456,12 +456,14 @@
     }
     .p-arr { font-size: 0.65rem; color: rgba(0,232,122,0.3); }
 
-    /* ── VALUE ROW ───────────────────────── */
-    .value-row {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      gap: 16px; margin-bottom: 16px;
+    /* ── VALUE ────────────────────────────
+       The headline number spans the column; the two recurring streams sit
+       side by side under it. */
+    .value-stack {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
       animation: up var(--t-enter) var(--ease-out) 180ms both;
     }
+    .value-stack > .hl { grid-column: 1 / -1; }
     .val-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
     .val-card.hl {
       background: linear-gradient(140deg, rgba(0,232,122,0.08) 0%, rgba(0,232,122,0.02) 60%);
@@ -580,7 +582,6 @@
     @media (max-width: 1100px) {
       .grid-main { grid-template-columns: 1fr; }
       .kpis { grid-template-columns: repeat(3, 1fr); } /* 2 rows of 3 */
-      .value-row { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 680px) {
       .wrap { padding: 20px 16px 60px; }
@@ -589,7 +590,7 @@
       .kpi { padding: 15px 14px; }
       /* Archivo runs wider than Inter: shrink so $119,500 still fits */
       .kpi-val { font-size: 1.5rem; font-variation-settings: 'wdth' 100; }
-      .value-row { grid-template-columns: 1fr; }
+      .value-stack { grid-template-columns: 1fr; }
       .profile { flex-wrap: wrap; }
       .profile-right { flex-direction: row; align-items: center; }
     }
@@ -724,6 +725,60 @@
               <div class="blog-stat"><b>372</b>ai sessions</div>
               <div class="blog-stat"><b>14</b>repos, personal + company</div>
               <div class="blog-stat"><b>6</b>day streak, aug 2 to 7</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Value: what all of it is worth -->
+        <div class="value-stack">
+          <div class="val-card hl">
+            <div class="val-label">total engineering value</div>
+            <div class="val-num" id="totalVal">$0</div>
+            <div class="val-desc">Equivalent cost to hire engineers and enablement leads to build and run all of this. Based on market rates for junior-to-mid SWE ($43–$55/hr) and AI program design.</div>
+            <div class="val-lines">
+              <div class="val-row-item"><span>Counter-Intel System (Daily + Weekly + Q&amp;A)</span><span class="amt">$16,500</span></div>
+              <div class="val-row-item"><span>PMM Brain v0, 5-agent GTM system</span><span class="amt">$13,000</span></div>
+              <div class="val-row-item"><span>Counter-Intel Master Synthesis Agent</span><span class="amt">$9,000</span></div>
+              <div class="val-row-item"><span>Sherwin-Williams × HCP Prototype</span><span class="amt">$7,500</span></div>
+              <div class="val-row-item"><span>AI Enablement Program (2 qtrs, 79-person dept)</span><span class="amt">$7,000</span></div>
+              <div class="val-row-item"><span>HCP Maps, shipped behind Okta</span><span class="amt">$6,500</span></div>
+              <div class="val-row-item"><span>Misc &amp; Ad-Hoc Builds (dashboards, consults, scrapes, skills)</span><span class="amt">$6,000</span></div>
+              <div class="val-row-item"><span>HCP Testimonials Hub, shipped behind Okta</span><span class="amt">$5,500</span></div>
+              <div class="val-row-item"><span>Trades Thursday Hub (Mapbox + zip finder), shipped live</span><span class="amt">$5,500</span></div>
+              <div class="val-row-item"><span>HCP Labs Prototype + Research</span><span class="amt">$4,000</span></div>
+              <div class="val-row-item"><span>Sites &amp; Docs</span><span class="amt">$3,800</span></div>
+              <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
+              <div class="val-row-item"><span>HCP Landing + Workflow Pages</span><span class="amt">$3,500</span></div>
+              <div class="val-row-item"><span>Desktop Reviews Prototype</span><span class="amt">$3,200</span></div>
+              <div class="val-row-item"><span>Ultimate Higgsfield Workflow (Cowork)</span><span class="amt">$3,000</span></div>
+              <div class="val-row-item"><span>May 2026 Release Moment Page</span><span class="amt">$2,500</span></div>
+              <div class="val-row-item"><span>Meta Ads Deployer</span><span class="amt">$2,500</span></div>
+              <div class="val-row-item"><span>Top 50 Unforgettable Names LP (QA + enablement)</span><span class="amt">$1,500</span></div>
+              <div class="val-row-item"><span>40 Under 40 (v1 + app flow)</span><span class="amt">$400</span></div>
+            </div>
+          </div>
+          <div class="val-card">
+            <div class="val-label">monthly automation savings</div>
+            <div class="val-num">$3,354<span style="font-size:1rem;color:var(--text-2);font-weight:500">/mo</span></div>
+            <div class="val-desc">4 autonomous agents, now anchored by a master synthesis agent, eliminating manual competitive research, synthesis, reporting, and on-demand intel every week.</div>
+            <div class="val-lines">
+              <div class="val-row-item"><span>Master Synthesis Agent (24 hrs/mo)</span><span class="amt">$1,032</span></div>
+              <div class="val-row-item"><span>Daily Alerts (22 hrs/mo)</span><span class="amt">$946</span></div>
+              <div class="val-row-item"><span>Q&amp;A Bot (20 hrs/mo)</span><span class="amt">$860</span></div>
+              <div class="val-row-item"><span>Weekly Digest (12 hrs/mo)</span><span class="amt">$516</span></div>
+              <div class="val-row-item"><span style="font-weight:600">Annualized savings</span><span class="amt hi">$40,248/yr</span></div>
+            </div>
+          </div>
+          <div class="val-card">
+            <div class="val-label">marketing org enablement value</div>
+            <div class="val-num">$24,800<span style="font-size:1rem;color:var(--text-2);font-weight:500">/mo</span></div>
+            <div class="val-desc">What the enablement program returns across Marketing, on top of anything I build myself. Two quarters of AI Office Hours, a weekly &ldquo;Did You Know?&rdquo; drop, and 1:1 consulting: 79-person department, 62 active in Claude weekly, 50 daily active builders, average usage up 2.4&times; since Q2 start. Hours and rates held deliberately low.</div>
+            <div class="val-lines">
+              <div class="val-row-item"><span>Everyday AI use &middot; 50 daily builders, 1.5 hrs/wk at $45</span><span class="amt">$14,600</span></div>
+              <div class="val-row-item"><span>Ad creative throughput &middot; ~40 extra ads/mo at $150</span><span class="amt">$6,000</span></div>
+              <div class="val-row-item"><span>Campaign pages in-house &middot; 3&ndash;4 wks to 1 wk</span><span class="amt">$3,000</span></div>
+              <div class="val-row-item"><span>20+ team-built skills, plugins &amp; connectors in shared use</span><span class="amt">$1,200</span></div>
+              <div class="val-row-item"><span style="font-weight:600">Annualized value</span><span class="amt hi">$297,600/yr</span></div>
             </div>
           </div>
         </div>
@@ -1202,88 +1257,45 @@
           </div>
         </div>
 
-      </div>
-    </div><!-- /grid -->
-
-    <!-- VALUE ROW -->
-    <div class="value-row">
-
-      <div class="val-card hl">
-        <div class="val-label">total engineering value</div>
-        <div class="val-num" id="totalVal">$0</div>
-        <div class="val-desc">Equivalent cost to hire engineers and enablement leads to build and run all of this. Based on market rates for junior-to-mid SWE ($43–$55/hr) and AI program design.</div>
-        <div class="val-lines">
-          <div class="val-row-item"><span>Counter-Intel System (Daily + Weekly + Q&amp;A)</span><span class="amt">$16,500</span></div>
-          <div class="val-row-item"><span>PMM Brain v0, 5-agent GTM system</span><span class="amt">$13,000</span></div>
-          <div class="val-row-item"><span>Counter-Intel Master Synthesis Agent</span><span class="amt">$9,000</span></div>
-          <div class="val-row-item"><span>Sherwin-Williams × HCP Prototype</span><span class="amt">$7,500</span></div>
-          <div class="val-row-item"><span>AI Enablement Program (2 qtrs, 90-person dept)</span><span class="amt">$7,000</span></div>
-          <div class="val-row-item"><span>HCP Maps, shipped behind Okta</span><span class="amt">$6,500</span></div>
-          <div class="val-row-item"><span>Misc &amp; Ad-Hoc Builds (dashboards, consults, scrapes, skills)</span><span class="amt">$6,000</span></div>
-          <div class="val-row-item"><span>HCP Testimonials Hub, shipped behind Okta</span><span class="amt">$5,500</span></div>
-          <div class="val-row-item"><span>Trades Thursday Hub (Mapbox + zip finder), shipped live</span><span class="amt">$5,500</span></div>
-          <div class="val-row-item"><span>HCP Labs Prototype + Research</span><span class="amt">$4,000</span></div>
-          <div class="val-row-item"><span>Sites &amp; Docs</span><span class="amt">$3,800</span></div>
-          <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
-          <div class="val-row-item"><span>HCP Landing + Workflow Pages</span><span class="amt">$3,500</span></div>
-          <div class="val-row-item"><span>Desktop Reviews Prototype</span><span class="amt">$3,200</span></div>
-          <div class="val-row-item"><span>Ultimate Higgsfield Workflow (Cowork)</span><span class="amt">$3,000</span></div>
-          <div class="val-row-item"><span>May 2026 Release Moment Page</span><span class="amt">$2,500</span></div>
-          <div class="val-row-item"><span>Meta Ads Deployer</span><span class="amt">$2,500</span></div>
-          <div class="val-row-item"><span>Top 50 Unforgettable Names LP (QA + enablement)</span><span class="amt">$1,500</span></div>
-          <div class="val-row-item"><span>40 Under 40 (v1 + app flow)</span><span class="amt">$400</span></div>
-        </div>
-      </div>
-
-      <div class="val-card">
-        <div class="val-label">monthly automation savings</div>
-        <div class="val-num">$3,354<span style="font-size:1rem;color:var(--text-2);font-weight:500">/mo</span></div>
-        <div class="val-desc">4 autonomous agents, now anchored by a master synthesis agent, eliminating manual competitive research, synthesis, reporting, and on-demand intel every week.</div>
-        <div class="val-lines">
-          <div class="val-row-item"><span>Master Synthesis Agent (24 hrs/mo)</span><span class="amt">$1,032</span></div>
-          <div class="val-row-item"><span>Daily Alerts (22 hrs/mo)</span><span class="amt">$946</span></div>
-          <div class="val-row-item"><span>Q&amp;A Bot (20 hrs/mo)</span><span class="amt">$860</span></div>
-          <div class="val-row-item"><span>Weekly Digest (12 hrs/mo)</span><span class="amt">$516</span></div>
-          <div class="val-row-item"><span style="font-weight:600">Annualized savings</span><span class="amt hi">$40,248/yr</span></div>
-        </div>
-      </div>
-
-      <div class="val-card">
-        <div class="val-label">output vs. seniority level</div>
-        <div class="sen-list">
-          <div class="sen-row">
-            <div class="sen-lbl">junior</div>
-            <div class="sen-track"><div class="sen-fill" data-w="28" style="opacity:0.35"></div></div>
-            <div class="sen-sal">$80–100K</div>
-          </div>
-          <div class="sen-row">
-            <div class="sen-lbl">mid</div>
-            <div class="sen-track"><div class="sen-fill" data-w="65" style="opacity:0.7"></div></div>
-            <div class="sen-sal">$115–140K</div>
-          </div>
-          <div class="sen-row">
-            <div class="sen-lbl">senior</div>
-            <div class="sen-track"><div class="sen-fill" data-w="75" style="opacity:0.75"></div></div>
-            <div class="sen-sal">$155–185K</div>
-          </div>
-          <div class="sen-row">
-            <div class="sen-lbl">staff</div>
-            <div class="sen-track"><div class="sen-fill" data-w="93" style="opacity:0.9"></div></div>
-            <div class="sen-sal">$200K+</div>
-          </div>
-          <div class="you-here">
-            <span class="you-arrow">→</span>
-            <div>
-              <div class="you-text">Jackson's Output: Mid SWE</div>
-              <div class="you-sub">production apps · agent fleets · dept-wide enablement</div>
+        <!-- Where the output lands -->
+        <div class="val-card">
+          <div class="val-label">output vs. seniority level</div>
+          <div class="sen-list">
+            <div class="sen-row">
+              <div class="sen-lbl">junior</div>
+              <div class="sen-track"><div class="sen-fill" data-w="28" style="opacity:0.35"></div></div>
+              <div class="sen-sal">$80–100K</div>
+            </div>
+            <div class="sen-row">
+              <div class="sen-lbl">mid</div>
+              <div class="sen-track"><div class="sen-fill" data-w="65" style="opacity:0.7"></div></div>
+              <div class="sen-sal">$115–140K</div>
+            </div>
+            <div class="sen-row">
+              <div class="sen-lbl">senior</div>
+              <div class="sen-track"><div class="sen-fill" data-w="75" style="opacity:0.75"></div></div>
+              <div class="sen-sal">$155–185K</div>
+            </div>
+            <div class="sen-row">
+              <div class="sen-lbl">staff</div>
+              <div class="sen-track"><div class="sen-fill" data-w="93" style="opacity:0.9"></div></div>
+              <div class="sen-sal">$200K+</div>
+            </div>
+            <div class="you-here">
+              <span class="you-arrow">→</span>
+              <div>
+                <div class="you-text">Jackson's Output: Mid SWE</div>
+                <div class="you-sub">production apps · agent fleets · org enablement</div>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
-    </div>
+    </div><!-- /grid -->
 
     <div class="footer">
-      analytics from claude code session logs &middot; updated jul 31, 2026 &middot;
+      analytics from claude code session logs &middot; updated aug 13, 2026 &middot;
       <a href="https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-jackson-sherwood-690663214/" target="_blank" rel="noopener">linkedin</a>
     </div>
   </div>
