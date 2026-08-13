@@ -28,7 +28,7 @@
       --border-2:    rgba(255,255,255,0.13);
       --text:        #e4e4e4;
       --text-2:      #8a8f98;  /* was #606060 = 3.11:1, under AA for small text */
-      --text-3:      #6b7078;  /* was #2e2e2e = 1.44:1 on --bg, i.e. invisible */
+      --text-3:      #757a82;  /* 4.53:1 on --bg. #6b7078 measured 3.92, under AA */
       --green:       #00e87a;
       --green-dim:   rgba(0,232,122,0.10);
       --green-border:rgba(0,232,122,0.22);
@@ -208,8 +208,12 @@
       gap: 16px; margin-bottom: 16px;
       animation: up var(--t-enter) var(--ease-out) 120ms both;
     }
-    .col-left { display: flex; flex-direction: column; gap: 16px; }
-    .col-right { display: flex; flex-direction: column; gap: 16px; }
+    /* min-width:0, or these grid items size to their min-content and the
+       Build Log's fixed-cell mobile grid drags the whole page wider than
+       the viewport. */
+    .col-left, .col-right {
+      display: flex; flex-direction: column; gap: 16px; min-width: 0;
+    }
 
     /* ── CARD ────────────────────────────── */
     .card {
@@ -575,7 +579,6 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
-      .bup, .bdn { transform: scaleY(1) !important; }
     }
 
     /* ── RESPONSIVE ──────────────────────── */
@@ -619,7 +622,7 @@
           onerror="this.parentElement.style.background='var(--green)';this.style.display='none'">
       </div>
       <div class="profile-info">
-        <div class="profile-name">Jackson Sherwood</div>
+        <h1 class="profile-name">Jackson Sherwood</h1>
         <div class="profile-role">AI Enablement + Agent &amp; Application Builder &middot; <span>Housecall Pro</span> Marketing</div>
         <div class="profile-bio">Got my start on the innovation team in late 2022, where GPT-3 first got me hooked, so I've been building with AI since its inception. Today I'm the bridge between Housecall Pro's marketing org and AI: shipping agents and apps, and getting the whole team building too.</div>
       </div>
