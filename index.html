@@ -745,13 +745,13 @@
               <div class="val-row-item"><span>Counter-Intel Master Synthesis Agent</span><span class="amt">$9,000</span></div>
               <div class="val-row-item"><span>Trades Thursday Hub v2 (66 events, self-serve CSV, QA suite), shipped live</span><span class="amt">$8,000</span></div>
               <div class="val-row-item"><span>Sherwin-Williams × HCP Prototype</span><span class="amt">$7,500</span></div>
+              <div class="val-row-item"><span>Parker rollout: replaced Motion, ebook CPL &minus;16%, weekly report</span><span class="amt">$6,000</span></div>
               <div class="val-row-item"><span>HCP Maps, shipped behind Okta</span><span class="amt">$6,500</span></div>
               <div class="val-row-item"><span>HCP Testimonials Hub, shipped behind Okta + Sept refresh</span><span class="amt">$6,000</span></div>
               <div class="val-row-item"><span>HCP Marketing Plugin Marketplace (2 plugins, 40+ users)</span><span class="amt">$6,000</span></div>
               <div class="val-row-item"><span>Misc &amp; Ad-Hoc Builds (dashboards, consults, scrapes, skills)</span><span class="amt">$6,000</span></div>
               <div class="val-row-item"><span>PMM Brain pilot (two doors, T4 frontline pack, 3 PMMs)</span><span class="amt">$5,000</span></div>
               <div class="val-row-item"><span>HCP Labs Prototype + Research</span><span class="amt">$4,000</span></div>
-              <div class="val-row-item"><span>Parker paid-ads pilot + weekly report (ebook CPL &minus;16%)</span><span class="amt">$4,000</span></div>
               <div class="val-row-item"><span>Community LP + Community Hub (handed to eng)</span><span class="amt">$4,000</span></div>
               <div class="val-row-item"><span>Sites &amp; Docs</span><span class="amt">$3,800</span></div>
               <div class="val-row-item"><span>Trade Academy Platform</span><span class="amt">$3,600</span></div>
@@ -766,17 +766,18 @@
             </div>
           </div>
           <div class="val-card">
-            <div class="val-label">monthly automation savings</div>
-            <div class="val-num">$4,042<span style="font-size:1rem;color:var(--text-2);font-weight:500">/mo</span></div>
-            <div class="val-desc">6 autonomous agents, anchored by a master synthesis agent, eliminating manual competitive research, synthesis, paid-ads reporting, and on-demand intel every week.</div>
+            <div class="val-label">monthly automation + tool savings</div>
+            <div class="val-num">$5,342<span style="font-size:1rem;color:var(--text-2);font-weight:500">/mo</span></div>
+            <div class="val-desc">6 autonomous agents, anchored by a master synthesis agent, eliminating manual competitive research, synthesis, paid-ads reporting, and on-demand intel every week. Plus Parker replacing Motion as the paid-ads analytics tool.</div>
             <div class="val-lines">
+              <div class="val-row-item"><span>Motion replaced by Parker (tool cost)</span><span class="amt">$1,300</span></div>
               <div class="val-row-item"><span>Master Synthesis Agent (24 hrs/mo)</span><span class="amt">$1,032</span></div>
               <div class="val-row-item"><span>Daily Alerts (22 hrs/mo)</span><span class="amt">$946</span></div>
               <div class="val-row-item"><span>Q&amp;A Bot (20 hrs/mo)</span><span class="amt">$860</span></div>
               <div class="val-row-item"><span>Weekly Digest (12 hrs/mo)</span><span class="amt">$516</span></div>
               <div class="val-row-item"><span>Emerging Threats Brief (8 hrs/mo)</span><span class="amt">$344</span></div>
               <div class="val-row-item"><span>Parker Weekly Paid-Ads Report (8 hrs/mo)</span><span class="amt">$344</span></div>
-              <div class="val-row-item"><span style="font-weight:600">Annualized savings</span><span class="amt hi">$48,504/yr</span></div>
+              <div class="val-row-item"><span style="font-weight:600">Annualized savings</span><span class="amt hi">$64,104/yr</span></div>
             </div>
           </div>
           <div class="val-card">
@@ -1045,8 +1046,8 @@
             <div class="sess">
               <div class="sess-num">31</div>
               <div class="sess-body">
-                <div class="sess-title">Parker Paid-Ads Pilot, First Win</div>
-                <div class="sess-desc">Four-week read on the Parker-briefed ebook ads: CPL $50.47 vs $60.39 (16% cheaper) and CPM 30% cheaper. Now rolling out to every ebook campaign.</div>
+                <div class="sess-title">Parker Replaces Motion, First Ad Win</div>
+                <div class="sess-desc">Four-week read on the Parker-briefed ebook ads: CPL $50.47 vs $60.39 (16% cheaper) and CPM 30% cheaper. Now rolling out to every ebook campaign, and Parker replaced Motion, saving $1,300/mo.</div>
               </div>
               <div class="sess-right"><span class="sess-date">Sep 28</span><span class="sess-tag st-green">ads</span></div>
             </div>
@@ -1259,8 +1260,8 @@
                 </div>
                 <div class="proj-item shipped link" onclick="openInfo('parker')">
                   <span class="proj-em">📈</span>
-                  <span class="proj-name">Parker Paid-Ads Pilot</span>
-                  <span class="proj-badge pb-green">ebook win</span>
+                  <span class="proj-name">Parker, Replaced Motion</span>
+                  <span class="proj-badge pb-green">$1.3K/mo saved</span>
                 </div>
                 <div class="proj-item shipped link" onclick="openInfo('emerging')">
                   <span class="proj-em">🛰️</span>
@@ -1546,7 +1547,7 @@
 
     const valKpi = document.getElementById('valKpi');
     const vObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 149500, '$', 1500); vObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(valKpi, 151500, '$', 1500); vObs.unobserve(e.target); });
     }, { threshold: 0.7 });
     vObs.observe(valKpi);
 
@@ -1568,7 +1569,7 @@
 
     const tvEl = document.getElementById('totalVal');
     const tvObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 149500, '$', 1500); tvObs.unobserve(e.target); });
+      entries.forEach(e => { if (!e.isIntersecting) return; animCount(tvEl, 151500, '$', 1500); tvObs.unobserve(e.target); });
     }, { threshold: 0.4 });
     tvObs.observe(tvEl);
 
@@ -1909,8 +1910,8 @@
       },
       parker: {
         emoji: '📈',
-        title: 'Parker Paid-Ads Pilot',
-        desc: 'A two-month pilot using Parker as an AI creative director for Meta ad briefs, plus a weekly competitive paid-ads report that posts every Monday, split into one message per owner.<br><br><strong>First result</strong><br>&middot;&nbsp; Ebook ads: CPL <strong>$50.47 vs $60.39</strong> (16% cheaper), CPM 30% cheaper over four weeks<br>&middot;&nbsp; The Parker ebook ads are now rolling out to every ebook campaign<br>&middot;&nbsp; Not every test won: the valuation-calculator test flopped and was paused<br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · Q4 extension requested</span>'
+        title: 'Parker, Paid-Ads Intelligence',
+        desc: 'Parker started as a two-month pilot: an AI creative director for Meta ad briefs, plus a weekly competitive paid-ads report that posts every Monday, split into one message per owner. It ended up <strong>replacing Motion</strong>, saving <strong>$1,300/mo</strong>, and the team now uses it for all paid-ads stats and tracking.<br><br><strong>First ad result</strong><br>&middot;&nbsp; Ebook ads: CPL <strong>$50.47 vs $60.39</strong> (16% cheaper), CPM 30% cheaper over four weeks<br>&middot;&nbsp; The Parker ebook ads are now rolling out to every ebook campaign<br>&middot;&nbsp; Not every test won: the valuation-calculator test flopped and was paused<br><br><span style="opacity:0.5;font-size:0.85em">Q3 2026 · replaced Motion</span>'
       },
       emerging: {
         emoji: '🛰️',
